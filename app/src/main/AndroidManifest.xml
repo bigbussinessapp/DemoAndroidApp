@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BigBusiness">
         <activity android:name=".popup.popup"></activity>
-        <activity android:name=".addinvoice" />
+        <activity android:name=".addinvoice" ></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

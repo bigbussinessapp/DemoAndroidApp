@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             //update ui here
 
-
             while(cursor.moveToNext()){
                 pdflist.add(new Model(cursor.getString(1), cursor.getString(7)));
             }

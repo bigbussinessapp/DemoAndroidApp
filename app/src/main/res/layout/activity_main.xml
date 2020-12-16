@@ -22,7 +22,7 @@
             android:id="@+id/pdfview"
             android:background="@color/blue"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="550dp">
 
         </com.github.barteksc.pdfviewer.PDFView>
         <Button
