@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/invoicescard"
-        android:layout_marginTop="20dp">
+    android:layout_marginTop="20dp"
+    card_view:cardCornerRadius="15dp"
+    card_view:cardElevation="60dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,6 +22,7 @@
                     android:id="@+id/userenteredname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="{user entered name here}"/>
                 <Button
                     android:id="@+id/downloadbtn"

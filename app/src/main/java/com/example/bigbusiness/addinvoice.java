@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -29,12 +30,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class addinvoice extends AppCompatActivity {
     sqldbhelper mysqldbhelper;
     String base64data;
     Button addbtn;
-    TextInputLayout textfield;
+    TextInputLayout invoicename,bizname,productname,productqty,productamt;
+    TextView totalamt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +62,16 @@ public class addinvoice extends AppCompatActivity {
 
 
 
-
-
           addData();
 
           Button btn2 = (Button)findViewById(R.id.cancelid);
           Button  btnpdf = (Button)findViewById(R.id.invoicepick);
-        textfield = (TextInputLayout)findViewById(R.id.biznameip);
+        invoicename = (TextInputLayout)findViewById(R.id.invoicenameip);
+        bizname = (TextInputLayout)findViewById(R.id.biznameip);
+        productname = (TextInputLayout)findViewById(R.id.nameip);
+        productqty = (TextInputLayout)findViewById(R.id.qtyip);
+        productamt = (TextInputLayout)findViewById(R.id.amountip);
+        totalamt = (TextView) findViewById(R.id.totalamt);
 
         btnpdf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +86,7 @@ public class addinvoice extends AppCompatActivity {
           btn2.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  Toast.makeText(addinvoice.this, (CharSequence) textfield.getEditText().getText(), Toast.LENGTH_SHORT).show();
+                  Toast.makeText(addinvoice.this, (CharSequence) invoicename.getEditText().getText(), Toast.LENGTH_SHORT).show();
               }
           });
 
@@ -130,14 +140,46 @@ public class addinvoice extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if(isWriteStoragePermissionGranted() == true ){
+                if(invoicename.getEditText().getText().length()>0){
+                    if(bizname.getEditText().getText().length()>0){
+                        if(productname.getEditText().getText().length()>0){
+                            if(productqty.getEditText().getText().length()>0){
+                                if(productamt.getEditText().getText().length()>0){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY_HH:mm:ss", Locale.getDefault());
+                                    String currentDateandTime = sdf.format(new Date());
 
-                boolean inserted = mysqldbhelper.insertdata("surya","10/12/2020:10:20pm","soap",2,"40","80",base64data);
-                if(inserted == true){
-                    Toast.makeText(addinvoice.this, "inserted data", Toast.LENGTH_SHORT).show();
+                                    String addtotal = String.valueOf(Integer.parseInt(productamt.getEditText().getText().toString())*Integer.parseInt(productqty.getEditText().getText().toString()));
+                                    boolean inserted = mysqldbhelper.insertdata(invoicename.getEditText().getText().toString(),bizname.getEditText().getText().toString(),currentDateandTime,productname.getEditText().getText().toString(),Integer.parseInt(productqty.getEditText().getText().toString()),productamt.getEditText().getText().toString(),addtotal,base64data);
+                                    if(inserted == true){
+                                        Toast.makeText(addinvoice.this, "inserted data", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(addinvoice.this, "failed to insert data", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+
+
+                                }else{
+
+                                }
+
+                            }else{
+
+                            }
+
+                        }else{
+
+                        }
+
+                    }else{
+
+                    }
+
                 }else{
-                    Toast.makeText(addinvoice.this, "failed to insert data", Toast.LENGTH_SHORT).show();
 
                 }
+
+
             }
         }
     });

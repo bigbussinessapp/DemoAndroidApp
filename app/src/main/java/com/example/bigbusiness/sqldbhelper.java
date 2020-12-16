@@ -16,6 +16,7 @@ public class sqldbhelper extends SQLiteOpenHelper {
     public static  final  String DB_NAME = "INVOICE.db";
     public static  final  String TABLE_NAME = "invoice";
     public static  final  String TABLE_ID = "ID";
+    public static  final  String INVOICENAME = "invoicename";
     public static  final  String BIZ_NAME_COL = "biz_name";
     public static  final  String DATE_DAY_TIME = "DATE_DAY_TIME";
     public static  final  String PRODUCT_NAME = "PRODUCT_NAME";
@@ -33,7 +34,7 @@ public class sqldbhelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )");
+        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )");
 
     }
 
@@ -46,10 +47,11 @@ public class sqldbhelper extends SQLiteOpenHelper {
 
 
 
-    public boolean insertdata(String biz_name,String datedaytime,String product,Integer qty,String amt,String total,String pdf){
+    public boolean insertdata(String invoicename,String biz_name,String datedaytime,String product,Integer qty,String amt,String total,String pdf){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
+                        contentValues.put(INVOICENAME,invoicename);
                         contentValues.put(BIZ_NAME_COL,biz_name);
                         contentValues.put(DATE_DAY_TIME,datedaytime);
                         contentValues.put(PRODUCT_NAME,product);
