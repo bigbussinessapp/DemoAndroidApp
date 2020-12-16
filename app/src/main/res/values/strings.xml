@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BigBusiness</string>
+    <string name="btnid">BigBusiness</string>
+    <string name="profileid">BigBusiness</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
