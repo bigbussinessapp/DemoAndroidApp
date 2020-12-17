@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,13 +32,19 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+import com.github.barteksc.pdfviewer.source.DocumentSource;
 import com.shockwave.pdfium.PdfDocument;
 
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -87,7 +95,7 @@ public class invoice_adapter extends BaseAdapter{
         Button downloadbtn = convertView.findViewById(R.id.downloadbtn);
         Button invoicebtn = convertView.findViewById(R.id.sharebtn);
 
-         pf = (PDFView) view.findViewById(R.id.pdfview);
+         pf = (PDFView) ((Activity)context).findViewById(R.id.pdfview);
 
 
         sqldbhelper db = new sqldbhelper(context);
@@ -98,13 +106,21 @@ public class invoice_adapter extends BaseAdapter{
                 cursor = db.getdata();
 
                     cursor.moveToPosition(position);
-                    String f = cursor.getString(7);
+                    String f = cursor.getString(8);
 
-                pdfAsBytes = Base64.decode(f, Base64.DEFAULT);
 
                 act.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
+
+                        cursor = db.getdata();
+
+                        cursor.moveToPosition(position);
+                        String f = cursor.getString(8);
+
+                        pdfAsBytes = Base64.decode(f, Base64.DEFAULT);
+
+                        pf.fromBytes(pdfAsBytes).load();
 
                         act.findViewById(R.id.pdflistscreen).setVisibility(View.GONE);
                         act.findViewById(R.id.pdflayout).setVisibility(View.VISIBLE);
@@ -112,7 +128,6 @@ public class invoice_adapter extends BaseAdapter{
                     } });
 
 
-                pf.fromBytes(pdfAsBytes) .defaultPage(0) .enableAnnotationRendering(true) .scrollHandle(new DefaultScrollHandle(context)) .spacing(10).load();
 
             }
         });
@@ -120,27 +135,8 @@ public class invoice_adapter extends BaseAdapter{
         invoicebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sharepdfdata(db,position,act);
 
-                cursor = db.getdata();
-
-                cursor.moveToPosition(position);
-                String f = cursor.getString(7);
-
-                pdfAsBytes = Base64.decode(f, Base64.DEFAULT);
-
-                Intent intentShareFile = new Intent(Intent.ACTION_SEND);
-                File fileWithinMyDir = new File(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf");
-
-                if(fileWithinMyDir.exists()) {
-                    intentShareFile.setType("application/pdf");
-                    intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.parse(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf"));
-
-                    intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
-                            "Sharing File...");
-                    intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
-
-                    act.startActivity(Intent.createChooser(intentShareFile, "Share File"));
-                }
             }
         });
 
@@ -151,7 +147,7 @@ public class invoice_adapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                String f = cursor.getString(7);
+                String f = cursor.getString(8);
 
                 byte[] pdfAsBytes = Base64.decode(f, Base64.DEFAULT);
                 Path path = Paths.get(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf");
@@ -170,6 +166,41 @@ public class invoice_adapter extends BaseAdapter{
         invoicename.setText(model.getInvoiename());
 
         return convertView;
+    }
+
+    private void sharepdfdata(sqldbhelper db, int position, Activity act) {
+
+        cursor = db.getdata();
+        cursor.moveToPosition(position);
+        String f = cursor.getString(8);
+
+        byte[] pdfAsBytes = Base64.decode(f, Base64.DEFAULT);
+        Path path = Paths.get(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf");
+
+        try {
+            Path files = Files.write(path, pdfAsBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+        File fileWithinMyDir = new File(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf");
+
+        if(fileWithinMyDir.exists()) {
+            intentShareFile.setType("application/pdf");
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.parse(Environment.getExternalStorageDirectory().toString()+"/"+cursor.getString(1)+".pdf"));
+
+            intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
+                    "Sharing File...");
+            intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
+
+            act.startActivityForResult(Intent.createChooser(intentShareFile, "Share File"),1200);
+
+
+        }
+
+
     }
 
 

@@ -57,6 +57,7 @@ public class addinvoice extends AppCompatActivity {
 
         addbtn= (Button)findViewById(R.id.addid);
         isWriteStoragePermissionGranted();
+
         mysqldbhelper = new sqldbhelper(this);//calls constractor in sqldbhelper class
 
 
@@ -213,6 +214,10 @@ public class addinvoice extends AppCompatActivity {
 
 
                 }
+                break;
+
+            case 1200:
+                Toast.makeText(this, "lkkhkuf", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
