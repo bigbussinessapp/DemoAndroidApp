@@ -1,25 +1,22 @@
-package com.example.n00bapp;
+package com.example.BigBusiness;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.MyViewHolder> {
     Context mContext;
     List<BusinessData> bData;
 //    Dialog myDialog;
 
-    public RecyclerViewAdapter(Context mContext, List<BusinessData> bData) {
+    public TransactionAdapter(Context mContext, List<BusinessData> bData) {
         this.mContext = mContext;
         this.bData = bData;
     }

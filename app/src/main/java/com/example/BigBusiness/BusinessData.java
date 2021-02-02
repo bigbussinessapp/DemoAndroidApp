@@ -1,4 +1,4 @@
-package com.example.n00bapp;
+package com.example.BigBusiness;
 
 public class BusinessData {
     private String BusinessName;

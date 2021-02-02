@@ -9,7 +9,7 @@
     android:outlineAmbientShadowColor="@color/white"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context=".MainActivity">
+    tools:context=".Transaction_ReminderandDues">
 
 
     <com.google.android.material.tabs.TabLayout

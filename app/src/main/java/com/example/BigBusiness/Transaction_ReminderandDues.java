@@ -1,20 +1,13 @@
-package com.example.n00bapp;
+package com.example.BigBusiness;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
 
-public class MainActivity extends AppCompatActivity {
+public class Transaction_ReminderandDues extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -30,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         //frag
 
-        adapter.AddFragment(new FragTrans(),"Transactio History");
-        adapter.AddFragment(new FragRemdrs(),"Reminders and Dues");
+        adapter.AddFragment(new TransactionFragment(),"Transaction History");
+        adapter.AddFragment(new RemindersAndDuesFragment(),"Reminders and Dues");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

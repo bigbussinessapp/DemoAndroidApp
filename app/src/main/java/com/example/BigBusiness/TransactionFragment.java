@@ -1,4 +1,4 @@
-package com.example.n00bapp;
+package com.example.BigBusiness;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragTrans extends Fragment {
+public class TransactionFragment extends Fragment {
 
     private RecyclerView myrecyclerview;
     private List<BusinessData> lstBdata;
@@ -78,12 +78,12 @@ public class FragTrans extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.transactio_frag,container,false);
         myrecyclerview = (RecyclerView) v.findViewById(R.id.trans_recycler_id);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),lstBdata);
+        TransactionAdapter transactionAdapter = new TransactionAdapter(getContext(),lstBdata);
         myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myrecyclerview.setAdapter(recyclerViewAdapter);
+        myrecyclerview.setAdapter(transactionAdapter);
         return v;
     }
 
-    public FragTrans() {
+    public TransactionFragment() {
     }
 }
