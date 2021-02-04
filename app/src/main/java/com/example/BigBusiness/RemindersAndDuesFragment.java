@@ -76,18 +76,18 @@ public class RemindersAndDuesFragment extends Fragment {
          reminderCardsManager = ReminderCardsManager.getInstance();
         duesCardsManager = DuesCardsManager.getInstance();
 
-        DuesAdapter duesAdapter = new DuesAdapter(getContext(), this, this.duesCardsManager);
-        ReminderAdapter reminderAdapter = new ReminderAdapter(getContext(), this, this.reminderCardsManager, this.duesCardsManager, duesAdapter);
+        DuesAdapter duesAdapter = new DuesAdapter(requireContext(), this, this.duesCardsManager);
+        ReminderAdapter reminderAdapter = new ReminderAdapter(requireContext(), this, this.reminderCardsManager, this.duesCardsManager, duesAdapter);
 
         //setting reminder recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL , false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
         reminderScrollView.setLayoutManager(layoutManager);
         reminderScrollView.setAdapter(reminderAdapter);
 //
         //setting dues recycler view
         duesCardView = (RecyclerView) v.findViewById(R.id.duesCardView);
         duesCardView.setAdapter(duesAdapter);
-        LinearLayoutManager duesLayoutManager = new LinearLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
+        LinearLayoutManager duesLayoutManager = new LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false);
         duesCardView.setLayoutManager(duesLayoutManager);
 
         floatingActionButton = v.findViewById(R.id.floatingActionButton);
