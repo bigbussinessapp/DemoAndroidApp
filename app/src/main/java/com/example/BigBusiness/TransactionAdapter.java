@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.MyViewHolder> {
     Context mContext;
-    List<TransactionModel> transactionlist;
+    List<Transaction> transactionlist;
 
-    public TransactionAdapter(Context mContext, List<TransactionModel> transactionlist ) {
+    public TransactionAdapter(Context mContext, List<Transaction> transactionlist ) {
         this.mContext = mContext;
         this.transactionlist = transactionlist;
     }
@@ -23,18 +24,27 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v  = LayoutInflater.from(mContext).inflate(R.layout.transdataxml,parent,false);
+        View v  = LayoutInflater.from(mContext).inflate(R.layout.transaction_history_card,parent,false);
         MyViewHolder vHolder = new MyViewHolder(v);
             return vHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.TransactionMerchant.setText(transactionlist.get(position).getTransactionMerchant());
-        holder.TransactionAmount.setText(transactionlist.get(position).getTransactionAmount());
-        holder.date.setText(transactionlist.get(position).getDate());
-        holder.TransactionType.setText(transactionlist.get(position).getTransaction_type());
-        holder.paymentType.setText(transactionlist.get(position).getTransaction_credited_debited());
+        Transaction t = transactionlist.get(position);
+        holder.TransactionMerchant.setText(t.getTransactionMerchant());
+        holder.TransactionAmount.setText(t.getTransactionAmount());
+        if(t.getTransaction_type().equals("Received From"))
+        {
+            holder.TransactionAmount.setTextColor(ContextCompat.getColor(this.mContext, R.color.red));
+        }
+        else
+        {
+            holder.TransactionAmount.setTextColor(ContextCompat.getColor(this.mContext, R.color.green));
+        }
+        holder.date.setText(t.getDate());
+        holder.TransactionType.setText(t.getTransaction_type());
+        holder.paymentType.setText(t.getTransaction_credited_debited());
     }
 
     @Override

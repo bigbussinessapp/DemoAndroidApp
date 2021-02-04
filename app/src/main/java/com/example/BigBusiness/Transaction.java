@@ -1,6 +1,6 @@
 package com.example.BigBusiness;
 
-public class TransactionModel {
+public class Transaction {
     private String TransactionMerchant;
     private String TransactionAmount;
     private String Date;
@@ -8,10 +8,10 @@ public class TransactionModel {
     private String invoice = "Invoice";
 
 
-    public TransactionModel() {
+    public Transaction() {
     }
 
-    public TransactionModel(String TransactionMerchant, String transactionAmount , String Date , String transaction_type , String transaction_credited_debited) {
+    public Transaction(String TransactionMerchant, String transactionAmount , String Date , String transaction_type , String transaction_credited_debited) {
         this.TransactionMerchant = TransactionMerchant;
         this.TransactionAmount = transactionAmount;
         this.Date = Date;

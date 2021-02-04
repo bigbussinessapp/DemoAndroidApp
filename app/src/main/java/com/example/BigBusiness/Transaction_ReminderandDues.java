@@ -16,18 +16,8 @@ public class Transaction_ReminderandDues extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        tabLayout = (TabLayout) findViewById(R.id.layTab_id);
-        viewPager = (ViewPager) findViewById(R.id.viewPager_id);
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        setContentView(R.layout.finance_main);
 
-        //frag
-
-        adapter.AddFragment(new TransactionFragment(),"Transaction History");
-        adapter.AddFragment(new RemindersAndDuesFragment(),"Reminders and Dues");
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
 
 //        TextInputEditText textField = (TextInputEditText) findViewById(R.id.textInput);
 //        TextView textView = (TextView) findViewById(R.id.textView);
@@ -42,4 +32,47 @@ public class Transaction_ReminderandDues extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
+        tabLayout = (TabLayout) findViewById(R.id.layTab_id);
+        viewPager = (ViewPager) findViewById(R.id.viewPager_id);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+//        Intent i = getIntent();
+//        Tablayout.Tab t = tabLayout.getTabAt(2);
+//        int tabPosition = (int)i.getIntExtra("tabIndex", tabLayout.getSelectedTabPosition());
+//        tabLayout.selectTab(tabLayout.getTabAt(tabPosition));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        adapter.AddFragment(new TransactionFragment(), "Transaction History");
+        adapter.AddFragment(new RemindersAndDuesFragment(), "Reminders and Dues");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+
+
+
 }

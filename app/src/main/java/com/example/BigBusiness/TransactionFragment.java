@@ -21,27 +21,27 @@ import java.util.List;
 public class TransactionFragment extends Fragment {
 
     private RecyclerView myrecyclerview;
-    private List<TransactionModel> lstBdata;
+    private List<Transaction> lstBdata;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         lstBdata = new ArrayList<>();
-        lstBdata.add(new TransactionModel("Swiggy","170098" , "1 day ago" , "Paid To" ,"Debited From"));
-        lstBdata.add(new TransactionModel("Zomato","12665.678" , "5 days ago" , "Received From" ,"Credited To"));
-        lstBdata.add(new TransactionModel("Amazon","170098" , "2 day ago" , "Paid To" ,"Debited From"));
-        lstBdata.add(new TransactionModel("Paytm","12665.678" , "3 days ago" , "Received From" ,"Credited To"));
-        lstBdata.add(new TransactionModel("Swiggy","170098" , "1 day ago" , "Paid To" ,"Debited From"));
-        lstBdata.add(new TransactionModel("Zomato","12665.678" , "5 days ago" , "Received From" ,"Credited To"));
-        lstBdata.add(new TransactionModel("Amazon","170098" , "2 day ago" , "Paid To" ,"Debited From"));
-        lstBdata.add(new TransactionModel("Paytm","12665.678" , "3 days ago" , "Received From" ,"Credited To"));
+        lstBdata.add(new Transaction("Swiggy","170098" , "1 day ago" , "Paid To" ,"Debited From"));
+        lstBdata.add(new Transaction("Zomato","12665.678" , "5 days ago" , "Received From" ,"Credited To"));
+        lstBdata.add(new Transaction("Amazon","170098" , "2 day ago" , "Paid To" ,"Debited From"));
+        lstBdata.add(new Transaction("Paytm","12665.678" , "3 days ago" , "Received From" ,"Credited To"));
+        lstBdata.add(new Transaction("Swiggy","170098" , "1 day ago" , "Paid To" ,"Debited From"));
+        lstBdata.add(new Transaction("Zomato","12665.678" , "5 days ago" , "Received From" ,"Credited To"));
+        lstBdata.add(new Transaction("Amazon","170098" , "2 day ago" , "Paid To" ,"Debited From"));
+        lstBdata.add(new Transaction("Paytm","12665.678" , "3 days ago" , "Received From" ,"Credited To"));
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.transactio_frag,container,false);
+        View v = inflater.inflate(R.layout.transaction_frag,container,false);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbar_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

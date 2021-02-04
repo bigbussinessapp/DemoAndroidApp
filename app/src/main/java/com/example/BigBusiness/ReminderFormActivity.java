@@ -100,7 +100,8 @@ public class ReminderFormActivity extends AppCompatActivity {
         {
             status = true;
         }
-        Intent i = new Intent(ReminderFormActivity.this, RemindersAndDuesFragment.class);
+        Intent i = new Intent(ReminderFormActivity.this, Transaction_ReminderandDues.class);
+        i.putExtra("tabIndex", 2);
         startActivity(i);
     }
 
