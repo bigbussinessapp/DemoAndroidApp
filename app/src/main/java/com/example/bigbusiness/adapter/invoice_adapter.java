@@ -5,54 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.os.FileUtils;
-import android.text.Layout;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bigbusiness.MainActivity;
 import com.example.bigbusiness.R;
-import com.example.bigbusiness.model.Model;
+import com.example.bigbusiness.Models.Model;
 import com.example.bigbusiness.sqldbhelper;
 import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
-import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.github.barteksc.pdfviewer.source.DocumentSource;
-import com.shockwave.pdfium.PdfDocument;
 
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static android.content.ContentValues.TAG;
 
 public class invoice_adapter extends BaseAdapter{
     PDFView pf;
@@ -89,7 +63,7 @@ public class invoice_adapter extends BaseAdapter{
         }
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view  = inflater.inflate(R.layout.activity_main,null);
+        View view  = inflater.inflate(R.layout.activity_main911,null);
 
         TextView invoicename = convertView.findViewById(R.id.userenteredname);
         Button downloadbtn = convertView.findViewById(R.id.downloadbtn);

@@ -10,30 +10,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebBackForwardList;
-import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bigbusiness.adapter.invoice_adapter;
-import com.example.bigbusiness.model.Model;
+import com.example.bigbusiness.Models.Model;
 import com.github.barteksc.pdfviewer.PDFView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity911 extends AppCompatActivity {
     sqldbhelper mysqldbhelper;
    private ListView listView;
    private ArrayList<Model> models;
@@ -46,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main911);
         mysqldbhelper = new sqldbhelper(this);
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -73,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             models = pdflist;
-            adapter = new invoice_adapter(MainActivity.this,models);
+            adapter = new invoice_adapter(MainActivity911.this,models);
             listView.setAdapter(adapter);
         }
 
@@ -92,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity act = MainActivity.this;
+                Activity act = MainActivity911.this;
                 act.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
@@ -115,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         btndemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,addinvoice.class));
+                startActivity(new Intent(MainActivity911.this,addinvoice.class));
             }
         });
 

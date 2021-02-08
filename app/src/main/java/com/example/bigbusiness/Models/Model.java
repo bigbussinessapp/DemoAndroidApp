@@ -1,4 +1,4 @@
-package com.example.bigbusiness.model;
+package com.example.bigbusiness.Models;
 
 public class Model {
 

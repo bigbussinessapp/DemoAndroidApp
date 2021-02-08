@@ -1,100 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Main.Main1Activity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.BigBusiness.AppBarOverlay"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/heading"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:minHeight="?actionBarSize"
+            android:padding="@dimen/appbar_padding"
+            android:text="@string/HomeHeader"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:itemIconTint="@drawable/navbar_color"
+        app:itemTextColor="@drawable/navbar_color"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pdflayout"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="back"
-            android:id="@+id/backdl"/>
-        <com.github.barteksc.pdfviewer.PDFView
-            android:id="@+id/pdfview"
-            android:background="@color/blue"
-            android:layout_width="match_parent"
-            android:layout_height="550dp">
-
-        </com.github.barteksc.pdfviewer.PDFView>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="download"
-            android:id="@+id/DLbtn"/>
-    </LinearLayout>
-
-
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:visibility="visible"
-       android:id="@+id/pdflistscreen">
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/demo"
-           android:text="screen2"/>
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:id="@+id/linearLayout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/blue">
-
-           <Button
-               android:id="@+id/logoid"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="15dp"
-               android:text="B"
-               android:textSize="50sp"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent" />
-
-           <Button
-               android:id="@+id/profileid"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="P"
-               android:textSize="50sp"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintHorizontal_bias="0.927"
-               app:layout_constraintStart_toEndOf="@+id/logoid"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintVertical_bias="0.0" />
-
-
-       </androidx.constraintlayout.widget.ConstraintLayout>
-
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:background="#FFFFFF"
-           android:orientation="vertical">
-
-           <ListView
-               android:id="@+id/pdflist"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="#FFFFFF"
-               android:elevation="10dp" />
-
-
-       </LinearLayout>
-   </LinearLayout>
-
-
-
-
-</LinearLayout>
+        android:defaultFocusHighlightEnabled="false"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading"
+        app:layout_constraintVertical_bias="0.513"
+        app:navGraph="@navigation/main_navgraph" />
+</androidx.constraintlayout.widget.ConstraintLayout>

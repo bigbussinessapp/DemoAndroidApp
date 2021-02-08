@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.ui.home.HomeFragment"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HOME"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello Hi"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/text_home" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/invoice_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invoice"
+            tools:ignore="MissingConstraints"
+            android:layout_gravity="left"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/inventory_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="MissingConstraints"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/finance_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finance"
+            android:layout_gravity="right"
+            android:textColorHint="@color/colorPrimaryDark"
+            tools:ignore="MissingConstraints"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

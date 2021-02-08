@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,15 +13,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BigBusiness">
-        <activity android:name=".addinvoice"></activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".Main.ui.Finance.FinanceActivity"
+            android:label="@string/title_activity_finance"
+            android:theme="@style/Theme.BigBusiness.NoActionBar" />
+        <activity
+            android:name=".Main.Main1Activity"
+            android:label="@string/title_activity_main1"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
+        <activity android:name=".addinvoice" />
+        <activity
+            android:name=".MainActivity911">
+        </activity>
+        <activity
+            android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
+            android:label="ReminderFormActivity">
+        </activity>
+        <activity android:name=".Main.ui.Inventory.InventoryActivity"></activity>
+        <activity android:name=".Main.ui.Inventory.AddInventoryItem"></activity>
     </application>
 
 </manifest>

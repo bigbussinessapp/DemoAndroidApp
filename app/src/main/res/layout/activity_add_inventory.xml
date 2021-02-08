@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="fill_parent"
+	android:background="#fff"
+	android:backgroundTint="#fff"
+	android:layout_width="match_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal">
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:layout_gravity="center"
+			android:layout_marginTop="30dp"
+			android:layout_height="match_parent"
+			tools:ignore="MissingConstraints">
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			app:boxStrokeColor="@color/teal_200"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp">
+			
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Enter Product Name"
+				android:id="@+id/itemname"
+				android:textColorHint="@color/teal_200"
+				android:inputType="textCapWords"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
+				android:textSize="18sp" />
+		</com.google.android.material.textfield.TextInputLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:boxStrokeColor="@color/teal_200"
+					android:layout_marginStart="16dp"
+					android:layout_marginEnd="16dp"
+					android:layout_marginBottom="16dp">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Enter Quantity of the Product"
+						android:id="@+id/Quantity"
+						android:inputType="textCapWords"
+						android:paddingStart="8dp"
+						android:paddingEnd="8dp"
+						android:textSize="18sp" />
+				</com.google.android.material.textfield.TextInputLayout>
+				
+			</LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:weightSum="1.0"
+			android:layout_marginStart="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp"
+			android:orientation="vertical">
+			
+			<Spinner
+				android:id="@+id/unitspinner"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:entries="@array/item_unit_arrays"
+				android:prompt="@string/item_prompt" />
+			
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:weightSum="1.0"
+			android:layout_marginStart="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp"
+			android:orientation="vertical">
+			
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				app:boxStrokeColor="@color/teal_200"
+				android:layout_marginEnd="16dp"
+				android:layout_marginBottom="16dp">
+			
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Enter units per product"
+				android:id="@+id/units"
+				android:inputType="textCapWords"
+				android:paddingStart="8dp"
+				android:paddingEnd="8dp"
+				android:textSize="18sp" />
+			</com.google.android.material.textfield.TextInputLayout>
+		
+		</LinearLayout>
+		
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:weightSum="1.0"
+				android:orientation="vertical">
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					app:boxStrokeColor="@color/teal_200"
+					android:layout_marginEnd="16dp"
+					android:layout_marginBottom="16dp">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Enter Price of the Product"
+						android:id="@+id/price"
+						android:inputType="textCapWords"
+						android:paddingStart="8dp"
+						android:paddingEnd="8dp"
+						android:textSize="18sp" />
+				</com.google.android.material.textfield.TextInputLayout>
+				
+			</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="60dp"
+			android:layout_weight="2.5">
+			
+			
+			<Button
+				android:id="@+id/uploaditempicture"
+				android:layout_width="wrap_content"
+				android:layout_weight="0"
+				android:layout_height="60dp"
+				android:text="ADD PICTURE"
+				android:textStyle="bold"
+				android:layout_marginLeft="20dp"
+				android:textColor="@color/white"
+				/>
+			
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="2.5"
+				android:layout_marginLeft="20dp"
+				android:id="@+id/picturename"
+				android:text="  upload item picture"/>
+		
+		</LinearLayout>
+			<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="20dp"
+			android:layout_weight="2.5"
+			>
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:id="@+id/save"
+				android:text="Save"
+				/>
+			<Button
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:id="@+id/cancel"
+				android:layout_weight="1"
+				android:text="Cancel"/>
+		</LinearLayout>
+		
+		</LinearLayout>
+	
+		
+	</androidx.constraintlayout.widget.ConstraintLayout>
