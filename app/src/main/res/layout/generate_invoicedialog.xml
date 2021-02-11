@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	<LinearLayout
+		android:id="@+id/pdflayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:visibility="gone">
+		
+		<Button
+			android:id="@+id/backdl"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="back" />
+		
+		<com.github.barteksc.pdfviewer.PDFView
+			android:id="@+id/pdfview"
+			android:layout_width="match_parent"
+			android:layout_height="550dp"
+			android:background="@color/blue" />
+		
+		<Button
+			android:id="@+id/DLbtn"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="download" />
+	</LinearLayout>
+	
+	<LinearLayout
+		android:id="@+id/pdflistscreen"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="visible">
+		<!--	<LinearLayout
+				android:id="@+id/linearLayout1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+				android:orientation="horizontal" >
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/demo"
+					android:text="screen2"/>
+				<Button
+					android:id="@+id/screen3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:height="50dp"
+					android:text="Screen3" />
+			</LinearLayout> -->
+		<!-- search bar starts-->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:padding="7dp"
+			android:orientation="vertical">
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="NAME"
+				android:textSize="24dp"
+				android:textStyle="bold"></TextView>
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:hint="invoice name"
+				android:textSize="24dp"
+				android:textStyle="bold"></TextView>
+		</LinearLayout>
+	
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+		>
+			
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="2">
+				
+				<ImageView
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_weight="0.5"
+					android:src="@drawable/plusicon"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Add Items"
+					android:layout_weight="1.5"
+					android:textSize="16dp"
+					android:textStyle="bold"></TextView>
+			</LinearLayout>
+			
+			
+		</LinearLayout>
+		
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="460dp"
+		android:background="#f9f9f9">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_gravity="center"
+			android:orientation="vertical">
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/inventory_list"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:listitem="@layout/inventory_list_item" />
+		</LinearLayout>
+	</LinearLayout>
+	
+</LinearLayout>

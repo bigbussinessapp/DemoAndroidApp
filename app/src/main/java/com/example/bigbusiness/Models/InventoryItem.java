@@ -12,8 +12,9 @@ public class InventoryItem implements Serializable {
     int price;
     int totalprice;
     String invoiceId;
+    byte[] image;
 
-    public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId){
+    public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId,byte[] image){
 //        this.item_ID = id ++;
         this.item_ID = id;
         this.name = name;
@@ -22,6 +23,7 @@ public class InventoryItem implements Serializable {
         this.price = price;
         this.totalprice = price * quantity;
         this.invoiceId = invoiceId;
+        this.image = image;
     }
 
     public int getQuantity() {
@@ -69,6 +71,14 @@ public class InventoryItem implements Serializable {
     public void setInvoiceId(String invoiceId)
     {
         this.invoiceId = invoiceId;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 //
 //    public String getTotalprice() {

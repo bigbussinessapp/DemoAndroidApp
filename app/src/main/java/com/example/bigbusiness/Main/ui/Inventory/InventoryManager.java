@@ -14,9 +14,9 @@ public class InventoryManager {
         public InventoryManager(InventoryDBHelper inventoryDBHelper)
         {
             this.inventoryDBHelper = inventoryDBHelper;
-            addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000"));
-            addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001"));
-            addItem(new InventoryItem(3, "prod3",20, "kgs", 50, "1002"));
+//            addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000",null));
+  //          addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001",null));
+    //        addItem(new InventoryItem(3, "prod3",20, "kgs", 50, "1002",null));
         }
 
         public void addItem(InventoryItem item)

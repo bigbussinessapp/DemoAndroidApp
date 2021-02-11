@@ -35,6 +35,7 @@
             android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
             android:label="ReminderFormActivity">
         </activity>
+        <activity android:name=".Main.ui.Invoice.InvoiceManagement"/>
         <activity android:name=".Main.ui.Inventory.InventoryActivity"></activity>
         <activity android:name=".Main.ui.Inventory.AddInventoryItem"></activity>
     </application>
