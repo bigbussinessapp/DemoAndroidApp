@@ -39,7 +39,7 @@ public class InvoiceDBHelper extends SQLiteOpenHelper {
             return null;
         }
         int id = Integer.parseInt(cursor.getString(0));
-        String name = cursor.getString(2);
+        String name = cursor.getString(1);
         InvoiceItem item = new InvoiceItem(id, name);
         return item;
     }

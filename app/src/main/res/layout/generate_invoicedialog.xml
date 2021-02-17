@@ -96,6 +96,7 @@
 					android:layout_width="30dp"
 					android:layout_height="30dp"
 					android:layout_weight="0.5"
+					android:id="@+id/additem"
 					android:src="@drawable/plusicon"/>
 				<TextView
 					android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
 				android:id="@+id/inventory_list"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				tools:listitem="@layout/inventory_list_item" />
+				tools:listitem="@layout/generate_invoicedialog_listview" />
 		</LinearLayout>
 	</LinearLayout>
 	

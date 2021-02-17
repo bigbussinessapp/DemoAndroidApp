@@ -81,7 +81,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="2.5"
 			android:layout_marginLeft="20dp"
-			android:id="@+id/picturename"
+			android:id="@+id/pdfname"
 			android:hint="pdf name"/>
 	
 	</LinearLayout>
