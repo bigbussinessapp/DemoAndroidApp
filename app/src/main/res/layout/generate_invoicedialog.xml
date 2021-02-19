@@ -33,7 +33,6 @@
 	</LinearLayout>
 	
 	<LinearLayout
-		android:id="@+id/pdflistscreen"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
@@ -65,26 +64,45 @@
 			android:padding="7dp"
 			android:orientation="vertical">
 			
-			<TextView
-				android:layout_width="wrap_content"
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="NAME"
-				android:textSize="24dp"
-				android:textStyle="bold"></TextView>
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginBottom="16dp">
+				
+				<com.google.android.material.textfield.TextInputEditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/invoicename"
+					android:hint="Invoice Name"
+					android:textSize="10dp"
+					android:textStyle="bold"></com.google.android.material.textfield.TextInputEditText>
+			</com.google.android.material.textfield.TextInputLayout>
 			
-			<TextView
-				android:layout_width="wrap_content"
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_marginTop="2dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="5dp"
-				android:hint="invoice name"
-				android:textSize="24dp"
-				android:textStyle="bold"></TextView>
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginBottom="16dp">
+			
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:id="@+id/buyername"
+				android:layout_height="wrap_content"
+				android:hint="Buyer Name"
+				android:textSize="10dp"
+				android:textStyle="bold"></com.google.android.material.textfield.TextInputEditText>
+			</com.google.android.material.textfield.TextInputLayout>
 		</LinearLayout>
 	
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="20dp"
+			android:layout_marginTop="05dp"
 		>
 			
 			<LinearLayout
@@ -92,25 +110,110 @@
 				android:layout_height="match_parent"
 				android:layout_weight="2">
 				
-				<ImageView
+			<!--	<ImageView
 					android:layout_width="30dp"
 					android:layout_height="30dp"
 					android:layout_weight="0.5"
 					android:id="@+id/additem"
-					android:src="@drawable/plusicon"/>
+					android:src="@drawable/plusicon"/> -->
+				
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Add Items"
 					android:layout_weight="1.5"
+					android:gravity="center"
 					android:textSize="16dp"
 					android:textStyle="bold"></TextView>
 			</LinearLayout>
+		</LinearLayout>
+			<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="05dp"
+			>
 			
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="2">
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_marginTop="2dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_weight="1"
+					android:layout_marginEnd="16dp"
+					android:layout_marginBottom="16dp">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:id="@+id/itemname"
+						android:layout_height="wrap_content"
+						android:hint="Item Name"
+						android:textSize="10dp"
+						android:textStyle="bold"></com.google.android.material.textfield.TextInputEditText>
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<Spinner
+					android:id="@+id/quantitypinner"
+					android:layout_weight="1"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:textSize="10sp"
+					 />
+				
+				
+				
+			</LinearLayout>
+			</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="05dp"
+			>
+			
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="2">
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_marginTop="2dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_weight="1"
+					android:layout_marginEnd="16dp"
+					android:layout_marginBottom="16dp">
+				
+				<com.google.android.material.textfield.TextInputEditText
+					android:layout_width="match_parent"
+					android:id="@+id/price"
+					android:layout_height="wrap_content"
+					android:hint="Price Per Unit"
+					android:textSize="10dp"
+					android:textStyle="bold"></com.google.android.material.textfield.TextInputEditText>
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<Button
+					android:id="@+id/additeminvoice"
+					android:layout_width="match_parent"
+					android:layout_weight="1"
+					android:layout_height="60dp"
+					android:text="ADD ITEM"
+					android:textStyle="bold"
+					android:layout_marginLeft="20dp"
+					android:textColor="@color/white"
+					/>
+			</LinearLayout>
 			
 		</LinearLayout>
-		
-	</LinearLayout>
+			
+		</LinearLayout>
+	
 	
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -124,7 +227,7 @@
 			android:orientation="vertical">
 			
 			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/inventory_list"
+				android:id="@+id/invoice_list"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				tools:listitem="@layout/generate_invoicedialog_listview" />

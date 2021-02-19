@@ -1,19 +1,15 @@
 package com.example.bigbusiness.Models;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.io.Serializable;
 
-public class InvoiceItem implements Serializable {
+public class GenerateInvoiceItem implements Serializable {
     static int id = 0;
     String name;
     String invoicename;
     String buyername;
     String quantity;
     String price;
-
-
-    public InvoiceItem(int id, String name, String buyername, String invoicename, String price){
+    public GenerateInvoiceItem(int id, String name, String buyername, String invoicename, String price){
 //        this.item_ID = id ++;
         this.id = id;
         this.name = name;
@@ -24,9 +20,6 @@ public class InvoiceItem implements Serializable {
 
     }
 
-    public InvoiceItem(int id, String name) {
-        this.name = name;
-    }
 
     public static int getId() {
         return id;

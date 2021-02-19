@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
 import com.example.bigbusiness.Models.InvoiceItem;
 import com.example.bigbusiness.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InvoiceItem itemClicked = this.invoiceItemsList.get(position);
         holder.pdf_name.setText(itemClicked.getName());
+
     }
 
 

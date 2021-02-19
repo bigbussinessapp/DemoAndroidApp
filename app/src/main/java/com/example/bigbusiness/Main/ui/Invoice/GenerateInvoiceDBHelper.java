@@ -9,22 +9,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.bigbusiness.Models.GenerateInvoiceItem;
-import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.Models.InvoiceItem;
 
 import java.util.ArrayList;
 
-public class InvoiceDBHelper extends SQLiteOpenHelper {
-    public static final String DB_NAME = "BIGBUSINESSS";
-    public static final String TABLE_NAME = "INVOICE";
+public class GenerateInvoiceDBHelper extends SQLiteOpenHelper {
+        public static final String DB_NAME = "BIGBUSINESSS";
+    public static final String TABLE_NAME = "GENERATEINVOICE";
 
-    public InvoiceDBHelper(@Nullable Context context) {
+    public GenerateInvoiceDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, name TEXT )");
+        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, name TEXT, invoicename TEXT, buyername TEXT ,price TEXT)");
     }
 
     @Override
@@ -33,7 +32,7 @@ public class InvoiceDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public InvoiceItem getItemFromCursor(Cursor cursor)
+    public GenerateInvoiceItem getItemFromCursor(Cursor cursor)
     {
         if(cursor == null)
         {
@@ -41,48 +40,52 @@ public class InvoiceDBHelper extends SQLiteOpenHelper {
         }
         int id = Integer.parseInt(cursor.getString(0));
         String name = cursor.getString(1);
-        InvoiceItem item = new InvoiceItem(id, name);
+        String invoicename = cursor.getString(2);
+        String buyername = cursor.getString(3);
+        String price = cursor.getString(5);
+
+        GenerateInvoiceItem item = new GenerateInvoiceItem(id, name , invoicename , buyername, price );
         return item;
     }
 
-    public ArrayList<InvoiceItem> getAllItems()
+    public ArrayList<GenerateInvoiceItem> getAllItems()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         Cursor cursor = db.rawQuery(query, null);
-        ArrayList<InvoiceItem> allItems = new ArrayList<>();
+        ArrayList<GenerateInvoiceItem> allItems = new ArrayList<>();
 
         if(cursor.moveToFirst())
         {
             do{
-                InvoiceItem item = getItemFromCursor(cursor);
+                GenerateInvoiceItem item = getItemFromCursor(cursor);
                 allItems.add(item);
             }while(cursor.moveToNext());
         }
         return allItems;
     }
 
-    public InvoiceItem getItem(int id)
+    public GenerateInvoiceItem getItem(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = String.format("SELECT * FROM %s WHERE id=%d", TABLE_NAME,id);
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst() && cursor.getCount() == 1)
         {
-            InvoiceItem item = getItemFromCursor(cursor);
+            GenerateInvoiceItem item = getItemFromCursor(cursor);
             return item;
         }
         return null;
     }
 
-    public ContentValues getContentValues(InvoiceItem item)
+    public ContentValues getContentValues(GenerateInvoiceItem item)
     {
         ContentValues values = new ContentValues();
         values.put("name", item.getName());
         return values;
     }
 
-    public boolean addItem(InvoiceItem item)
+    public boolean addItem(GenerateInvoiceItem item)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -95,10 +98,10 @@ public class InvoiceDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean deleteItem(InventoryItem item)
+    public boolean deleteItem(GenerateInvoice item)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        int success = db.delete(TABLE_NAME, "ID = ?", new String[] {String.valueOf(item.getItemID())});
+        int success = db.delete(TABLE_NAME, "ID = ?", new String[] {String.valueOf(item.getId())});
 
         if(success > 0)
             return true;
@@ -106,7 +109,7 @@ public class InvoiceDBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public boolean updateItem(InvoiceItem item)
+    public boolean updateItem(GenerateInvoiceItem item)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 

@@ -2,6 +2,7 @@ package com.example.bigbusiness.Main.ui.Inventory;
 
 import android.widget.Toast;
 
+import com.example.bigbusiness.Main.ui.Invoice.InvoiceManager;
 import com.example.bigbusiness.Models.InventoryItem;
 
 import java.util.ArrayList;
