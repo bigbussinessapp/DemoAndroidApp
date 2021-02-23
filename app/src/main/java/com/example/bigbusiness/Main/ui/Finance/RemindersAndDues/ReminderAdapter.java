@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHolder> {
@@ -22,6 +23,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
     ReminderCardsManager rmManager;
     DuesCardsManager duesManager;
     DuesAdapter duesAdapter;
+    ArrayList<Reminder> cards = new ArrayList<>();
 
     public ReminderAdapter(Context context, RemindersAndDuesFragment remindersAndDuesFragment, ReminderCardsManager rmManager, DuesCardsManager duesManager, DuesAdapter duesAdapter) {
         this.context = context;
@@ -29,6 +31,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
         this.rmManager = rmManager;
         this.duesManager = duesManager;
         this.duesAdapter = duesAdapter;
+        cards = rmManager.getCards();
     }
 
     @NonNull
@@ -42,7 +45,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Reminder cardClicked = this.rmManager.GetCards().get(position);
+        Reminder cardClicked = this.cards.get(position);
         int randomColor = holder.colors[new Random().nextInt(holder.colors.length)];
 //        holder.viewColorTag.setBackgroundColor(randomColor);
         holder.title.setText(cardClicked.getTitle());

@@ -14,6 +14,10 @@ public class Reminder implements Serializable {
     int cardId;
     static int id = 0;
 
+    public Reminder()
+    {
+
+    }
     public Reminder(String title, String amount, String paymentType, String Date , String time)
     {
             this.title = title;
@@ -21,8 +25,8 @@ public class Reminder implements Serializable {
             this.date = Date;
             this.paymentType = paymentType;
             this.time = time;
-            this.cardId = id++;
-        
+//            this.cardId = id++;
+
         //auto create
 //        this.radioReceive = "Receive";
 //        this.radioPay = "Pay";
