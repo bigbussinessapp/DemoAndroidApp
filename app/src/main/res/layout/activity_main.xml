@@ -16,20 +16,47 @@
         android:id="@+id/heading"
         android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/HomeHeader"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+      <androidx.appcompat.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:title="Big Business"
+          android:id="@+id/toolbar"
+          android:background="@color/colorPrimary"
+          android:textColor="@color/white"
+          android:text="@string/HomeHeader"/>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
+<!--    <TextView-->
+<!--        android:id="@+id/hello"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:text="Hello.!"-->
+<!--        android:textColor="@color/colorTextPrimary"-->
+<!--        android:textSize="26sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/NameofTheUser"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"-->
+<!--        app:layout_constraintVertical_bias="0.103" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/NameofTheUser"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginStart="4dp"-->
+<!--        android:textColor="@color/colorTextPrimary"-->
+<!--        android:textSize="26sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/hello"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"-->
+<!--        app:layout_constraintVertical_bias="0.109" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -57,6 +84,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintVertical_bias="0.513"
         app:navGraph="@navigation/main_navgraph" />
 </androidx.constraintlayout.widget.ConstraintLayout>

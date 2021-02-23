@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_add_invoice" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.bigbusiness.ProfileFragment"
+        android:name="com.example.bigbusiness.Main.ui.Profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

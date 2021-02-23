@@ -1,0 +1,19 @@
+<changelist name="Phone_Number_Authentication_included" date="1613050652480" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Phone_Number_Authentication_included/shelved.patch" />
+  <option name="DESCRIPTION" value="Phone Number Authentication included" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable-v24/bigbusiness_logo.jpeg" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Phone_Number_Authentication_included/bigbusiness_logo.jpeg" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable-v24/paper_plane.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Phone_Number_Authentication_included/paper_plane.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable-v24/received.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Phone_Number_Authentication_included/received.png" />
+  </binary>
+</changelist>
