@@ -34,7 +34,9 @@ public class sqldbhelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )");
+        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )"
+        );
+
 
     }
 
