@@ -1,6 +1,9 @@
 package com.example.bigbusiness.Main.ui.Inventory;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +51,11 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
         holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));
         holder.item_unit.setText(itemClicked.getUnit());
+
+        //byte[] image = itemClicked.getImage();
+       // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+        //holder.imageView.setImageBitmap(bitmap);
        // holder.item_price.setText(itemClicked.getPrice());
 //        final int[] minteger = {0};
 
@@ -94,6 +102,18 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
                                 return false;
                         }
                     }
+                    public void editedItem() {
+                        inventoryManager.editItem(itemClicked);
+                        Intent intent = new Intent(context,AddInventoryItem.class);
+                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemID()));
+                        intent.putExtra("name",String.valueOf(itemClicked.getName()));
+                        intent.putExtra("qunatity",String.valueOf(itemClicked.getQuantity()));
+                        intent.putExtra("price",String.valueOf(itemClicked.getPrice()));
+                        intent.putExtra("units",String.valueOf(itemClicked.getUnit()));
+                        context.startActivity(intent);
+
+
+                    }
                 });
                 popup.show();
                /* Context context = view.getContext();
@@ -119,11 +139,11 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         this.inventoryItemsList = updatedItemsList;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView item_name, quantity, itemprice,item_unit, quantitytextview;
         Spinner unitspinner;
         Button delete;
-        ImageView hamburger_menu;
+        ImageView hamburger_menu , imageView;
         private int position = 0 ;
 
         public ViewHolder(@NonNull View itemView) {
@@ -138,6 +158,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
             itemprice = (TextView)itemView.findViewById(R.id.itemprice);
             item_unit = (TextView)itemView.findViewById(R.id.item_unit);
             hamburger_menu = (ImageView)itemView.findViewById(R.id.hamburger_menu);
+            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
 
 
         }
