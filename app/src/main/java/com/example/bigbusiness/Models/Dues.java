@@ -1,31 +1,31 @@
 package com.example.bigbusiness.Models;
 
 public class Dues {
-    String title;
+    String name;
     String price;
     String paymentType;
-    int cardId;
-    static int id = 0;
+    String cardId;
+//    static int id = 0;
 
     public Dues()
     {
 
     }
 
-    public Dues(String title, String price, String paymentType)
+    public Dues(String name, String price, String paymentType)
     {
-        this.title = title;
+        this.name = name;
         this.price = price;
         this.paymentType = paymentType;
-        this.cardId = this.id++;
+//        this.cardId = this.id++;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getName() {
+        return this.name;
     }
 
-    public void setTitle(String titlr) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPrice() {
@@ -42,5 +42,13 @@ public class Dues {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getCardId() {
+        return cardId;
     }
 }

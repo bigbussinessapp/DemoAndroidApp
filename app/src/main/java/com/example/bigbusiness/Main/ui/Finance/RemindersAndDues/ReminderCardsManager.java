@@ -20,7 +20,7 @@ public class ReminderCardsManager extends Fragment {
 
     private ReminderCardsManager()
     {
-//        reminderFBHelper = ReminderFBHelper.getInstance();
+        reminderFBHelper = ReminderFBHelper.getInstance();
 //        userDataService = UserDataService.getInstance();
 //        database = FirebaseDatabase.getInstance();
 //        reference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Reminders");
@@ -31,9 +31,10 @@ public class ReminderCardsManager extends Fragment {
         cards.add(new Reminder("Demo4","4000","Receive", "11/09/2020","08:00 pm"));
     }
 
-    public void AddCard(Reminder card)
+    public void addCard(Reminder card)
     {
-        cards.add(card);
+        reminderFBHelper.addCard(card);
+//        cards.add(card);
     }
 
     public ArrayList<Reminder> GetCards()
@@ -58,33 +59,35 @@ public class ReminderCardsManager extends Fragment {
         return newCard;
     }
 
-    public Reminder getCardById(int id)
+//    public Reminder getCardById(int id)
+//    {
+//        for(int i=0; i<cards.size(); i++)
+//        {
+//            if(cards.get(i).getCardId() == id)
+//            {
+//                return cards.get(i);
+//            }
+//        }
+//        return null;
+//    }
+
+    public void updateCard(Reminder card)
     {
-        for(int i=0; i<cards.size(); i++)
-        {
-            if(cards.get(i).getCardId() == id)
-            {
-                return cards.get(i);
-            }
-        }
-        return null;
+        reminderFBHelper.updateCard(card);
+//        int index = getIndex(card);
+//        removeCard(card);
+//        cards.add(index, card);
+//        return true;
     }
 
-    public boolean replaceEditedCard(Reminder card)
+    public void removeCard(Reminder card)
     {
-        int index = getIndex(card);
-        removeCard(card);
-        cards.add(index, card);
-        return true;
-    }
-
-    public Reminder removeCard(Reminder card)
-    {
-        int index = getIndex(card);
-        if(index == -1)
-            return null;
-        Reminder removedCard = cards.remove(index);
-        return removedCard;
+        this.reminderFBHelper.removeCard(card);
+//        int index = getIndex(card);
+//        if(index == -1)
+//            return null;
+//        Reminder removedCard = cards.remove(index);
+//        return removedCard;
     }
 
     public int getIndex(Reminder card)

@@ -1,12 +1,14 @@
 package com.example.bigbusiness.Main.ui.Finance.RemindersAndDues;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHolder> {
@@ -23,15 +26,25 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
     ReminderCardsManager rmManager;
     DuesCardsManager duesManager;
     DuesAdapter duesAdapter;
-    ArrayList<Reminder> cards = new ArrayList<>();
+    List<Reminder> remindersList;// = new ArrayList<>();
 
-    public ReminderAdapter(Context context, RemindersAndDuesFragment remindersAndDuesFragment, ReminderCardsManager rmManager, DuesCardsManager duesManager, DuesAdapter duesAdapter) {
+    public ReminderAdapter(Context context, List<Reminder> remindersList, RemindersAndDuesFragment remindersAndDuesFragment)
+    {
+        this.context = context;
+        this.remindersList = remindersList;
+        this.remindersAndDuesFragment = remindersAndDuesFragment;
+        this.rmManager = ReminderCardsManager.getInstance();
+    }
+
+    public ReminderAdapter(Context context, RemindersAndDuesFragment remindersAndDuesFragment,
+                           ReminderCardsManager rmManager, DuesCardsManager duesManager,
+                           DuesAdapter duesAdapter, List<Reminder> remindersList) {
         this.context = context;
         this.remindersAndDuesFragment = remindersAndDuesFragment;
         this.rmManager = rmManager;
         this.duesManager = duesManager;
         this.duesAdapter = duesAdapter;
-        cards = rmManager.getCards();
+        this.remindersList = remindersList;//rmManager.getCards();
     }
 
     @NonNull
@@ -45,7 +58,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Reminder cardClicked = this.cards.get(position);
+        Reminder cardClicked = this.remindersList.get(position);
         int randomColor = holder.colors[new Random().nextInt(holder.colors.length)];
 //        holder.viewColorTag.setBackgroundColor(randomColor);
         holder.title.setText(cardClicked.getTitle());
@@ -62,13 +75,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
         holder.time.setText(cardClicked.getTime());
         holder.buttonDelete.setOnClickListener(v -> {
             this.rmManager.removeCard(cardClicked);
+            Toast.makeText(context, "Deleting", Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
         });
 
         holder.buttonEdit.setOnClickListener(v -> {
 //            list.remove(position);
-            Reminder cardToBeEdited = cardClicked;//reminderCardsManager.createCard("title1","amount1" ,"Recieve" ," date" , "time");//data u want);
-            remindersAndDuesFragment.editRemainderCard(cardToBeEdited);
+            //Reminder cardToBeEdited = cardClicked;//reminderCardsManag6er.createCard("title1","amount1" ,"Recieve" ," date" , "time");//data u want);
+            remindersAndDuesFragment.editRemainderCard(cardClicked);
+//            rmManager.updateCard(cardClicked);
+
+            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
         });
 //        holder.buttonEdit.setText(model.getBtnedit());
@@ -83,7 +100,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
 
     @Override
     public int getItemCount() {
-        return this.rmManager.GetCards().size();
+        return this.remindersList.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{

@@ -1,5 +1,7 @@
 package com.example.bigbusiness.Main.ui.Finance.RemindersAndDues;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -45,17 +47,19 @@ public class ReminderFBHelper {
 
     public void addCard(Reminder reminderCard)
     {
-
+        String key = reference.push().getKey();
+        reminderCard.setCardId(key);
+        reference.child(key).setValue(reminderCard);
     }
 
-    public void deleteCard()
+    public void removeCard(Reminder card)
     {
-
+        reference.child(card.getCardId()+"").removeValue();
     }
 
-    public void updateCard()
+    public void updateCard(Reminder card)
     {
-
+        reference.child(card.getCardId()).setValue(card);
     }
 
     public ArrayList<Reminder> getAllCards()
