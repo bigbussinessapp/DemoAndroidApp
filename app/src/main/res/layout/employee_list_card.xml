@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp"
+        android:padding="10dp"
+        app:cardElevation="10dp"
+        app:cardPreventCornerOverlap="false"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/employee_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="Employee Name" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/employee_login_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="4sp"
+                        android:textSize="12sp"
+                        tools:ignore="SmallSp"
+                        tools:text="Login or logout" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+               <Button
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/employee_pay_salary"
+                   android:text="Pay Salary"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

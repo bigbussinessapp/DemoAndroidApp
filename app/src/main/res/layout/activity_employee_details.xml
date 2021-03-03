@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/employee_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/title_employee"
+            android:layout_width="match_parent"
+            app:title="Employee Details"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.AppPopupOverlay"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    android:text="Name : "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/employee_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    tools:text="Name Field " />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    android:text="Salary : "
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/employee_salary"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    android:text="100000 "
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    android:text="Leaves Remaining : "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/leaves_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="20sp"
+                    tools:text="10 " />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0"
+                    android:text="Last Paid On : "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/last_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="20sp"
+                    tools:text="1oth feb 2020 " />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/check_calender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check Calender" />
+
+        <Button
+            android:id="@+id/pay_salary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pay Salary" />
+
+        <Button
+            android:id="@+id/leave_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Leave Requests" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Give Hike" />
+
+        <Button
+            android:id="@+id/send_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send a Message" />
+
+        <Button
+            android:id="@+id/fire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fire"
+            android:textColor="@color/red" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

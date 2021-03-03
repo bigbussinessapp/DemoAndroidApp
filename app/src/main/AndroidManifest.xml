@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BigBusiness">
-        <activity android:name=".Login.RegistrationActivity"></activity>
+        <activity android:name=".Main.ui.StaffMangement.payroll_activity"></activity>
+        <activity android:name=".Login.RegistrationActivity" />
         <activity
             android:name=".Login.VerifyOTPActivity"
             android:screenOrientation="portrait"
@@ -22,14 +23,12 @@
             android:name=".Login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Main.ui.Finance.FinanceActivity"
             android:label="@string/title_activity_finance"
@@ -41,7 +40,9 @@
             android:label="@string/title_activity_main1"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
         <activity
             android:name=".addinvoice"
             android:screenOrientation="portrait"
@@ -61,6 +62,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Main.ui.Inventory.AddInventoryItem"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Main.ui.StaffMangement.StaffActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
     </application>

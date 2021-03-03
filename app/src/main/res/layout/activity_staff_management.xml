@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".Main.ui.StaffMangement.StaffActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/title_staff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/staff_title"
+            android:layout_width="match_parent"
+            app:title="Staff Management"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.AppPopupOverlay"/>
+    </com.google.android.material.appbar.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/search"                                                                                                                                                                                                                                                                                                                                                                            
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:inputType="textCapWords"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textSize="18sp" />
+     <Button
+         android:id="@+id/add_employee"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_gravity="right"
+         android:text="Add Employee"/>
+</RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Employee_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
