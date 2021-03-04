@@ -65,7 +65,8 @@ dependencies {
     implementation 'com.chaos.view:pinview:1.4.3'
 
     implementation 'com.google.firebase:firebase-auth:20.0.2'
-
+    implementation 'androidx.volley:volley:1.0.0'
+    implementation 'com.android.volley:volley:1.1.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
