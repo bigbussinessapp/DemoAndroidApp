@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bigbusiness.Main.ui.Finance.FinanceActivity;
 import com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;
 import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagement;
+import com.example.bigbusiness.Main.ui.Services.ServicesActivity;
 import com.example.bigbusiness.R;
 
 public class HomeFragment extends Fragment {
@@ -23,7 +24,7 @@ public class HomeFragment extends Fragment {
     private Button invoiceBtn;
     private Button inventoryBtn;
     private Button financeBtn;
-
+    private Button serviceBtn;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment {
         inventoryBtn.setOnClickListener(inventoryClick);
         financeBtn.setOnClickListener(financeClick);
         invoiceBtn.setOnClickListener(invoiceClick);
+        serviceBtn.setOnClickListener(serviceClick);
 
         return root;
     }
@@ -72,6 +74,14 @@ public class HomeFragment extends Fragment {
                     startActivity(i);
                 }
             };
+
+    private View.OnClickListener serviceClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(getActivity(), ServicesActivity.class);
+            startActivity(i);
+        }
+    };
 
 
 }
