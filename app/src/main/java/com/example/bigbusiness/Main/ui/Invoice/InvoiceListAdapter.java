@@ -9,24 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
 import com.example.bigbusiness.Models.InvoiceItem;
 import com.example.bigbusiness.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.ViewHolder> {
 
         InvoiceManager inventoryManager;
-        ArrayList<InvoiceItem> invoiceItemsList;
-        InvoiceManagement invoice;
+        List<InvoiceItem> invoicesList;
+        InvoiceManagementActivity invoice;
         Context context;
 
-        public InvoiceListAdapter(Context context, InvoiceManagement invoice, InvoiceManager invoiceManager) {
+        public InvoiceListAdapter(Context context, InvoiceManagementActivity invoice, InvoiceManager invoiceManager) {
             this.inventoryManager = invoiceManager;
-        this.invoiceItemsList = this.inventoryManager.getInvoiceItems();
-        this.invoice = invoice;
-        this.context = context;
+            this.invoicesList = this.inventoryManager.getAllInvoices();
+            this.invoice = invoice;
+            this.context = context;
         }
     @NonNull
     @Override
@@ -37,14 +36,14 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        InvoiceItem itemClicked = this.invoiceItemsList.get(position);
-        holder.pdf_name.setText(itemClicked.getName());
+        InvoiceItem itemClicked = this.invoicesList.get(position);
+//        holder.pdf_name.setText(itemClicked.getName());
     }
 
 
     @Override
     public int getItemCount() {
-        return this.invoiceItemsList.size();
+        return this.invoicesList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

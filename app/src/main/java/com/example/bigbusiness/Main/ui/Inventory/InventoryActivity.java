@@ -21,7 +21,6 @@ public class InventoryActivity extends AppCompatActivity {
     Button addInventoryItemBtn,refresh, increasequantity,deleteitem;
     RecyclerView inventoryListView;
     SearchView inventorySearchBar;
-    InventoryFBHelper InventoryFBHelper;
     List<InventoryItem> suggestedList = new ArrayList<>();
 
     @Override
@@ -40,13 +39,9 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         inventoryListView = findViewById(R.id.inventory_list);
-      //  InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
-
-        InventoryFBHelper = InventoryFBHelper.getInstance();
-        InventoryManager inventoryManager = new InventoryManager(InventoryFBHelper);
-        InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this , inventoryManager);
-//
-       // InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);
+        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
+        InventoryManager inventoryManager = InventoryManager.getInstance();//new InventoryManager(inventoryDBHelper);
+        InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
         inventoryListView.setLayoutManager(layoutManager);

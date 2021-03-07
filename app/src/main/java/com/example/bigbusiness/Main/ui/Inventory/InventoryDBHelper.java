@@ -50,8 +50,8 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         int price = Integer.parseInt(cursor.getString(4));
         String units = cursor.getString(5);
         byte[] image = cursor.getBlob(6);
-        InventoryItem item = new InventoryItem(id, name, quantity, units, price, invoiceId);
-       return item;
+        InventoryItem item = new InventoryItem(id, name, quantity, units, price, invoiceId , image);
+        return item;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -73,8 +73,8 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst())
         {
             do{
-               // InventoryItem item = getItemFromCursor(cursor);
-                //allItems.add(item);
+                InventoryItem item = getItemFromCursor(cursor);
+                allItems.add(item);
             }while(cursor.moveToNext());
         }
         return allItems;
@@ -90,8 +90,8 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst() && cursor.getCount() == 1)
         {
-            //InventoryItem item = getItemFromCursor(cursor);
-            //return item;
+            InventoryItem item = getItemFromCursor(cursor);
+            return item;
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class InventoryDBHelper extends SQLiteOpenHelper {
         values.put("price", item.getPrice());
         values.put("units", item.getUnit());
         values.put("invoiceId", item.getInvoiceId());
-       // values.put("image",item.getImage());
+        values.put("image",item.getImage());
         return values;
     }
 

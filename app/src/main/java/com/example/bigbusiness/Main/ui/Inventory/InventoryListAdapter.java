@@ -21,11 +21,12 @@ import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdapter.ViewHolder> {
 
     InventoryManager inventoryManager;
-    ArrayList<InventoryItem> inventoryItemsList;
+    List<InventoryItem> inventoryItemsList;
     InventoryActivity inventory;
     Context context;
 
@@ -45,17 +46,16 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        InventoryItem itemClicked = this.inventoryItemsList.get(position);
+        InventoryItem itemClicked = this.inventoryManager.getInventoryItems().get(position);
         int id = itemClicked.getItemID();
         holder.item_name.setText(itemClicked.getName());
         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
         holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));
         holder.item_unit.setText(itemClicked.getUnit());
 
-        //byte[] image = itemClicked.getImage();
-       // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-
-        //holder.imageView.setImageBitmap(bitmap);
+        byte[] image = itemClicked.getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+      //  holder.imageView.setImageBitmap(bitmap);
        // holder.item_price.setText(itemClicked.getPrice());
 //        final int[] minteger = {0};
 
@@ -129,7 +129,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         return this.inventoryItemsList.size();
     }
 
-    public ArrayList<InventoryItem> getInventoryItemsList()
+    public List<InventoryItem> getInventoryItemsList()
     {
         return this.inventoryItemsList;
     }
