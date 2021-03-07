@@ -15,6 +15,11 @@
     <color name="blue">#0000FF</color>
     <color name="red">#D32F2F</color>
     <color name="darkgold">#DAA520</color>
+    <color name="yellow">#FFE501</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorAccent2">#F44336</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorDivider">#BDBDBD</color>
 
 <!--    <array name="random_color">-->
 <!--        <item name="red_400" type="color">#e84e40</item>-->

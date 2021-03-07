@@ -6,13 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbusiness.Models.Dues;
 import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
+import com.example.bigbusiness.Services.UserDataService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RemindersAndDuesFragment extends Fragment {
 
@@ -24,6 +35,9 @@ public class RemindersAndDuesFragment extends Fragment {
     FloatingActionButton floatingActionButton;
     ReminderCardsManager reminderCardsManager;
     DuesCardsManager duesCardsManager;
+    FirebaseDatabase database;
+    DatabaseReference reminderReference, duesReference;
+    UserDataService userDataService;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -31,6 +45,10 @@ public class RemindersAndDuesFragment extends Fragment {
 
     public RemindersAndDuesFragment() {
         // Required empty public constructor
+        userDataService = UserDataService.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reminderReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Reminders");
+        duesReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Dues");
     }
 
     /**
@@ -67,23 +85,69 @@ public class RemindersAndDuesFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_randd,container,false);
         reminderScrollView = (RecyclerView) v.findViewById(R.id.reminderScrollView);
+        duesCardView = (RecyclerView) v.findViewById(R.id.duesCardView);
 
         reminderCardsManager = ReminderCardsManager.getInstance();
         duesCardsManager = DuesCardsManager.getInstance();
 
-        DuesAdapter duesAdapter = new DuesAdapter(requireContext(), this, this.duesCardsManager);
-        ReminderAdapter reminderAdapter = new ReminderAdapter(requireContext(), this, this.reminderCardsManager, this.duesCardsManager, duesAdapter);
+        reminderReference.addValueEventListener(new ValueEventListener() {
+//            private ReminderCardsManager reminderCardsManager;
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Reminder> list = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Reminder reminder = dataSnapshot.getValue(Reminder.class);
+                    list.add(reminder);
+                }
+                ReminderAdapter reminderAdapter = new ReminderAdapter(getContext(), list, RemindersAndDuesFragment.this);
+                reminderScrollView.setAdapter(reminderAdapter);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+                reminderScrollView.setLayoutManager(layoutManager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        duesReference.addValueEventListener(new ValueEventListener() {
+//            private ReminderCardsManager reminderCardsManager;
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Dues> list = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Dues dues = dataSnapshot.getValue(Dues.class);
+//                    dues.setTitle(dataSnapshot);
+                    list.add(dues);
+                }
+                DuesAdapter duesAdapter = new DuesAdapter(getContext(), list, RemindersAndDuesFragment.this);
+                duesCardView.setAdapter(duesAdapter);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+                duesCardView.setLayoutManager(layoutManager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        DuesAdapter duesAdapter = new DuesAdapter(requireContext(), this, this.duesCardsManager);
+//        ReminderAdapter reminderAdapter = new ReminderAdapter(requireContext(), this, this.reminderCardsManager, this.duesCardsManager, duesAdapter);
 
         //setting reminder recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
-        reminderScrollView.setLayoutManager(layoutManager);
-        reminderScrollView.setAdapter(reminderAdapter);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+//        reminderScrollView.setLayoutManager(layoutManager);
+//        reminderScrollView.setAdapter(reminderAdapter);
 //
         //setting dues recycler view
-        duesCardView = (RecyclerView) v.findViewById(R.id.duesCardView);
-        duesCardView.setAdapter(duesAdapter);
-        LinearLayoutManager duesLayoutManager = new LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false);
-        duesCardView.setLayoutManager(duesLayoutManager);
+//        duesCardView = (RecyclerView) v.findViewById(R.id.duesCardView);
+//        duesCardView.setAdapter(duesAdapter);
+//        LinearLayoutManager duesLayoutManager = new LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false);
+//        duesCardView.setLayoutManager(duesLayoutManager);
 
         floatingActionButton = v.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +165,6 @@ public class RemindersAndDuesFragment extends Fragment {
     }
     public void editRemainderCard(Reminder cardToBeEdited)
     {
-        //Done
         Intent i = new Intent(getActivity() , ReminderFormActivity.class);
         i.putExtra("editCard", cardToBeEdited);
         startActivity(i);

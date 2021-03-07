@@ -1,0 +1,14 @@
+com/darsh/reminders/ReminderCardsManager.java
+ com.darsh.reminders.ReminderCardsManager
+com/darsh/reminders/MainActivity2.java
+ com.darsh.reminders.MainActivity2
+ com.darsh.reminders.MainActivity2$1
+ com.darsh.reminders.MainActivity2$2
+ com.darsh.reminders.MainActivity2$3
+ com.darsh.reminders.MainActivity2$4
+ com.darsh.reminders.MainActivity2$5
+com/darsh/reminders/Cards.java
+ com.darsh.reminders.Cards
+com/darsh/reminders/MainActivity.java
+ com.darsh.reminders.MainActivity
+ com.darsh.reminders.MainActivity$1

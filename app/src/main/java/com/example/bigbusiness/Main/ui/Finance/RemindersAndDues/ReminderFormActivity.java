@@ -57,51 +57,53 @@ public class ReminderFormActivity extends AppCompatActivity {
         Reminder cardToBeHandled = reminderCardsManager.createCard(title, amount, selectedType, date , time);
         return cardToBeHandled;
     }
-    private Reminder createCardWithSameId(int id)
-    {
-        final TextInputLayout titleET = (TextInputLayout) findViewById(R.id.titleInplay);
-        String title = titleET.getEditText().getText().toString();
-
-        final TextInputLayout amountInput = (TextInputLayout) findViewById(R.id.Amount);
-        String amount = amountInput.getEditText().getText().toString();
-
-        final RadioGroup paymentTypeGroup = (RadioGroup) findViewById(R.id.radioGrup);
-        RadioButton selectedRadioButton = (RadioButton)findViewById((int)paymentTypeGroup.getCheckedRadioButtonId());
-        String selectedType = selectedRadioButton.getText().toString();
-
-        final EditText dateInput = (EditText) findViewById(R.id.dateEdt);
-        String date = dateInput.getText().toString();
-
-        final EditText timeInput = (EditText) findViewById(R.id.timeEdt);
-        String time = timeInput.getText().toString();
-
-        Reminder cardToBeEdited = reminderCardsManager.getCardById(id); //createCard(title, amount, selectedType, date , time);
-        cardToBeEdited.setTitle(title);
-        cardToBeEdited.setAmount(amount);
-        cardToBeEdited.setPaymentType(selectedType);
-        cardToBeEdited.setDate(date);
-        cardToBeEdited.setTime(time);
-        return cardToBeEdited;
-    }
+//    private Reminder createCardWithSameId(int id)
+//    {
+//        final TextInputLayout titleET = (TextInputLayout) findViewById(R.id.titleInplay);
+//        String title = titleET.getEditText().getText().toString();
+//
+//        final TextInputLayout amountInput = (TextInputLayout) findViewById(R.id.Amount);
+//        String amount = amountInput.getEditText().getText().toString();
+//
+//        final RadioGroup paymentTypeGroup = (RadioGroup) findViewById(R.id.radioGrup);
+//        RadioButton selectedRadioButton = (RadioButton)findViewById((int)paymentTypeGroup.getCheckedRadioButtonId());
+//        String selectedType = selectedRadioButton.getText().toString();
+//
+//        final EditText dateInput = (EditText) findViewById(R.id.dateEdt);
+//        String date = dateInput.getText().toString();
+//
+//        final EditText timeInput = (EditText) findViewById(R.id.timeEdt);
+//        String time = timeInput.getText().toString();
+//
+//        Reminder cardToBeEdited = reminderCardsManager.getCardById(id); //createCard(title, amount, selectedType, date , time);
+//        cardToBeEdited.setTitle(title);
+//        cardToBeEdited.setAmount(amount);
+//        cardToBeEdited.setPaymentType(selectedType);
+//        cardToBeEdited.setDate(date);
+//        cardToBeEdited.setTime(time);
+//        return cardToBeEdited;
+//    }
 
     public void addRemainderCard(View Button)
     {
         //cardToBeHandled = new Cards(title, amount, selectedType, date , time );
         Reminder cardToBeHandled = createCard();
-        reminderCardsManager.AddCard(cardToBeHandled);
+        reminderCardsManager.addCard(cardToBeHandled);
         Intent i = new Intent(ReminderFormActivity.this, FinanceActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
     }
 
-    //Done
     public void editRemainderCard(Reminder cardToBeEdited){
-        Reminder editedCard = createCardWithSameId(cardToBeEdited.getCardId());
-        boolean status = reminderCardsManager.replaceEditedCard(editedCard);
-        if(!status)
-        {
-            status = true;
-        }
+        Reminder editedCard = createCard();
+        //Reminder editedCard = createCardWithSameId(cardToBeEdited.getCardId());
+        editedCard.setCardId(cardToBeEdited.getCardId());
+        reminderCardsManager.updateCard(editedCard);
+//        boolean status = reminderCardsManager.replaceEditedCard(editedCard);
+//        if(!status)
+//        {
+//            status = true;
+//        }
         Intent i = new Intent(ReminderFormActivity.this, FinanceActivity.class);
         i.putExtra("tabIndex", 2);
         startActivity(i);
@@ -188,10 +190,9 @@ public class ReminderFormActivity extends AppCompatActivity {
 
             final EditText timeInput = (EditText) findViewById(R.id.timeEdt);
 
-
             submit = (MaterialButton) findViewById(R.id.submit);
 
-           titleET.getEditText().addTextChangedListener(submitTextWatcher);
+            titleET.getEditText().addTextChangedListener(submitTextWatcher);
             amountInput.getEditText().addTextChangedListener(submitTextWatcher);
             dateInput.addTextChangedListener(submitTextWatcher);
             timeInput.addTextChangedListener(submitTextWatcher);
@@ -203,8 +204,7 @@ public class ReminderFormActivity extends AppCompatActivity {
                 cardToBeEdited.setPaymentType(paymentTypeGroup.getCheckedRadioButtonId() + "");
                 dateInput.setText(cardToBeEdited.getDate());
                 timeInput.setText(cardToBeEdited.getTime());
-                //Implement this
-                //fill the remainining
+
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v)
@@ -213,7 +213,6 @@ public class ReminderFormActivity extends AppCompatActivity {
                     }}
                 );
             }
-
             else
             {
                 submit.setOnClickListener(new View.OnClickListener() {

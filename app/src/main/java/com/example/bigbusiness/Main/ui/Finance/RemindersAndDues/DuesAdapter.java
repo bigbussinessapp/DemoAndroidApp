@@ -14,13 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bigbusiness.Models.Dues;
 import com.example.bigbusiness.R;
 
+import java.util.List;
 import java.util.Random;
 
 public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
     Context context;
     RemindersAndDuesFragment remindersAndDuesFragment;
     DuesCardsManager duesCardsManager;
+    List<Dues> duesList;
 
+    public DuesAdapter(Context context, List<Dues> duesList, RemindersAndDuesFragment remindersAndDuesFragment)
+    {
+        this.context = context;
+        this.remindersAndDuesFragment = remindersAndDuesFragment;
+        this.duesList = duesList;
+        this.duesCardsManager = DuesCardsManager.getInstance();
+    }
     public DuesAdapter(Context context, RemindersAndDuesFragment remindersAndDuesFragment, DuesCardsManager duesCardsManager) {
         this.context = context;
         this.remindersAndDuesFragment = remindersAndDuesFragment;
@@ -38,10 +47,10 @@ public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Dues cardClicked = duesCardsManager.getCards().get(position);
+        Dues cardClicked = this.duesList.get(position);
 //        int randomColor = holder.colors[new Random().nextInt(holder.colors.length)];
 //        holder.viewColorTag.setBackgroundColor(randomColor);
-        holder.title.setText(cardClicked.getTitle());
+        holder.title.setText(cardClicked.getName());
         holder.price.setText(cardClicked.getPrice());
         if(cardClicked.getPaymentType().equals("Receive"))
         {
@@ -52,23 +61,14 @@ public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
             holder.price.setTextColor(Color.RED);
         }
         holder.buttonDelete.setOnClickListener(v -> {
-            deleteDuesCard(position);
+            this.duesCardsManager.delete(cardClicked);
             notifyDataSetChanged();
         });
     }
 
-    private void deleteDuesCard(int position)
-    {
-        DuesCardsManager duesCardsManager = DuesCardsManager.getInstance();
-        if(!duesCardsManager.delete(position))
-        {
-            //throw error
-        }
-    }
-
     @Override
     public int getItemCount() {
-        return duesCardsManager.getCards().size();
+        return duesList.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{

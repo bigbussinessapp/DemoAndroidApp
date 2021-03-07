@@ -1,0 +1,2445 @@
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/home/HomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.home;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.lifecycle.ViewModelProvider;\r\n\r\nimport com.example.bigbusiness.Main.ui.Finance.FinanceActivity;\r\nimport com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;\r\nimport com.example.bigbusiness.R;\r\n\r\npublic class HomeFragment extends Fragment {\r\n\r\n    private HomeViewModel homeViewModel;\r\n    private Button invoiceBtn;\r\n    private Button inventoryBtn;\r\n    private Button financeBtn;\r\n\r\n    public View onCreateView(@NonNull LayoutInflater inflater,\r\n                             ViewGroup container, Bundle savedInstanceState) {\r\n        homeViewModel =\r\n                new ViewModelProvider(this).get(HomeViewModel.class);\r\n        View root = inflater.inflate(R.layout.fragment_home, container, false);\r\n        final TextView textView = root.findViewById(R.id.text_home);\r\n        invoiceBtn = (Button) root.findViewById(R.id.invoice_btn);\r\n        inventoryBtn = (Button) root.findViewById(R.id.inventory_btn);\r\n        financeBtn = (Button) root.findViewById(R.id.finance_btn);\r\n\r\n//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {\r\n//            @Override\r\n//            public void onChanged(@Nullable String s) {\r\n//                textView.setText(s);\r\n//            }\r\n//        });\r\n\r\n        inventoryBtn.setOnClickListener(inventoryClick);\r\n        financeBtn.setOnClickListener(financeClick);\r\n        invoiceBtn.setOnClickListener(invoiceClick);\r\n\r\n        return root;\r\n    }\r\n\r\n    private View.OnClickListener invoiceClick =\r\n            new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n//                    Intent i = new Intent(Main1Activity.class, );\r\n//\r\n                }\r\n            };\r\n    private View.OnClickListener inventoryClick =\r\n            new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    Intent i = new Intent(getActivity(), InventoryActivity.class);\r\n                    startActivity(i);\r\n                }\r\n            };\r\n    private View.OnClickListener financeClick =\r\n            new View.OnClickListener() {\r\n                @Override\r\n                public void onClick(View v) {\r\n                    Intent i = new Intent(getActivity(), FinanceActivity.class);\r\n                    startActivity(i);\r\n                }\r\n            };\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/home/HomeFragment.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/home/HomeFragment.java	(date 1614145862504)
+@@ -14,6 +14,7 @@
+ 
+ import com.example.bigbusiness.Main.ui.Finance.FinanceActivity;
+ import com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;
++import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagement;
+ import com.example.bigbusiness.R;
+ 
+ public class HomeFragment extends Fragment {
+@@ -51,8 +52,8 @@
+             new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+-//                    Intent i = new Intent(Main1Activity.class, );
+-//
++                    Intent i = new Intent(getActivity(), InvoiceManagement.class);
++                    startActivity(i);
+                 }
+             };
+     private View.OnClickListener inventoryClick =
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.Inventory;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.SearchView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\nimport androidx.recyclerview.widget.StaggeredGridLayoutManager;\r\n\r\nimport com.example.bigbusiness.Models.InventoryItem;\r\nimport com.example.bigbusiness.R;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n\r\npublic class InventoryActivity extends AppCompatActivity {\r\n    Button addInventoryItemBtn,refresh, increasequantity,deleteitem;\r\n    RecyclerView inventoryListView;\r\n    SearchView inventorySearchBar;\r\n    List<InventoryItem> suggestedList = new ArrayList<>();\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_inventory);\r\n        this.getWindow().getDecorView().setSystemUiVisibility(\r\n                View.SYSTEM_UI_FLAG_LAYOUT_STABLE\r\n                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION\r\n                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN\r\n                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION\r\n                        | View.SYSTEM_UI_FLAG_FULLSCREEN\r\n                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);\r\n    }\r\n    @Override\r\n    protected void onStart() {\r\n        super.onStart();\r\n        inventoryListView = findViewById(R.id.inventory_list);\r\n        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);\r\n        InventoryManager inventoryManager = new InventoryManager(inventoryDBHelper);\r\n        InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);\r\n\r\n        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);\r\n        inventoryListView.setLayoutManager(layoutManager);\r\n        inventoryListView.setAdapter(inventoryListAdapter);\r\n\r\n        this.addInventoryItemBtn = (Button) findViewById(R.id.additem);\r\n        this.addInventoryItemBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(InventoryActivity.this, AddInventoryItem.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n        this.inventorySearchBar = (SearchView) findViewById(R.id.inventorySearchBar);\r\n        this.inventorySearchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {\r\n            @Override\r\n            public boolean onQueryTextSubmit(String query) {\r\n                ArrayList<InventoryItem> filteredItems = new ArrayList<>();\r\n                for (InventoryItem item:inventoryManager.getInventoryItems())\r\n                {\r\n                    if(item.getName().contains(query))\r\n                    {\r\n                        filteredItems.add(item);\r\n                    }\r\n                };\r\n                inventoryListAdapter.setInventoryItemsList(filteredItems);\r\n                inventoryListAdapter.notifyDataSetChanged();\r\n                return true;\r\n            }\r\n\r\n            @Override\r\n            public boolean onQueryTextChange(String newText) {\r\n                ArrayList<InventoryItem> filteredItems = new ArrayList<>();\r\n                for (InventoryItem item:inventoryManager.getInventoryItems())\r\n                {\r\n                    if(item.getName().contains(newText))\r\n                    {\r\n                        filteredItems.add(item);\r\n                    }\r\n                };\r\n                inventoryListAdapter.setInventoryItemsList(filteredItems);\r\n                inventoryListAdapter.notifyDataSetChanged();\r\n                return true;\r\n            }\r\n        });\r\n    }\r\n\r\n    public void editItem(InventoryItem item)\r\n    {\r\n        Intent i = new Intent(this, AddInventoryItem.class);\r\n        i.putExtra(\"editCard\", item);\r\n        startActivity(i);\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryActivity.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryActivity.java	(date 1614145862487)
+@@ -21,6 +21,7 @@
+     Button addInventoryItemBtn,refresh, increasequantity,deleteitem;
+     RecyclerView inventoryListView;
+     SearchView inventorySearchBar;
++    InventoryFBHelper InventoryFBHelper;
+     List<InventoryItem> suggestedList = new ArrayList<>();
+ 
+     @Override
+@@ -39,9 +40,13 @@
+     protected void onStart() {
+         super.onStart();
+         inventoryListView = findViewById(R.id.inventory_list);
+-        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
+-        InventoryManager inventoryManager = new InventoryManager(inventoryDBHelper);
+-        InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);
++      //  InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
++
++        InventoryFBHelper = InventoryFBHelper.getInstance();
++        InventoryManager inventoryManager = new InventoryManager(InventoryFBHelper);
++        InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this , inventoryManager);
++//
++       // InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);
+ 
+         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
+         inventoryListView.setLayoutManager(layoutManager);
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryListAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.Inventory;\r\n\r\nimport android.content.Context;\r\nimport android.view.LayoutInflater;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.PopupMenu;\r\nimport android.widget.Spinner;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.bigbusiness.Models.InventoryItem;\r\nimport com.example.bigbusiness.R;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdapter.ViewHolder> {\r\n\r\n    InventoryManager inventoryManager;\r\n    ArrayList<InventoryItem> inventoryItemsList;\r\n    InventoryActivity inventory;\r\n    Context context;\r\n\r\n    public InventoryListAdapter(Context context, InventoryActivity inventoryActivity, InventoryManager inventoryManager) {\r\n        this.inventoryManager = inventoryManager;\r\n        this.inventoryItemsList = this.inventoryManager.getInventoryItems();\r\n        this.inventory = inventoryActivity;\r\n        this.context = context;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_list_item, parent, false);\r\n        return new ViewHolder(view);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {\r\n        InventoryItem itemClicked = this.inventoryItemsList.get(position);\r\n        int id = itemClicked.getItemID();\r\n        holder.item_name.setText(itemClicked.getName());\r\n        holder.quantitytextview.setText(itemClicked.getQuantity()+\"\");\r\n        holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));\r\n        holder.item_unit.setText(itemClicked.getUnit());\r\n       // holder.item_price.setText(itemClicked.getPrice());\r\n//        final int[] minteger = {0};\r\n\r\n/*        holder.increase.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                inventoryManager.increaseQuantity(itemClicked);\r\n                notifyDataSetChanged();\r\n            }\r\n        });\r\n        holder.decrease.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                inventoryManager.decreaseQuantity(itemClicked);\r\n                notifyDataSetChanged();\r\n            }\r\n        });\r\n        holder.delete.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                inventoryManager.removeItem(itemClicked);\r\n                notifyItemRangeRemoved(position, inventoryItemsList.size());\r\n            }\r\n        });*/\r\n\r\n        holder.hamburger_menu.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                PopupMenu popup = new PopupMenu(context,holder.hamburger_menu);\r\n                popup.inflate(R.menu.inventory_edit_item);\r\n                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {\r\n                    @Override\r\n                    public boolean onMenuItemClick(MenuItem menuItem) {\r\n                        switch (menuItem.getItemId()){\r\n                            case R.id.edit_item:\r\n                                inventory.editItem(itemClicked);\r\n                                notifyDataSetChanged();\r\n//                                inventoryManager.editItem(itemClicked);\r\n\r\n                            case R.id.delete_item:\r\n                                inventoryManager.deleteItem(itemClicked);\r\n                                notifyDataSetChanged();\r\n                            default:\r\n                                return false;\r\n                        }\r\n                    }\r\n                });\r\n                popup.show();\r\n               /* Context context = view.getContext();\r\n                Intent intent = new Intent(context,InventoryEditItem.class);\r\n                context.startActivity(intent);*/\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return this.inventoryItemsList.size();\r\n    }\r\n\r\n    public ArrayList<InventoryItem> getInventoryItemsList()\r\n    {\r\n        return this.inventoryItemsList;\r\n    }\r\n\r\n    public void setInventoryItemsList(ArrayList<InventoryItem> updatedItemsList)\r\n    {\r\n        this.inventoryItemsList = updatedItemsList;\r\n    }\r\n\r\n    class ViewHolder extends RecyclerView.ViewHolder{\r\n        TextView item_name, quantity, itemprice,item_unit, quantitytextview;\r\n        Spinner unitspinner;\r\n        Button delete;\r\n        ImageView hamburger_menu;\r\n        private int position = 0 ;\r\n\r\n        public ViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            quantitytextview = (TextView) itemView.findViewById(R.id.item_quantity);\r\n            item_name = (TextView) itemView.findViewById(R.id.item_name);\r\n           /* increase = (Button) itemView.findViewById(R.id.increase);\r\n            decrease = (Button) itemView.findViewById(R.id.decrease);\r\n            delete = (Button) itemView.findViewById(R.id.deleteitem);*/\r\n            quantity = (TextView) itemView.findViewById(R.id.item_quantity);\r\n            unitspinner = (Spinner)itemView.findViewById(R.id.unitspinner);\r\n            itemprice = (TextView)itemView.findViewById(R.id.itemprice);\r\n            item_unit = (TextView)itemView.findViewById(R.id.item_unit);\r\n            hamburger_menu = (ImageView)itemView.findViewById(R.id.hamburger_menu);\r\n\r\n\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryListAdapter.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryListAdapter.java	(date 1614145862490)
+@@ -1,6 +1,9 @@
+ package com.example.bigbusiness.Main.ui.Inventory;
+ 
+ import android.content.Context;
++import android.content.Intent;
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
+ import android.view.LayoutInflater;
+ import android.view.MenuItem;
+ import android.view.View;
+@@ -48,6 +51,11 @@
+         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
+         holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));
+         holder.item_unit.setText(itemClicked.getUnit());
++
++        //byte[] image = itemClicked.getImage();
++       // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
++
++        //holder.imageView.setImageBitmap(bitmap);
+        // holder.item_price.setText(itemClicked.getPrice());
+ //        final int[] minteger = {0};
+ 
+@@ -93,6 +101,18 @@
+                             default:
+                                 return false;
+                         }
++                    }
++                    public void editedItem() {
++                        inventoryManager.editItem(itemClicked);
++                        Intent intent = new Intent(context,AddInventoryItem.class);
++                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemID()));
++                        intent.putExtra("name",String.valueOf(itemClicked.getName()));
++                        intent.putExtra("qunatity",String.valueOf(itemClicked.getQuantity()));
++                        intent.putExtra("price",String.valueOf(itemClicked.getPrice()));
++                        intent.putExtra("units",String.valueOf(itemClicked.getUnit()));
++                        context.startActivity(intent);
++
++
+                     }
+                 });
+                 popup.show();
+@@ -119,11 +139,11 @@
+         this.inventoryItemsList = updatedItemsList;
+     }
+ 
+-    class ViewHolder extends RecyclerView.ViewHolder{
++    public class ViewHolder extends RecyclerView.ViewHolder{
+         TextView item_name, quantity, itemprice,item_unit, quantitytextview;
+         Spinner unitspinner;
+         Button delete;
+-        ImageView hamburger_menu;
++        ImageView hamburger_menu , imageView;
+         private int position = 0 ;
+ 
+         public ViewHolder(@NonNull View itemView) {
+@@ -138,6 +158,7 @@
+             itemprice = (TextView)itemView.findViewById(R.id.itemprice);
+             item_unit = (TextView)itemView.findViewById(R.id.item_unit);
+             hamburger_menu = (ImageView)itemView.findViewById(R.id.hamburger_menu);
++            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
+ 
+ 
+         }
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/AddInventoryItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.Inventory;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.AdapterView;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.Spinner;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.bigbusiness.Models.InventoryItem;\r\nimport com.example.bigbusiness.R;\r\nimport com.google.android.material.textfield.TextInputEditText;\r\n\r\npublic class AddInventoryItem extends AppCompatActivity implements AdapterView.OnItemSelectedListener {\r\n    private static final String TAG = \"ItemDialog\";\r\n    private TextInputEditText name;\r\n    private TextInputEditText quantity;\r\n    private TextInputEditText units;\r\n    private TextInputEditText price;\r\n    Spinner unit_spinner;\r\n    String getitemunits;\r\n    String itemunts[]={\"select unit\",\"small\",\"large\",\"ML\",\"L\"};\r\n    ArrayAdapter unitspinnerdapter;\r\n    Button saveBtn, cancelBtn;\r\n    String base64data;\r\n    Button additempicturebtn;\r\n    private InventoryManager inventoryManager;\r\n\r\n\r\n    @Override\r\n\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_add_inventory);\r\n    }\r\n\r\n    @Override\r\n    protected void onStart()\r\n    {\r\n        super.onStart();\r\n        Intent i = getIntent();\r\n        InventoryItem card = (InventoryItem)i.getSerializableExtra(\"editCard\");\r\n        displayInventoryForm(card);\r\n    }\r\n\r\n    private void displayInventoryForm(InventoryItem cardToBeEdited) {\r\n\r\n        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);\r\n        inventoryManager = new InventoryManager(inventoryDBHelper);\r\n        name = findViewById(R.id.itemname);\r\n        price = findViewById(R.id.price);\r\n        quantity = findViewById(R.id.Quantity);\r\n        units = findViewById(R.id.units);\r\n\r\n        additempicturebtn = findViewById(R.id.uploaditempicture);\r\n        unit_spinner = findViewById(R.id.unitspinner);\r\n        unit_spinner.setOnItemSelectedListener(AddInventoryItem.this);\r\n\r\n        unitspinnerdapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,itemunts);\r\n        unit_spinner.setAdapter(unitspinnerdapter);\r\n//        mysqldhelperite = new mysqldbhelperitem(this);\r\n\r\n        if(cardToBeEdited != null)\r\n        {\r\n            name.setText(cardToBeEdited.getName());\r\n            price.setText(String.valueOf(cardToBeEdited.getPrice()));\r\n            quantity.setText(String.valueOf(cardToBeEdited.getQuantity()));\r\n            units.setText(cardToBeEdited.getUnit());\r\n        }\r\n\r\n        additempicturebtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                uploadItemImage();\r\n            }\r\n\r\n            public void uploadItemImage() {\r\n                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);\r\n                intent.setType(\"item/img\");\r\n                startActivityForResult(Intent.createChooser(intent, \"Select item image\"), 200);\r\n            }\r\n        });\r\n\r\n        saveBtn = findViewById(R.id.save);\r\n        saveBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                String item_name = name.getText().toString();\r\n                String item_units = getitemunits;\r\n                int item_price = Integer.parseInt(price.getText().toString());\r\n                String item_quantity = quantity.getText().toString();\r\n                int item_quantity_num = Integer.parseInt(item_quantity);\r\n                int item_price_num = item_price;\r\n\r\n                InventoryItem newItem = new InventoryItem(100,item_name, item_quantity_num, item_units, item_price_num,  \"invoice-\"+item_name);\r\n                if(cardToBeEdited != null)\r\n                {\r\n                    inventoryManager.editItem(newItem);\r\n                }\r\n                else\r\n                {\r\n                    inventoryManager.addItem(newItem);\r\n                }\r\n                Intent intent = new Intent(AddInventoryItem.this, InventoryActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n\r\n        cancelBtn = findViewById(R.id.cancel);\r\n        cancelBtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(AddInventoryItem.this, InventoryActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n\r\n\r\n//    public  boolean isWriteStoragePermissionGranted() {\r\n//        if (Build.VERSION.SDK_INT >= 23) {\r\n//            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)\r\n//                    == PackageManager.PERMISSION_GRANTED) {\r\n//                Log.v(\"TAG\",\"Permission is granted2\");\r\n//                return true;\r\n//            } else {\r\n//\r\n//                Log.v(\"TAG\",\"Permission is revoked2\");\r\n//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);\r\n//                return false;\r\n//            }\r\n//        }\r\n//        else { //permission is automatically granted on sdk<23 upon installation\r\n//            Log.v(\"TAG\",\"Permission is granted2\");\r\n//            return true;\r\n//        }\r\n//    }\r\n\r\n//    private void AddData(String name, String unit, String totpric, int pric, String quantit) {\r\n//        boolean insertData = mysqldhelperite.addData(name,unit,totpric, String.valueOf(pric),quantit);\r\n//        if(insertData){\r\n//\r\n//            Toast toast=Toast.makeText(AddInventoryItem.this,\"Data Successfully Inserted\",Toast.LENGTH_SHORT);\r\n//            toast.show();\r\n//        } else{\r\n//            Toast toast=Toast.makeText(AddInventoryItem.this,\"Something went wrong\",Toast.LENGTH_SHORT);\r\n//            toast.show();\r\n//        }\r\n//    }\r\n\r\n\r\n    @Override\r\n    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {\r\n        getitemunits = unit_spinner.getSelectedItem().toString();\r\n        units.setText(getitemunits);\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onNothingSelected(AdapterView<?> adapterView) {\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/AddInventoryItem.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/AddInventoryItem.java	(date 1614145862486)
+@@ -1,19 +1,39 @@
+ package com.example.bigbusiness.Main.ui.Inventory;
+ 
++import android.Manifest;
+ import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.database.Cursor;
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
++import android.graphics.drawable.BitmapDrawable;
++import android.net.Uri;
++import android.os.Build;
+ import android.os.Bundle;
++import android.provider.MediaStore;
++import android.util.Log;
+ import android.view.View;
+ import android.widget.AdapterView;
+ import android.widget.ArrayAdapter;
+ import android.widget.Button;
++import android.widget.ImageView;
+ import android.widget.Spinner;
++import android.widget.Toast;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.app.ActivityCompat;
++import androidx.core.content.ContextCompat;
+ 
+ import com.example.bigbusiness.Models.InventoryItem;
+ import com.example.bigbusiness.R;
+ import com.google.android.material.textfield.TextInputEditText;
+ 
++import java.io.ByteArrayOutputStream;
++import java.io.FileNotFoundException;
++import java.io.InputStream;
++
+ public class AddInventoryItem extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+     private static final String TAG = "ItemDialog";
+     private TextInputEditText name;
+@@ -22,12 +42,19 @@
+     private TextInputEditText price;
+     Spinner unit_spinner;
+     String getitemunits;
+-    String itemunts[]={"select unit","small","large","ML","L"};
++    String itemunts[]={"select unit","Milli Litre","Gram","Kilogram","Litre","None"};
+     ArrayAdapter unitspinnerdapter;
+     Button saveBtn, cancelBtn;
+     String base64data;
+     Button additempicturebtn;
++    final int REQUEST_STORAGE = 999;
++    final int REQUEST_FILE = 222;
++    ImageView imageView;
+     private InventoryManager inventoryManager;
++    private Uri uri;
++    private String stringPath;
++    private Intent idata;
++    InventoryFBHelper inventoryFBHelper = InventoryFBHelper.getInstance();
+ 
+ 
+     @Override
+@@ -49,7 +76,7 @@
+     private void displayInventoryForm(InventoryItem cardToBeEdited) {
+ 
+         InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
+-        inventoryManager = new InventoryManager(inventoryDBHelper);
++        inventoryManager = new InventoryManager(inventoryFBHelper);
+         name = findViewById(R.id.itemname);
+         price = findViewById(R.id.price);
+         quantity = findViewById(R.id.Quantity);
+@@ -73,15 +100,24 @@
+ 
+         additempicturebtn.setOnClickListener(new View.OnClickListener() {
+             @Override
+-            public void onClick(View v) {
+-                uploadItemImage();
+-            }
++            public void onClick(View v){
++               if(ContextCompat.checkSelfPermission(
++                       getApplicationContext() , Manifest.permission.READ_EXTERNAL_STORAGE
++               ) != PackageManager.PERMISSION_GRANTED){
++                   ActivityCompat.requestPermissions(
++                           AddInventoryItem.this,
++                           new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
++                           REQUEST_STORAGE
++                   );
++               }
++               else
++               {
++                   selectImage();
++               }
+ 
+-            public void uploadItemImage() {
+-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+-                intent.setType("item/img");
+-                startActivityForResult(Intent.createChooser(intent, "Select item image"), 200);
+             }
++
++
+         });
+ 
+         saveBtn = findViewById(R.id.save);
+@@ -95,14 +131,15 @@
+                 int item_quantity_num = Integer.parseInt(item_quantity);
+                 int item_price_num = item_price;
+ 
+-                InventoryItem newItem = new InventoryItem(100,item_name, item_quantity_num, item_units, item_price_num,  "invoice-"+item_name);
++                InventoryItem newItem = inventoryFBHelper.createItem(item_name, item_quantity_num, item_units, item_price_num,  "invoice-"+item_name);
+                 if(cardToBeEdited != null)
+                 {
++                    newItem.setItem_ID(cardToBeEdited.getItemID());
+                     inventoryManager.editItem(newItem);
+                 }
+                 else
+                 {
+-                    inventoryManager.addItem(newItem);
++                    inventoryManager.addItem(newItem);  //changes
+                 }
+                 Intent intent = new Intent(AddInventoryItem.this, InventoryActivity.class);
+                 startActivity(intent);
+@@ -151,6 +188,48 @@
+ //        }
+ //    }
+ 
++//    public static byte[] imageViewToByte(ImageView image) {
++//        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
++//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
++//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
++//        byte[] byteArray = stream.toByteArray();
++//        return byteArray;
++//    }
++
++//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
++//        if(requestCode == REQUEST_FILE){
++//            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
++//                Intent intent = new Intent(Intent.ACTION_PICK);
++//                intent.setType("image/*");
++//                startActivityForResult(intent, REQUEST_FILE);
++//            }
++//            else {
++//                Toast.makeText(getApplicationContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
++//            }
++//            return;
++//        }
++//
++//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
++//    }
++
++//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
++//
++//        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
++//            Uri uri = data.getData();
++//
++//            try {
++//                InputStream inputStream = getContentResolver().openInputStream(uri);
++//
++//                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
++//                imageView.setImageBitmap(bitmap);
++//
++//            } catch (FileNotFoundException e) {
++//                e.printStackTrace();
++//            }
++//        }
++//
++//        super.onActivityResult(requestCode, resultCode, data);
++//    }
+ 
+     @Override
+     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+@@ -163,4 +242,63 @@
+     public void onNothingSelected(AdapterView<?> adapterView) {
+ 
+     }
++
++
++    private void selectImage(){
++
++        Intent i = new Intent(Intent.ACTION_PICK , MediaStore.Images.Media.INTERNAL_CONTENT_URI);
++        startActivityForResult(i , REQUEST_FILE);
++    }
++
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++
++        if(requestCode == REQUEST_FILE && resultCode == RESULT_OK){
++
++            if(data != null){
++                uri = data.getData();
++                idata = data;
++
++                getStringPath(uri);
++
++                try {
++                    InputStream inputStream = getContentResolver().openInputStream(uri);
++
++                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
++                    imageView.setImageBitmap(bitmap);
++
++                } catch (FileNotFoundException e) {
++                    e.printStackTrace();
++                }
++            }
++        }
++    }
++
++    private String getStringPath(Uri myUri){
++
++        String[] filePathColumn = {MediaStore.Images.Media.DATA};
++        Cursor cursor = getContentResolver().query(myUri , filePathColumn , null , null ,null);
++
++        if(cursor == null){
++            stringPath = myUri.getPath();
++        }
++        else{
++            cursor.moveToFirst();
++            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
++            stringPath = cursor.getString(columnIndex);
++            cursor.close();
++        }
++
++        return stringPath;
++    }
++
++//    public boolean checkReadStorageAllowed() {
++//        if(Build.VERSION.SDK_INT < 23 || ContextCompat.checkSelfPermission(
++//                AddInventoryItem.this , "android.permission.WRITE_EXTERNAL_STORAGE"
++//        ) == 0){
++//            return true;
++//        }
++//        return false;
++//    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.Inventory;\r\n\r\nimport android.widget.Toast;\r\n\r\nimport com.example.bigbusiness.Models.InventoryItem;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.LinkedHashMap;\r\n\r\npublic class InventoryManager {\r\n        LinkedHashMap<String, InventoryItem> inventoryItems = new LinkedHashMap<>();\r\n        InventoryDBHelper inventoryDBHelper;\r\n\r\n        public InventoryManager(InventoryDBHelper inventoryDBHelper)\r\n        {\r\n            this.inventoryDBHelper = inventoryDBHelper;\r\n            addItem(new InventoryItem(1, \"prod1\", 20, \"ml\", 200, \"1000\"));\r\n            addItem(new InventoryItem(2,\"prod2\",100, \"ml\", 15, \"1001\"));\r\n            addItem(new InventoryItem(3, \"prod3\",20, \"kgs\", 50, \"1002\"));\r\n        }\r\n\r\n        public void addItem(InventoryItem item)\r\n        {\r\n            if(this.inventoryDBHelper.addItem(item))\r\n            {\r\n                String success = \"yeahh\";\r\n            }\r\n        }\r\n\r\n        public void increaseQuantity(InventoryItem item)\r\n        {\r\n            this.inventoryDBHelper.increaseQuantity(item);\r\n        }\r\n\r\n        public void decreaseQuantity(InventoryItem item)\r\n        {\r\n            this.inventoryDBHelper.decreaseQuantity(item);\r\n        }\r\n\r\n        public void deleteItem(InventoryItem item)\r\n        {\r\n            boolean success = this.inventoryDBHelper.deleteItem(item);\r\n\r\n            if(success)\r\n            {\r\n                success =! success;\r\n                return;\r\n            }\r\n            //return removedItem;\r\n        }\r\n\r\n        public void editItem(InventoryItem item){\r\n            boolean success = this.inventoryDBHelper.updateItem(item);\r\n            if(success)\r\n            {\r\n                success =! success;\r\n                return;\r\n            }\r\n        }\r\n\r\n        public ArrayList<InventoryItem> getInventoryItems() {\r\n            return this.inventoryDBHelper.getAllItems();\r\n        }\r\n    }\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryManager.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryManager.java	(date 1614145862490)
+@@ -1,7 +1,11 @@
+ package com.example.bigbusiness.Main.ui.Inventory;
+ 
++import android.content.ClipData;
++import android.os.Build;
+ import android.widget.Toast;
+ 
++import androidx.annotation.RequiresApi;
++
+ import com.example.bigbusiness.Models.InventoryItem;
+ 
+ import java.util.ArrayList;
+@@ -10,21 +14,28 @@
+ public class InventoryManager {
+         LinkedHashMap<String, InventoryItem> inventoryItems = new LinkedHashMap<>();
+         InventoryDBHelper inventoryDBHelper;
++        InventoryFBHelper inventoryFBHelper;
+ 
+         public InventoryManager(InventoryDBHelper inventoryDBHelper)
+         {
+             this.inventoryDBHelper = inventoryDBHelper;
+-            addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000"));
+-            addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001"));
+-            addItem(new InventoryItem(3, "prod3",20, "kgs", 50, "1002"));
++//            addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000",null));
++  //          addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001",null));
++    //        addItem(new InventoryItem(3, "prod3",20, "kgs", 50, "1002",null));
++        }
++
++        public InventoryManager(InventoryFBHelper inventoryFBHelper)
++        {
++            this.inventoryFBHelper = inventoryFBHelper;
+         }
+ 
+         public void addItem(InventoryItem item)
+         {
+-            if(this.inventoryDBHelper.addItem(item))
+-            {
+-                String success = "yeahh";
+-            }
++              this.inventoryFBHelper.addItem(item);
++//            if(this.inventoryFBHelper.addItem(item))
++//            {
++//                String success = "yeahh";
++//            }
+         }
+ 
+         public void increaseQuantity(InventoryItem item)
+@@ -39,18 +50,18 @@
+ 
+         public void deleteItem(InventoryItem item)
+         {
+-            boolean success = this.inventoryDBHelper.deleteItem(item);
++            InventoryItem success = this.inventoryFBHelper.deleteItem(item);
+ 
+-            if(success)
+-            {
+-                success =! success;
+-                return;
+-            }
++//            if(success)
++//            {
++//                success =! success;
++//                return;
++//            }
+             //return removedItem;
+         }
+ 
+         public void editItem(InventoryItem item){
+-            boolean success = this.inventoryDBHelper.updateItem(item);
++            boolean success = this.inventoryFBHelper.updateItem(item);
+             if(success)
+             {
+                 success =! success;
+@@ -59,6 +70,6 @@
+         }
+ 
+         public ArrayList<InventoryItem> getInventoryItems() {
+-            return this.inventoryDBHelper.getAllItems();
++            return this.inventoryFBHelper.getItems();
+         }
+     }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.bigbusiness\">\r\n\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BigBusiness\">\r\n        <activity android:name=\".Login.RegistrationActivity\"></activity>\r\n        <activity\r\n            android:name=\".Login.VerifyOTPActivity\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".Login.LoginActivity\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\">\r\n\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n\r\n        <activity\r\n            android:name=\".Main.ui.Finance.FinanceActivity\"\r\n            android:label=\"@string/title_activity_finance\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:theme=\"@style/Theme.BigBusiness.NoActionBar\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".Main.Main1Activity\"\r\n            android:label=\"@string/title_activity_main1\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\"\r\n            android:windowSoftInputMode=\"adjustResize\"/>\r\n        <activity\r\n            android:name=\".addinvoice\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".MainActivity911\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".Main.ui.Finance.RemindersAndDues.ReminderFormActivity\"\r\n            android:label=\"ReminderFormActivity\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".Main.ui.Inventory.InventoryActivity\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n        <activity\r\n            android:name=\".Main.ui.Inventory.AddInventoryItem\"\r\n            android:screenOrientation=\"portrait\"\r\n            android:windowSoftInputMode=\"adjustResize\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/AndroidManifest.xml	(date 1614145862607)
+@@ -65,4 +65,4 @@
+             android:windowSoftInputMode="adjustResize" />
+     </application>
+ 
+-</manifest>
+\ No newline at end of file
++</manifest>
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryDBHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main.ui.Inventory;\r\n\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.database.sqlite.SQLiteOpenHelper;\r\n\r\nimport androidx.annotation.Nullable;\r\n\r\nimport com.example.bigbusiness.Models.InventoryItem;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class InventoryDBHelper extends SQLiteOpenHelper {\r\n    public static  final  String DB_NAME = \"BIGBUSINESSS\";\r\n    public static  final  String TABLE_NAME = \"INVENTORY\";\r\n\r\n    public InventoryDBHelper(@Nullable Context context) {\r\n        super(context, DB_NAME, null, 1);\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(SQLiteDatabase db) {\r\n       db.execSQL(\"CREATE TABLE \"+ TABLE_NAME +\" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoiceId TEXT , name TEXT , quantity INTEGER , price INTEGER , units TEXT)\");\r\n    }\r\n\r\n    @Override\r\n    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {\r\n       db.execSQL(\"DROP TABLE IF EXISTS \"+TABLE_NAME);\r\n       onCreate(db);\r\n    }\r\n\r\n    public InventoryItem getItemFromCursor(Cursor cursor)\r\n    {\r\n        if(cursor == null)\r\n        {\r\n            return null;\r\n        }\r\n        int id = Integer.parseInt(cursor.getString(0));\r\n        String invoiceId = cursor.getString(1);\r\n        String name = cursor.getString(2);\r\n        int quantity = Integer.parseInt(cursor.getString(3));\r\n        int price = Integer.parseInt(cursor.getString(4));\r\n        String units = cursor.getString(5);\r\n        InventoryItem item = new InventoryItem(id, name, quantity, units, price, invoiceId);\r\n        return item;\r\n    }\r\n\r\n    public ArrayList<InventoryItem> getAllItems()\r\n    {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        String query = String.format(\"SELECT * FROM %s\", TABLE_NAME);\r\n        Cursor cursor = db.rawQuery(query, null);\r\n        ArrayList<InventoryItem> allItems = new ArrayList<>();\r\n\r\n        if(cursor.moveToFirst())\r\n        {\r\n            do{\r\n                InventoryItem item = getItemFromCursor(cursor);\r\n                allItems.add(item);\r\n            }while(cursor.moveToNext());\r\n        }\r\n        return allItems;\r\n    }\r\n\r\n    public InventoryItem getItem(int id)\r\n    {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        String query = String.format(\"SELECT * FROM %s WHERE id=%d\", TABLE_NAME,id);\r\n        Cursor cursor = db.rawQuery(query, null);\r\n        if(cursor.moveToFirst() && cursor.getCount() == 1)\r\n        {\r\n            InventoryItem item = getItemFromCursor(cursor);\r\n            return item;\r\n        }\r\n        return null;\r\n    }\r\n\r\n    public ContentValues getContentValues(InventoryItem item)\r\n    {\r\n        ContentValues values = new ContentValues();\r\n        values.put(\"name\", item.getName());\r\n        values.put(\"quantity\", item.getQuantity());\r\n        values.put(\"price\", item.getPrice());\r\n        values.put(\"units\", item.getUnit());\r\n        values.put(\"invoiceId\", item.getInvoiceId());\r\n        return values;\r\n    }\r\n\r\n    public boolean addItem(InventoryItem item)\r\n    {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n\r\n        ContentValues values = getContentValues(item);\r\n        // Inserting Row\r\n        if(db.insert(TABLE_NAME, null, values) == -1)\r\n        {\r\n            return false;\r\n        }\r\n        return true;\r\n    }\r\n\r\n    public boolean deleteItem(InventoryItem item)\r\n    {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        int success = db.delete(TABLE_NAME, \"ID = ?\", new String[] {String.valueOf(item.getItemID())});\r\n\r\n        if(success > 0)\r\n            return true;\r\n        else\r\n            return false;\r\n    }\r\n\r\n    public boolean updateItem(InventoryItem item)\r\n    {\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n\r\n        ContentValues values = getContentValues(item);\r\n        // updating row\r\n        int success = db.update(TABLE_NAME, values,  \"ID\"+ \" = ?\",\r\n                new String[] { String.valueOf(item.getItemID()) });\r\n        if(success > 0)\r\n            return true;\r\n        else\r\n            return false;\r\n    }\r\n\r\n    public void increaseQuantity(InventoryItem item)\r\n    {\r\n        item.setQuantity(item.getQuantity()+1);\r\n        updateItem(item);\r\n    }\r\n\r\n    public void decreaseQuantity(InventoryItem item)\r\n    {\r\n        item.setQuantity(item.getQuantity()-1);\r\n        updateItem(item);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryDBHelper.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryDBHelper.java	(date 1614145862488)
+@@ -2,18 +2,23 @@
+ 
+ import android.content.ContentValues;
+ import android.content.Context;
++import android.database.AbstractWindowedCursor;
+ import android.database.Cursor;
++import android.database.CursorWindow;
++import android.database.sqlite.SQLiteBlobTooBigException;
+ import android.database.sqlite.SQLiteDatabase;
+ import android.database.sqlite.SQLiteOpenHelper;
++import android.os.Build;
+ 
+ import androidx.annotation.Nullable;
++import androidx.annotation.RequiresApi;
+ 
+ import com.example.bigbusiness.Models.InventoryItem;
+ 
+ import java.util.ArrayList;
+ 
+ public class InventoryDBHelper extends SQLiteOpenHelper {
+-    public static  final  String DB_NAME = "BIGBUSINESSS";
++    public static  final  String DB_NAME = "BIGBUSINESSSS";
+     public static  final  String TABLE_NAME = "INVENTORY";
+ 
+     public InventoryDBHelper(@Nullable Context context) {
+@@ -22,7 +27,8 @@
+ 
+     @Override
+     public void onCreate(SQLiteDatabase db) {
+-       db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoiceId TEXT , name TEXT , quantity INTEGER , price INTEGER , units TEXT)");
++       db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoiceId TEXT , name TEXT , quantity INTEGER , price INTEGER , units TEXT,image BLOB)");
++       db.execSQL("CREATE TABLE "+ "INVOICE" +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, name TEXT )");
+     }
+ 
+     @Override
+@@ -43,26 +49,39 @@
+         int quantity = Integer.parseInt(cursor.getString(3));
+         int price = Integer.parseInt(cursor.getString(4));
+         String units = cursor.getString(5);
++        byte[] image = cursor.getBlob(6);
+         InventoryItem item = new InventoryItem(id, name, quantity, units, price, invoiceId);
+-        return item;
++       return item;
+     }
+ 
++    @RequiresApi(api = Build.VERSION_CODES.P)
+     public ArrayList<InventoryItem> getAllItems()
+     {
+         SQLiteDatabase db = this.getWritableDatabase();
+         String query = String.format("SELECT * FROM %s", TABLE_NAME);
+         Cursor cursor = db.rawQuery(query, null);
+         ArrayList<InventoryItem> allItems = new ArrayList<>();
++        CursorWindow cw = new CursorWindow("test", 5000);
++        AbstractWindowedCursor ac = (AbstractWindowedCursor) cursor;
++        ac.setWindow(cw);
++        try {
++            ac.moveToNext();
++            fail("Exception is expected when row exceeds CursorWindow size");
++        } catch (SQLiteBlobTooBigException expected) {
++        }
+ 
+         if(cursor.moveToFirst())
+         {
+             do{
+-                InventoryItem item = getItemFromCursor(cursor);
+-                allItems.add(item);
++               // InventoryItem item = getItemFromCursor(cursor);
++                //allItems.add(item);
+             }while(cursor.moveToNext());
+         }
+         return allItems;
+     }
++    private void fail(String s) {
++        System.out.println(s);
++    }
+ 
+     public InventoryItem getItem(int id)
+     {
+@@ -71,8 +90,8 @@
+         Cursor cursor = db.rawQuery(query, null);
+         if(cursor.moveToFirst() && cursor.getCount() == 1)
+         {
+-            InventoryItem item = getItemFromCursor(cursor);
+-            return item;
++            //InventoryItem item = getItemFromCursor(cursor);
++            //return item;
+         }
+         return null;
+     }
+@@ -85,6 +104,7 @@
+         values.put("price", item.getPrice());
+         values.put("units", item.getUnit());
+         values.put("invoiceId", item.getInvoiceId());
++       // values.put("image",item.getImage());
+         return values;
+     }
+ 
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryFBHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryFBHelper.java	(date 1614145862489)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Inventory/InventoryFBHelper.java	(date 1614145862489)
+@@ -0,0 +1,71 @@
++package com.example.bigbusiness.Main.ui.Inventory;
++
++import com.example.bigbusiness.Models.InventoryItem;
++
++import java.util.ArrayList;
++
++public class InventoryFBHelper {
++    ArrayList<InventoryItem> Items = new ArrayList<InventoryItem>();
++    private static InventoryFBHelper instance;
++
++    public InventoryFBHelper(){
++        Items.add(new InventoryItem(1, "Demo1" , 10 , "2" , 5000 , "invoiceID" ));
++        Items.add(new InventoryItem(2, "Demo2" , 15 , "3" , 7000 , "invoiceID" ));
++    }
++
++    public void addItem(InventoryItem Item){
++        Items.add(Item);
++    }
++
++    public InventoryItem createItem( String name ,int quantity, String unit, int price, String invoiceId){
++        int id  = 1110 + getItems().size() + 1 ;//getUniqueID();
++        InventoryItem item = new InventoryItem( id , name , quantity , unit , price , invoiceId );
++        return item;
++    }
++
++    public ArrayList<InventoryItem> getItems()
++    {
++        return Items;
++    }
++
++    public static InventoryFBHelper getInstance()
++    {
++        if(instance == null)
++        {
++            instance = new InventoryFBHelper();
++        }
++        return instance;
++    }
++
++    public InventoryItem deleteItem(InventoryItem Item)
++    {
++        int index = getIndex(Item);
++        if(index == -1)
++            return null;
++        InventoryItem deleteItem = Items.remove(index);
++        return deleteItem;
++    }
++
++
++    public int getIndex(InventoryItem Item)
++    {
++        int index = -1;
++        for(int i=0; i<Items.size(); i++)
++        {
++            if(Items.get(i).getItemID() == Item.getItemID())
++            {
++                index = i;
++                break;
++            }
++        }
++        return index;
++    }
++
++    public boolean updateItem(InventoryItem Item)
++    {
++        int index = getIndex(Item);
++        Items.remove(Item);
++        Items.add(index, Item);
++        return true;
++    }
++}
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/AddInvoice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/AddInvoice.java	(date 1614145862492)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/AddInvoice.java	(date 1614145862492)
+@@ -0,0 +1,51 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.app.AlertDialog;
++import android.app.Dialog;
++import android.content.DialogInterface;
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.widget.TextView;
++
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDialogFragment;
++
++import com.example.bigbusiness.Models.AddInvoiceDataItem;
++import com.example.bigbusiness.R;
++import com.google.android.material.textfield.TextInputEditText;
++
++import org.w3c.dom.Text;
++
++import java.util.ArrayList;
++
++public class AddInvoice extends AppCompatDialogFragment {
++    private ArrayList<AddInvoiceDataItem> datalist;
++    TextInputEditText nameinput;
++    TextView pdfname;
++
++    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
++        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
++
++        LayoutInflater inflater = getActivity().getLayoutInflater();
++        View view = inflater.inflate(R.layout.add_invoicedialog, null);
++        nameinput = (TextInputEditText)view.findViewById(R.id.name);
++        pdfname = (TextView)view.findViewById(R.id.pdfname);
++        builder.setView(view);
++        builder.setTitle("Add Invoice")
++        .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
++            @Override
++            public void onClick(DialogInterface dialogInterface, int i) {
++
++                String getName = nameinput.getText().toString();
++                String getPdfName = pdfname.getText().toString();
++                datalist = new ArrayList<>();
++                datalist.add(new AddInvoiceDataItem(getName,getPdfName));
++                //datalist.add(new AddInvoiceDataItem(1,"vdfv.pfd",null));
++                //datalist.add(new AddInvoiceDataItem(2,"fdcd.pfd",null));
++                //datalist.add(new AddInvoiceDataItem(3,"dcds.pfd",null));
++            }
++        });
++        return builder.create();
++    }
++}
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/GenerateInvoice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/GenerateInvoice.java	(date 1614145862493)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/GenerateInvoice.java	(date 1614145862493)
+@@ -0,0 +1,34 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.app.AlertDialog;
++import android.app.Dialog;
++import android.content.DialogInterface;
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDialogFragment;
++
++import com.example.bigbusiness.R;
++
++public class GenerateInvoice extends AppCompatDialogFragment {
++
++    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
++        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
++
++        LayoutInflater inflater = getActivity().getLayoutInflater();
++        View view = inflater.inflate(R.layout.generate_invoicedialog, null);
++        builder.setView(view);
++        builder.setTitle("Add Invoice")
++        .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
++            @Override
++            public void onClick(DialogInterface dialogInterface, int i) {
++
++            }
++        });
++
++        return builder.create();
++    }
++
++}
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDBHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDBHelper.java	(date 1614145862495)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDBHelper.java	(date 1614145862495)
+@@ -0,0 +1,122 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.content.ContentValues;
++import android.content.Context;
++import android.database.Cursor;
++import android.database.sqlite.SQLiteDatabase;
++import android.database.sqlite.SQLiteOpenHelper;
++
++import androidx.annotation.Nullable;
++
++import com.example.bigbusiness.Models.InventoryItem;
++import com.example.bigbusiness.Models.InvoiceItem;
++
++import java.util.ArrayList;
++
++public class InvoiceDBHelper extends SQLiteOpenHelper {
++    public static final String DB_NAME = "BIGBUSINESSS";
++    public static final String TABLE_NAME = "INVOICE";
++
++    public InvoiceDBHelper(@Nullable Context context) {
++        super(context, DB_NAME, null, 1);
++    }
++
++    @Override
++    public void onCreate(SQLiteDatabase db) {
++        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, name TEXT )");
++    }
++
++    @Override
++    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
++        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
++        onCreate(db);
++    }
++
++    public InvoiceItem getItemFromCursor(Cursor cursor)
++    {
++        if(cursor == null)
++        {
++            return null;
++        }
++        int id = Integer.parseInt(cursor.getString(0));
++        String name = cursor.getString(1);
++        InvoiceItem item = new InvoiceItem(id, name);
++        return item;
++    }
++
++    public ArrayList<InvoiceItem> getAllItems()
++    {
++        SQLiteDatabase db = this.getWritableDatabase();
++        String query = String.format("SELECT * FROM %s", TABLE_NAME);
++        Cursor cursor = db.rawQuery(query, null);
++        ArrayList<InvoiceItem> allItems = new ArrayList<>();
++
++        if(cursor.moveToFirst())
++        {
++            do{
++                InvoiceItem item = getItemFromCursor(cursor);
++                allItems.add(item);
++            }while(cursor.moveToNext());
++        }
++        return allItems;
++    }
++
++    public InvoiceItem getItem(int id)
++    {
++        SQLiteDatabase db = this.getWritableDatabase();
++        String query = String.format("SELECT * FROM %s WHERE id=%d", TABLE_NAME,id);
++        Cursor cursor = db.rawQuery(query, null);
++        if(cursor.moveToFirst() && cursor.getCount() == 1)
++        {
++            InvoiceItem item = getItemFromCursor(cursor);
++            return item;
++        }
++        return null;
++    }
++
++    public ContentValues getContentValues(InvoiceItem item)
++    {
++        ContentValues values = new ContentValues();
++        values.put("name", item.getName());
++        return values;
++    }
++
++    public boolean addItem(InvoiceItem item)
++    {
++        SQLiteDatabase db = this.getWritableDatabase();
++
++        ContentValues values = getContentValues(item);
++        // Inserting Row
++        if(db.insert(TABLE_NAME, null, values) == -1)
++        {
++            return false;
++        }
++        return true;
++    }
++
++    public boolean deleteItem(InventoryItem item)
++    {
++        SQLiteDatabase db = this.getWritableDatabase();
++        int success = db.delete(TABLE_NAME, "ID = ?", new String[] {String.valueOf(item.getItemID())});
++
++        if(success > 0)
++            return true;
++        else
++            return false;
++    }
++
++    public boolean updateItem(InvoiceItem item)
++    {
++        SQLiteDatabase db = this.getWritableDatabase();
++
++        ContentValues values = getContentValues(item);
++        // updating row
++        int success = db.update(TABLE_NAME, values,  "ID"+ " = ?",
++                new String[] { String.valueOf(item.getId()) });
++        if(success > 0)
++            return true;
++        else
++            return false;
++    }
++
++}
+Index: app/src/main/java/com/example/bigbusiness/sqldbhelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness;\r\n\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.DatabaseErrorHandler;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.database.sqlite.SQLiteOpenHelper;\r\nimport android.util.Log;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\n\r\npublic class sqldbhelper extends SQLiteOpenHelper {\r\n\r\n    public static  final  String DB_NAME = \"INVOICE.db\";\r\n    public static  final  String TABLE_NAME = \"invoice\";\r\n    public static  final  String TABLE_ID = \"ID\";\r\n    public static  final  String INVOICENAME = \"invoicename\";\r\n    public static  final  String BIZ_NAME_COL = \"biz_name\";\r\n    public static  final  String DATE_DAY_TIME = \"DATE_DAY_TIME\";\r\n    public static  final  String PRODUCT_NAME = \"PRODUCT_NAME\";\r\n    public static  final  String QUANTITY = \"QUANTITY\";\r\n    public static  final  String AMOUNT = \"AMOUNT\";\r\n    public static  final  String TOTAL = \"TOTAL\";\r\n    public static  final  String PDF = \"PDF\";\r\n\r\n\r\n\r\n    public sqldbhelper(@Nullable Context context) {\r\n        super(context, DB_NAME, null, 1);\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onCreate(SQLiteDatabase db) {\r\n        db.execSQL(\"CREATE TABLE \"+ TABLE_NAME +\" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )\");\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {\r\n        db.execSQL(\"DROP TABLE IF EXISTS \"+TABLE_NAME);\r\n        onCreate(db);\r\n\r\n    }\r\n\r\n\r\n\r\n    public boolean insertdata(String invoicename,String biz_name,String datedaytime,String product,Integer qty,String amt,String total,String pdf){\r\n\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        ContentValues contentValues=new ContentValues();\r\n                        contentValues.put(INVOICENAME,invoicename);\r\n                        contentValues.put(BIZ_NAME_COL,biz_name);\r\n                        contentValues.put(DATE_DAY_TIME,datedaytime);\r\n                        contentValues.put(PRODUCT_NAME,product);\r\n                        contentValues.put(QUANTITY,qty);\r\n                        contentValues.put(AMOUNT,amt);\r\n                        contentValues.put(TOTAL,total);\r\n                        contentValues.put(PDF,pdf);\r\n\r\n\r\n        long r= db.insert(TABLE_NAME,null,contentValues);\r\n\r\n       if (r == -1) {\r\n           return false;\r\n       }else{\r\n           return true;\r\n       }\r\n\r\n    }\r\n\r\n    public  Cursor  getdata(){\r\n        SQLiteDatabase db = this.getWritableDatabase();\r\n        Cursor cursor = db.rawQuery(\"select * from \"+TABLE_NAME,null);\r\n        return cursor;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/sqldbhelper.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/sqldbhelper.java	(date 1614145862513)
+@@ -34,7 +34,9 @@
+ 
+     @Override
+     public void onCreate(SQLiteDatabase db) {
+-        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )");
++        db.execSQL("CREATE TABLE "+ TABLE_NAME +" (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,invoicename TEXT, biz_name TEXT , DATE_DAY_TIME TEXT , PRODUCT_NAME TEXT , QUANTITY INTEGER , AMOUNT TEXT , TOTAL TEXT , PDF TEXT )"
++        );
++
+ 
+     }
+ 
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDialog.java	(date 1614145862497)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceDialog.java	(date 1614145862497)
+@@ -0,0 +1,54 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.app.AlertDialog;
++import android.app.Dialog;
++import android.content.DialogInterface;
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.widget.Button;
++
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatDialogFragment;
++import androidx.fragment.app.FragmentManager;
++
++import com.example.bigbusiness.R;
++
++public class InvoiceDialog extends AppCompatDialogFragment {
++
++    Button addFromDeviceButton, generateInvoice;
++    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
++        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
++
++        LayoutInflater inflater = getActivity().getLayoutInflater();
++        View view = inflater.inflate(R.layout.invoicedialog, null);
++        builder.setView(view)
++        .setPositiveButton("ADD FROM DEVICE", new DialogInterface.OnClickListener() {
++            @Override
++            public void onClick(DialogInterface dialogInterface, int i) {
++
++                openAddDialog();
++            }
++
++            private void openAddDialog() {
++                AddInvoice addInvoicedialog = new AddInvoice();
++                addInvoicedialog.show(getParentFragmentManager(),"Add invoice dialog");
++            }
++        })
++
++                .setNegativeButton("GENERATE INVOICE", new DialogInterface.OnClickListener() {
++                    @Override
++                    public void onClick(DialogInterface dialogInterface, int i) {
++                        openGenrateDialog();
++                    }
++
++                    private void openGenrateDialog() {
++                        GenerateInvoice genrateInvoicedialog = new GenerateInvoice();
++                        genrateInvoicedialog.show(getParentFragmentManager(),"genrate invoice dialog");
++                    }
++                });
++        return builder.create();
++
++    }
++
++}
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManager.java	(date 1614145862502)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManager.java	(date 1614145862502)
+@@ -0,0 +1,32 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import com.example.bigbusiness.Main.ui.Inventory.InventoryDBHelper;
++import com.example.bigbusiness.Models.InventoryItem;
++import com.example.bigbusiness.Models.InvoiceItem;
++
++import java.util.ArrayList;
++import java.util.LinkedHashMap;
++
++public class InvoiceManager {
++
++    LinkedHashMap<String, InvoiceItem> invoiceItems = new LinkedHashMap<>();
++    InvoiceDBHelper invoiceDBHelper;
++    public InvoiceManager(InvoiceDBHelper invoiceDBHelper) {
++        this.invoiceDBHelper = invoiceDBHelper;
++        addItem(new InvoiceItem(1, "prod1"));
++        addItem(new InvoiceItem(2,"prod2"));
++        addItem(new InvoiceItem(3, "prod3"));
++    }
++
++    public void addItem(InvoiceItem item)
++    {
++        if(this.invoiceDBHelper.addItem(item))
++        {
++            String success = "yeahh";
++        }
++    }
++
++    public ArrayList<InvoiceItem> getInvoiceItems() {
++        return this.invoiceDBHelper.getAllItems();
++    }
++}
+Index: app/src/main/res/layout/activity_inventory.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".Activities.MainActivity\">\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/pdflayout\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:orientation=\"vertical\"\r\n        android:visibility=\"gone\">\r\n\r\n        <Button\r\n            android:id=\"@+id/backdl\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"back\" />\r\n\r\n        <com.github.barteksc.pdfviewer.PDFView\r\n            android:id=\"@+id/pdfview\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"550dp\"\r\n            android:background=\"@color/blue\" />\r\n\r\n        <Button\r\n            android:id=\"@+id/DLbtn\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"download\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/pdflistscreen\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:visibility=\"visible\">\r\n        <!--\t<LinearLayout\r\n                android:id=\"@+id/linearLayout1\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_alignParentLeft=\"true\"\r\n                android:layout_alignParentTop=\"true\"\r\n                android:orientation=\"horizontal\" >\r\n                <Button\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:id=\"@+id/demo\"\r\n                    android:text=\"screen2\"/>\r\n                <Button\r\n                    android:id=\"@+id/screen3\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:height=\"50dp\"\r\n                    android:text=\"Screen3\" />\r\n            </LinearLayout> -->\r\n        <!-- search bar starts-->\r\n        <com.google.android.material.appbar.AppBarLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:theme=\"@style/Theme.BigBusiness.AppBarOverlay\"\r\n            tools:ignore=\"MissingConstraints\"\r\n            android:id=\"@+id/heading\"\r\n            android:background=\"@color/colorPrimary\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/title\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:gravity=\"center\"\r\n                android:background=\"@color/colorPrimary\"\r\n                android:textColor=\"@color/white\"\r\n                android:minHeight=\"?actionBarSize\"\r\n                android:padding=\"@dimen/appbar_padding\"\r\n                android:text=\"@string/HomeHeader\"\r\n                android:textAppearance=\"@style/TextAppearance.Widget.AppCompat.Toolbar.Title\" />\r\n\r\n        </com.google.android.material.appbar.AppBarLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"#DCDCDC\"\r\n            android:padding=\"7dp\"\r\n            android:weightSum=\"1.0\">\r\n\r\n            <SearchView\r\n                android:id=\"@+id/inventorySearchBar\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"35dp\"\r\n                android:layout_weight=\".5\"\r\n                android:background=\"#fff\" />\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"35dp\"\r\n                android:layout_weight=\".5\">\r\n\r\n                <Button\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_weight=\".2\"\r\n                    android:background=\"#fff\"\r\n                    android:shadowColor=\"#000\"\r\n                    android:text=\"Sort\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"10dp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <Button\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_weight=\".2\"\r\n                    android:background=\"#fff\"\r\n                    android:shadowColor=\"#000\"\r\n                    android:text=\"Filter\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"10dp\"\r\n                    android:textStyle=\"bold\" />\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n        <!-- search bar ends-->\r\n        <!-- add items starts-->\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"5.0\">\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"2\">\r\n\r\n                <CheckBox\r\n                    android:id=\"@+id/checkbox_meat\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_weight=\"0.05\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/selectall\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"2dp\"\r\n                    android:layout_marginTop=\"12dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:text=\"SELECT ALL\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"15dp\"\r\n                    android:textStyle=\"bold\" />\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"2.5\"\r\n                android:padding=\"7dp\">\r\n\r\n                <Button\r\n                    android:id=\"@+id/refreshbutton\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_weight=\"1\"\r\n                    android:text=\"Refresh\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"5dp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <Button\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:text=\"Delete\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"5dp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <Button\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:text=\"Cancel\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"5dp\"\r\n                    android:textStyle=\"bold\" />\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n        <!--<LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"3.0\">\r\n            <CheckBox android:id=\"@+id/checkbox_meat\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_weight=\"0.05\"\r\n                />\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"1\"\r\n                android:hint=\"add item quantity\"\r\n                android:textColorHint=\"#A9A9A9\"\r\n                />\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_weight=\"2.0\">\r\n            <Button\r\n                android:id=\"@+id/decrease\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_weight=\"0.2\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:onClick=\"@+id/decreaseInteger\"\r\n                android:text=\"-\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/item_name\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_weight=\"0.3\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"0\"\r\n                android:textAlignment=\"center\"\r\n                android:textStyle=\"bold\"\r\n                />\r\n\r\n            <Button\r\n                android:id=\"@+id/increase\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_weight=\"0.2\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:onClick=\"@+id/increaseInteger\"\r\n                android:text=\"+\" />\r\n        </LinearLayout>\r\n\r\n    </LinearLayout> -->\r\n\r\n        <!-- Item list starts-->\r\n\r\n        <!-- Item list ends -->\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"460dp\"\r\n        android:background=\"#f9f9f9\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_gravity=\"center\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/inventory_list\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                tools:listitem=\"@layout/inventory_list_item\" />\r\n        </LinearLayout>\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dip\"\r\n        android:layout_weight=\"1\"\r\n        android:gravity=\"center\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <Button\r\n            android:id=\"@+id/additem\"\r\n            android:layout_width=\"100dp\"\r\n            android:layout_height=\"70dp\"\r\n            android:layout_gravity=\"center_horizontal|center\"\r\n            android:background=\"@drawable/pluss\"\r\n\r\n            />\r\n    </LinearLayout>\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_inventory.xml	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/res/layout/activity_inventory.xml	(date 1614145862520)
+@@ -280,7 +280,7 @@
+             android:layout_width="100dp"
+             android:layout_height="70dp"
+             android:layout_gravity="center_horizontal|center"
+-            android:background="@drawable/pluss"
++            android:background="@drawable/plusicon"
+ 
+             />
+     </LinearLayout>
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceListAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceListAdapter.java	(date 1614145862499)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceListAdapter.java	(date 1614145862499)
+@@ -0,0 +1,57 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
++import com.example.bigbusiness.Models.InvoiceItem;
++import com.example.bigbusiness.R;
++
++import java.util.ArrayList;
++
++public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.ViewHolder> {
++
++        InvoiceManager inventoryManager;
++        ArrayList<InvoiceItem> invoiceItemsList;
++        InvoiceManagement invoice;
++        Context context;
++
++        public InvoiceListAdapter(Context context, InvoiceManagement invoice, InvoiceManager invoiceManager) {
++            this.inventoryManager = invoiceManager;
++        this.invoiceItemsList = this.inventoryManager.getInvoiceItems();
++        this.invoice = invoice;
++        this.context = context;
++        }
++    @NonNull
++    @Override
++    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoice_list_item, parent, false);
++        return new ViewHolder(view);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
++        InvoiceItem itemClicked = this.invoiceItemsList.get(position);
++        holder.pdf_name.setText(itemClicked.getName());
++    }
++
++
++    @Override
++    public int getItemCount() {
++        return this.invoiceItemsList.size();
++    }
++
++    public class ViewHolder extends RecyclerView.ViewHolder {
++            TextView pdf_name;
++        public ViewHolder(@NonNull View itemView) {
++            super(itemView);
++            pdf_name = (TextView) itemView.findViewById(R.id.invoicepdf_name);
++        }
++    }
++}
+Index: app/src/main/java/com/example/bigbusiness/Models/InventoryItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Models;\r\n\r\nimport java.io.Serializable;\r\n\r\npublic class InventoryItem implements Serializable {\r\n    static int id=0;\r\n\r\n    int item_ID;\r\n    String name;\r\n    String unit;\r\n    int quantity;\r\n    int price;\r\n    int totalprice;\r\n    String invoiceId;\r\n\r\n    public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId){\r\n//        this.item_ID = id ++;\r\n        this.item_ID = id;\r\n        this.name = name;\r\n        this.quantity = quantity;\r\n        this.unit = unit;\r\n        this.price = price;\r\n        this.totalprice = price * quantity;\r\n        this.invoiceId = invoiceId;\r\n    }\r\n\r\n    public int getQuantity() {\r\n        return this.quantity;\r\n    }\r\n\r\n    public void setQuantity(int quantity) {\r\n        this.quantity = quantity;\r\n    }\r\n\r\n    public int getItemID() {\r\n        return this.item_ID;\r\n    }\r\n\r\n    public String getName() {\r\n        return this.name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public String getUnit() {\r\n        return unit;\r\n    }\r\n\r\n    public void setUnit(String unit) {\r\n        this.unit = unit;\r\n\r\n    }\r\n\r\n    public int getPrice() {\r\n        return this.price;\r\n    }\r\n\r\n    public void setPrice(int price) {\r\n        this.price = price;\r\n    }\r\n\r\n    public String getInvoiceId()\r\n    {\r\n        return this.invoiceId;\r\n    }\r\n\r\n    public void setInvoiceId(String invoiceId)\r\n    {\r\n        this.invoiceId = invoiceId;\r\n    }\r\n//\r\n//    public String getTotalprice() {\r\n//        return totalprice;\r\n//    }\r\n//\r\n//    public void setTotalprice(String totalprice) {\r\n//        this.totalprice = totalprice;\r\n//    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Models/InventoryItem.java	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/java/com/example/bigbusiness/Models/InventoryItem.java	(date 1614145862509)
+@@ -12,6 +12,7 @@
+     int price;
+     int totalprice;
+     String invoiceId;
++   // byte[] image;
+ 
+     public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId){
+ //        this.item_ID = id ++;
+@@ -22,6 +23,7 @@
+         this.price = price;
+         this.totalprice = price * quantity;
+         this.invoiceId = invoiceId;
++        //this.image = image;
+     }
+ 
+     public int getQuantity() {
+@@ -36,6 +38,10 @@
+         return this.item_ID;
+     }
+ 
++    public void setItem_ID(int item_ID) {
++        this.item_ID = item_ID;
++    }
++
+     public String getName() {
+         return this.name;
+     }
+@@ -70,6 +76,14 @@
+     {
+         this.invoiceId = invoiceId;
+     }
++
++//    public byte[] getImage() {
++//        return image;
++//    }
++//
++//    public void setImage(byte[] image) {
++//        this.image = image;
++//    }
+ //
+ //    public String getTotalprice() {
+ //        return totalprice;
+Index: app/src/main/res/layout/activity_add_inventory.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n\txmlns:tools=\"http://schemas.android.com/tools\"\r\n\tandroid:layout_height=\"fill_parent\"\r\n\tandroid:background=\"#fff\"\r\n\tandroid:backgroundTint=\"#fff\"\r\n\tandroid:layout_width=\"match_parent\"\r\n\txmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n\tandroid:orientation=\"horizontal\">\r\n\t<LinearLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:orientation=\"vertical\"\r\n\t\t\tandroid:layout_gravity=\"center\"\r\n\t\t\tandroid:layout_marginTop=\"30dp\"\r\n\t\t\tandroid:layout_height=\"match_parent\"\r\n\t\t\ttools:ignore=\"MissingConstraints\">\r\n\t\t<com.google.android.material.textfield.TextInputLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\tapp:boxStrokeColor=\"@color/teal_200\"\r\n\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\tandroid:layout_marginBottom=\"16dp\">\r\n\t\t\t\r\n\t\t\t<com.google.android.material.textfield.TextInputEditText\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:hint=\"Enter Product Name\"\r\n\t\t\t\tandroid:id=\"@+id/itemname\"\r\n\t\t\t\tandroid:textColorHint=\"@color/teal_200\"\r\n\t\t\t\tandroid:inputType=\"textCapWords\"\r\n\t\t\t\tandroid:paddingStart=\"8dp\"\r\n\t\t\t\tandroid:paddingEnd=\"8dp\"\r\n\t\t\t\tandroid:textSize=\"18sp\" />\r\n\t\t</com.google.android.material.textfield.TextInputLayout>\r\n\t\t\t<LinearLayout\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:orientation=\"vertical\">\r\n\t\t\t\t\r\n\t\t\t\t<com.google.android.material.textfield.TextInputLayout\r\n\t\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\t\tapp:boxStrokeColor=\"@color/teal_200\"\r\n\t\t\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\t\t\tandroid:layout_marginBottom=\"16dp\">\r\n\t\t\t\t\t\r\n\t\t\t\t\t<com.google.android.material.textfield.TextInputEditText\r\n\t\t\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\t\t\tandroid:hint=\"Enter Quantity of the Product\"\r\n\t\t\t\t\t\tandroid:id=\"@+id/Quantity\"\r\n\t\t\t\t\t\tandroid:inputType=\"textCapWords\"\r\n\t\t\t\t\t\tandroid:paddingStart=\"8dp\"\r\n\t\t\t\t\t\tandroid:paddingEnd=\"8dp\"\r\n\t\t\t\t\t\tandroid:textSize=\"18sp\" />\r\n\t\t\t\t</com.google.android.material.textfield.TextInputLayout>\r\n\t\t\t\t\r\n\t\t\t</LinearLayout>\r\n\t\t<LinearLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\tandroid:weightSum=\"1.0\"\r\n\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\tandroid:layout_marginBottom=\"16dp\"\r\n\t\t\tandroid:orientation=\"vertical\">\r\n\t\t\t\r\n\t\t\t<Spinner\r\n\t\t\t\tandroid:id=\"@+id/unitspinner\"\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:entries=\"@array/item_unit_arrays\"\r\n\t\t\t\tandroid:prompt=\"@string/item_prompt\" />\r\n\t\t\t\r\n\t\t\t\r\n\t\t</LinearLayout>\r\n\t\t\r\n\t\t<LinearLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\tandroid:weightSum=\"1.0\"\r\n\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\tandroid:layout_marginBottom=\"16dp\"\r\n\t\t\tandroid:orientation=\"vertical\">\r\n\t\t\t\r\n\t\t\t<com.google.android.material.textfield.TextInputLayout\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\t\tapp:boxStrokeColor=\"@color/teal_200\"\r\n\t\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\t\tandroid:layout_marginBottom=\"16dp\">\r\n\t\t\t\r\n\t\t\t<com.google.android.material.textfield.TextInputEditText\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:hint=\"Enter units per product\"\r\n\t\t\t\tandroid:id=\"@+id/units\"\r\n\t\t\t\tandroid:inputType=\"textCapWords\"\r\n\t\t\t\tandroid:paddingStart=\"8dp\"\r\n\t\t\t\tandroid:paddingEnd=\"8dp\"\r\n\t\t\t\tandroid:textSize=\"18sp\" />\r\n\t\t\t</com.google.android.material.textfield.TextInputLayout>\r\n\t\t\r\n\t\t</LinearLayout>\r\n\t\t\r\n\t\t\t<LinearLayout\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:weightSum=\"1.0\"\r\n\t\t\t\tandroid:orientation=\"vertical\">\r\n\t\t\t\t\r\n\t\t\t\t<com.google.android.material.textfield.TextInputLayout\r\n\t\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\t\tandroid:layout_marginStart=\"16dp\"\r\n\t\t\t\t\tapp:boxStrokeColor=\"@color/teal_200\"\r\n\t\t\t\t\tandroid:layout_marginEnd=\"16dp\"\r\n\t\t\t\t\tandroid:layout_marginBottom=\"16dp\">\r\n\t\t\t\t\t\r\n\t\t\t\t\t<com.google.android.material.textfield.TextInputEditText\r\n\t\t\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\t\t\tandroid:hint=\"Enter Price of the Product\"\r\n\t\t\t\t\t\tandroid:id=\"@+id/price\"\r\n\t\t\t\t\t\tandroid:inputType=\"textCapWords\"\r\n\t\t\t\t\t\tandroid:paddingStart=\"8dp\"\r\n\t\t\t\t\t\tandroid:paddingEnd=\"8dp\"\r\n\t\t\t\t\t\tandroid:textSize=\"18sp\" />\r\n\t\t\t\t</com.google.android.material.textfield.TextInputLayout>\r\n\t\t\t\t\r\n\t\t\t</LinearLayout>\r\n\t\t\r\n\t\t<LinearLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:layout_height=\"60dp\"\r\n\t\t\tandroid:layout_weight=\"2.5\">\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t<Button\r\n\t\t\t\tandroid:id=\"@+id/uploaditempicture\"\r\n\t\t\t\tandroid:layout_width=\"wrap_content\"\r\n\t\t\t\tandroid:layout_weight=\"0\"\r\n\t\t\t\tandroid:layout_height=\"60dp\"\r\n\t\t\t\tandroid:text=\"ADD PICTURE\"\r\n\t\t\t\tandroid:textStyle=\"bold\"\r\n\t\t\t\tandroid:layout_marginLeft=\"20dp\"\r\n\t\t\t\tandroid:textColor=\"@color/white\"\r\n\t\t\t\t/>\r\n\t\t\t\r\n\t\t\t<TextView\r\n\t\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:layout_weight=\"2.5\"\r\n\t\t\t\tandroid:layout_marginLeft=\"20dp\"\r\n\t\t\t\tandroid:id=\"@+id/picturename\"\r\n\t\t\t\tandroid:text=\"  upload item picture\"/>\r\n\t\t\r\n\t\t</LinearLayout>\r\n\t\t\t<LinearLayout\r\n\t\t\tandroid:layout_width=\"match_parent\"\r\n\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\tandroid:padding=\"20dp\"\r\n\t\t\tandroid:layout_weight=\"2.5\"\r\n\t\t\t>\r\n\t\t\t<Button\r\n\t\t\t\tandroid:layout_width=\"0dp\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:layout_weight=\"1\"\r\n\t\t\t\tandroid:id=\"@+id/save\"\r\n\t\t\t\tandroid:text=\"Save\"\r\n\t\t\t\t/>\r\n\t\t\t<Button\r\n\t\t\t\tandroid:layout_width=\"0dp\"\r\n\t\t\t\tandroid:layout_height=\"wrap_content\"\r\n\t\t\t\tandroid:layout_marginLeft=\"20dp\"\r\n\t\t\t\tandroid:id=\"@+id/cancel\"\r\n\t\t\t\tandroid:layout_weight=\"1\"\r\n\t\t\t\tandroid:text=\"Cancel\"/>\r\n\t\t</LinearLayout>\r\n\t\t\r\n\t\t</LinearLayout>\r\n\t\r\n\t\t\r\n\t</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_add_inventory.xml	(revision 5498e2523afb718018ee423306e8bc0d82723b9e)
++++ app/src/main/res/layout/activity_add_inventory.xml	(date 1614145862518)
+@@ -8,12 +8,12 @@
+ 	xmlns:android="http://schemas.android.com/apk/res/android"
+ 	android:orientation="horizontal">
+ 	<LinearLayout
+-			android:layout_width="match_parent"
+-			android:orientation="vertical"
+-			android:layout_gravity="center"
+-			android:layout_marginTop="30dp"
+-			android:layout_height="match_parent"
+-			tools:ignore="MissingConstraints">
++		android:layout_width="match_parent"
++		android:orientation="vertical"
++		android:layout_gravity="center"
++		android:layout_marginTop="30dp"
++		android:layout_height="match_parent"
++		tools:ignore="MissingConstraints">
+ 		<com.google.android.material.textfield.TextInputLayout
+ 			android:layout_width="match_parent"
+ 			android:layout_height="wrap_content"
+@@ -33,106 +33,94 @@
+ 				android:paddingEnd="8dp"
+ 				android:textSize="18sp" />
+ 		</com.google.android.material.textfield.TextInputLayout>
+-			<LinearLayout
+-				android:layout_width="match_parent"
+-				android:layout_height="wrap_content"
+-				android:orientation="vertical">
+-				
+-				<com.google.android.material.textfield.TextInputLayout
+-					android:layout_width="match_parent"
+-					android:layout_height="wrap_content"
+-					app:boxStrokeColor="@color/teal_200"
+-					android:layout_marginStart="16dp"
+-					android:layout_marginEnd="16dp"
+-					android:layout_marginBottom="16dp">
+-					
+-					<com.google.android.material.textfield.TextInputEditText
+-						android:layout_width="match_parent"
+-						android:layout_height="wrap_content"
+-						android:hint="Enter Quantity of the Product"
+-						android:id="@+id/Quantity"
+-						android:inputType="textCapWords"
+-						android:paddingStart="8dp"
+-						android:paddingEnd="8dp"
+-						android:textSize="18sp" />
+-				</com.google.android.material.textfield.TextInputLayout>
+-				
+-			</LinearLayout>
+-		<LinearLayout
+-			android:layout_width="match_parent"
+-			android:layout_height="wrap_content"
+-			android:weightSum="1.0"
+-			android:layout_marginStart="16dp"
+-			android:layout_marginEnd="16dp"
+-			android:layout_marginBottom="16dp"
+-			android:orientation="vertical">
+-			
+-			<Spinner
+-				android:id="@+id/unitspinner"
+-				android:layout_width="match_parent"
+-				android:layout_height="wrap_content"
+-				android:entries="@array/item_unit_arrays"
+-				android:prompt="@string/item_prompt" />
+-			
+-			
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:orientation="vertical"
++			>
++			
++			<com.google.android.material.textfield.TextInputLayout
++				android:layout_width="match_parent"
++				android:layout_height="wrap_content"
++				app:boxStrokeColor="@color/teal_200"
++				android:layout_marginStart="16dp"
++				android:layout_marginEnd="16dp"
++				android:layout_marginBottom="16dp">
++				
++				<com.google.android.material.textfield.TextInputEditText
++					android:layout_width="match_parent"
++					android:layout_height="wrap_content"
++					android:hint="Enter Quantity of the Product"
++					android:id="@+id/Quantity"
++					android:inputType="textCapWords"
++					android:paddingStart="8dp"
++					android:paddingEnd="8dp"
++					android:textSize="18sp" />
++			</com.google.android.material.textfield.TextInputLayout>
++		
+ 		</LinearLayout>
+-		
+ 		<LinearLayout
+ 			android:layout_width="match_parent"
+ 			android:layout_height="wrap_content"
+ 			android:weightSum="1.0"
+-			android:layout_marginStart="16dp"
+-			android:layout_marginEnd="16dp"
+-			android:layout_marginBottom="16dp"
+-			android:orientation="vertical">
++			android:orientation="horizontal">
+ 			
+ 			<com.google.android.material.textfield.TextInputLayout
+ 				android:layout_width="match_parent"
+ 				android:layout_height="wrap_content"
+ 				android:layout_marginStart="16dp"
+ 				app:boxStrokeColor="@color/teal_200"
++				android:layout_weight="0.5"
+ 				android:layout_marginEnd="16dp"
+ 				android:layout_marginBottom="16dp">
+-			
+-			<com.google.android.material.textfield.TextInputEditText
+-				android:layout_width="match_parent"
+-				android:layout_height="wrap_content"
+-				android:hint="Enter units per product"
+-				android:id="@+id/units"
+-				android:inputType="textCapWords"
+-				android:paddingStart="8dp"
+-				android:paddingEnd="8dp"
+-				android:textSize="18sp" />
++				
++				<com.google.android.material.textfield.TextInputEditText
++					android:id="@+id/units"
++					android:layout_width="match_parent"
++					android:layout_height="match_parent"
++					android:hint="Enter units per product"
++					android:inputType="textCapWords"
++					android:paddingStart="8dp"
++					android:paddingEnd="8dp"
++					android:textSize="18sp" />
+ 			</com.google.android.material.textfield.TextInputLayout>
++			
++			<Spinner
++				android:id="@+id/unitspinner"
++				android:layout_width="match_parent"
++				android:layout_height="match_parent"
++				android:textSize="10sp"
++				android:entries="@array/item_unit_arrays"
++				android:prompt="@string/item_prompt" />
+ 		
+ 		</LinearLayout>
+ 		
+-			<LinearLayout
+-				android:layout_width="match_parent"
+-				android:layout_height="wrap_content"
+-				android:weightSum="1.0"
+-				android:orientation="vertical">
+-				
+-				<com.google.android.material.textfield.TextInputLayout
+-					android:layout_width="match_parent"
+-					android:layout_height="wrap_content"
+-					android:layout_marginStart="16dp"
+-					app:boxStrokeColor="@color/teal_200"
+-					android:layout_marginEnd="16dp"
+-					android:layout_marginBottom="16dp">
+-					
+-					<com.google.android.material.textfield.TextInputEditText
+-						android:layout_width="match_parent"
+-						android:layout_height="wrap_content"
+-						android:hint="Enter Price of the Product"
+-						android:id="@+id/price"
+-						android:inputType="textCapWords"
+-						android:paddingStart="8dp"
+-						android:paddingEnd="8dp"
+-						android:textSize="18sp" />
+-				</com.google.android.material.textfield.TextInputLayout>
+-				
+-			</LinearLayout>
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:weightSum="1.0"
++			android:orientation="vertical">
++			
++			<com.google.android.material.textfield.TextInputLayout
++				android:layout_width="match_parent"
++				android:layout_height="wrap_content"
++				android:layout_marginStart="16dp"
++				app:boxStrokeColor="@color/teal_200"
++				android:layout_marginEnd="16dp"
++				android:layout_marginBottom="16dp">
++				
++				<com.google.android.material.textfield.TextInputEditText
++					android:layout_width="match_parent"
++					android:layout_height="wrap_content"
++					android:hint="Enter Price of the Product"
++					android:id="@+id/price"
++					android:inputType="textCapWords"
++					android:paddingStart="8dp"
++					android:paddingEnd="8dp"
++					android:textSize="18sp" />
++			</com.google.android.material.textfield.TextInputLayout>
++		
++		</LinearLayout>
+ 		
+ 		<LinearLayout
+ 			android:layout_width="match_parent"
+@@ -151,16 +139,18 @@
+ 				android:textColor="@color/white"
+ 				/>
+ 			
+-			<TextView
+-				android:layout_width="match_parent"
++			
++			<ImageView
++				android:id="@+id/imageView2"
++				android:layout_width="wrap_content"
+ 				android:layout_height="wrap_content"
+-				android:layout_weight="2.5"
+-				android:layout_marginLeft="20dp"
+-				android:id="@+id/picturename"
+-				android:text="  upload item picture"/>
++				android:layout_marginLeft="50dp"
++				android:layout_weight="0"
++				tools:srcCompat="@drawable/pp" />
+ 		
+ 		</LinearLayout>
+-			<LinearLayout
++		
++		<LinearLayout
+ 			android:layout_width="match_parent"
+ 			android:layout_height="wrap_content"
+ 			android:padding="20dp"
+@@ -181,8 +171,8 @@
+ 				android:layout_weight="1"
+ 				android:text="Cancel"/>
+ 		</LinearLayout>
+-		
+-		</LinearLayout>
+-	
+-		
+-	</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
++	
++	</LinearLayout>
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManagement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManagement.java	(date 1614145862501)
++++ app/src/main/java/com/example/bigbusiness/Main/ui/Invoice/InvoiceManagement.java	(date 1614145862501)
+@@ -0,0 +1,61 @@
++package com.example.bigbusiness.Main.ui.Invoice;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.RecyclerView;
++import androidx.recyclerview.widget.StaggeredGridLayoutManager;
++
++import com.example.bigbusiness.Main.ui.Inventory.AddInventoryItem;
++import com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;
++import com.example.bigbusiness.Main.ui.Inventory.InventoryDBHelper;
++import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
++import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
++import com.example.bigbusiness.R;
++
++public class InvoiceManagement extends AppCompatActivity {
++    Button addInvoice;
++    RecyclerView invoiceListView;
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_invoice_management);
++        this.getWindow().getDecorView().setSystemUiVisibility(
++                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
++                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
++                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
++                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
++                        | View.SYSTEM_UI_FLAG_FULLSCREEN
++                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
++    }
++
++    protected void onStart() {
++        super.onStart();
++
++        invoiceListView = findViewById(R.id.invoice_list);
++        InvoiceDBHelper invoiceDBHelper = new InvoiceDBHelper(this);
++        InvoiceManager invoiceManager = new InvoiceManager(invoiceDBHelper);
++        InvoiceListAdapter invoiceListAdapter = new InvoiceListAdapter(this, this, invoiceManager);
++
++        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1 , StaggeredGridLayoutManager.VERTICAL);
++        invoiceListView.setLayoutManager(layoutManager);
++        invoiceListView.setAdapter(invoiceListAdapter);
++
++
++        this.addInvoice = (Button) findViewById(R.id.addinvoice);
++        this.addInvoice.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                openDialog();
++            }
++
++            private void openDialog() {
++                InvoiceDialog invoicedialog = new InvoiceDialog();
++                invoicedialog.show(getSupportFragmentManager(),"invoice dialog");
++            }
++        });
++    }
++}
+Index: app/src/main/java/com/example/bigbusiness/Models/InvoiceItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Models/InvoiceItem.java	(date 1614145862511)
++++ app/src/main/java/com/example/bigbusiness/Models/InvoiceItem.java	(date 1614145862511)
+@@ -0,0 +1,31 @@
++package com.example.bigbusiness.Models;
++
++import java.io.Serializable;
++
++public class InvoiceItem implements Serializable {
++    static int id = 0;
++    String name;
++
++
++    public InvoiceItem(int id, String name) {
++        this.name = name;
++    }
++
++    public static int getId() {
++        return id;
++    }
++
++    public static void setId(int id) {
++        InvoiceItem.id = id;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Models/AddInvoiceDataItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Models/AddInvoiceDataItem.java	(date 1614145862507)
++++ app/src/main/java/com/example/bigbusiness/Models/AddInvoiceDataItem.java	(date 1614145862507)
+@@ -0,0 +1,37 @@
++package com.example.bigbusiness.Models;
++
++public class AddInvoiceDataItem {
++    String pdfname;
++    int pdf_ID;
++    byte[] pdf;
++    String pdfnameinput;
++    public AddInvoiceDataItem(String pdfnameinput, String pdfname){
++        //this.pdf_ID = id;
++        this.pdfname = pdfname;
++        this.pdfnameinput = pdfname;
++    }
++
++    public byte[] getPdf() {
++        return pdf;
++    }
++
++    public void setPdf(byte[] pdf) {
++        this.pdf = pdf;
++    }
++
++    public int getPdf_ID() {
++        return pdf_ID;
++    }
++
++    public void setPdf_ID(int pdf_ID) {
++        this.pdf_ID = pdf_ID;
++    }
++
++    public String getPdfname() {
++        return pdfname;
++    }
++
++    public void setPdfname(String pdfname) {
++        this.pdfname = pdfname;
++    }
++}
+Index: app/src/main/res/layout/add_invoicedialog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/add_invoicedialog.xml	(date 1614145862524)
++++ app/src/main/res/layout/add_invoicedialog.xml	(date 1614145862524)
+@@ -0,0 +1,88 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout
++	xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
++	android:layout_height="wrap_content"
++	android:orientation="vertical"
++	android:padding="20dp">
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_height="wrap_content"
++		android:layout_weight="2.5"
++		android:layout_marginTop="20dp">
++		
++		
++		<TextView
++			
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_weight="2.5"
++			android:text="Invoice id"
++			android:textStyle="bold"
++			android:textSize="22dp"
++			android:layout_marginLeft="20dp"
++			/>
++		
++		<TextView
++			android:id="@+id/invoice_id"
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_weight="2.5"
++			android:layout_marginLeft="20dp"
++			android:textSize="22dp"
++			android:hint="Invoice id"/>
++	
++	</LinearLayout>
++	
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_gravity="center"
++		android:layout_marginTop="30dp"
++		android:layout_height="wrap_content">
++	<com.google.android.material.textfield.TextInputLayout
++		android:layout_marginTop="20dp"
++		android:layout_width="match_parent"
++		android:layout_height="wrap_content"
++		android:layout_marginStart="16dp"
++		android:layout_marginEnd="16dp"
++		android:layout_marginBottom="16dp">
++	
++	<com.google.android.material.textfield.TextInputEditText
++		android:layout_width="match_parent"
++		android:layout_height="wrap_content"
++		android:hint="Name"
++		android:id="@+id/name"
++		android:inputType="textCapWords"
++		android:paddingStart="8dp"
++		android:paddingEnd="8dp"
++		android:textSize="18sp" />
++	</com.google.android.material.textfield.TextInputLayout>
++	</LinearLayout>
++	
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_height="60dp"
++		android:layout_marginTop="30dp"
++		android:layout_weight="2.5">
++		
++		
++		<Button
++			android:id="@+id/uploadinvoice"
++			android:layout_width="wrap_content"
++			android:layout_weight="0"
++			android:layout_height="60dp"
++			android:text="Upload Invoice"
++			android:textStyle="bold"
++			android:layout_marginLeft="20dp"
++			android:textColor="@color/white"
++			/>
++		
++		<TextView
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_weight="2.5"
++			android:layout_marginLeft="20dp"
++			android:id="@+id/pdfname"
++			android:hint="pdf name"/>
++	
++	</LinearLayout>
++</LinearLayout>
+Index: app/src/main/res/layout/generate_invoicedialog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/generate_invoicedialog.xml	(date 1614145862526)
++++ app/src/main/res/layout/generate_invoicedialog.xml	(date 1614145862526)
+@@ -0,0 +1,134 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++	xmlns:app="http://schemas.android.com/apk/res-auto"
++	xmlns:tools="http://schemas.android.com/tools"
++	android:layout_width="match_parent"
++	android:layout_height="match_parent"
++	android:orientation="vertical">
++	
++	<LinearLayout
++		android:id="@+id/pdflayout"
++		android:layout_width="match_parent"
++		android:layout_height="match_parent"
++		android:orientation="vertical"
++		android:visibility="gone">
++		
++		<Button
++			android:id="@+id/backdl"
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:text="back" />
++		
++		<com.github.barteksc.pdfviewer.PDFView
++			android:id="@+id/pdfview"
++			android:layout_width="match_parent"
++			android:layout_height="550dp"
++			android:background="@color/blue" />
++		
++		<Button
++			android:id="@+id/DLbtn"
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:text="download" />
++	</LinearLayout>
++	
++	<LinearLayout
++		android:id="@+id/pdflistscreen"
++		android:layout_width="match_parent"
++		android:layout_height="wrap_content"
++		android:orientation="vertical"
++		android:visibility="visible">
++		<!--	<LinearLayout
++				android:id="@+id/linearLayout1"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_alignParentLeft="true"
++				android:layout_alignParentTop="true"
++				android:orientation="horizontal" >
++				<Button
++					android:layout_width="wrap_content"
++					android:layout_height="wrap_content"
++					android:id="@+id/demo"
++					android:text="screen2"/>
++				<Button
++					android:id="@+id/screen3"
++					android:layout_width="wrap_content"
++					android:layout_height="wrap_content"
++					android:height="50dp"
++					android:text="Screen3" />
++			</LinearLayout> -->
++		<!-- search bar starts-->
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_marginTop="10dp"
++			android:padding="7dp"
++			android:orientation="vertical">
++			
++			<TextView
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:text="NAME"
++				android:textSize="24dp"
++				android:textStyle="bold"></TextView>
++			
++			<TextView
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_marginTop="5dp"
++				android:hint="invoice name"
++				android:textSize="24dp"
++				android:textStyle="bold"></TextView>
++		</LinearLayout>
++	
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_marginTop="20dp"
++		>
++			
++			<LinearLayout
++				android:layout_width="0dp"
++				android:layout_height="match_parent"
++				android:layout_weight="2">
++				
++				<ImageView
++					android:layout_width="30dp"
++					android:layout_height="30dp"
++					android:layout_weight="0.5"
++					android:id="@+id/additem"
++					android:src="@drawable/plusicon"/>
++				<TextView
++					android:layout_width="wrap_content"
++					android:layout_height="wrap_content"
++					android:text="Add Items"
++					android:layout_weight="1.5"
++					android:textSize="16dp"
++					android:textStyle="bold"></TextView>
++			</LinearLayout>
++			
++			
++		</LinearLayout>
++		
++	</LinearLayout>
++	
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_height="460dp"
++		android:background="#f9f9f9">
++		
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="match_parent"
++			android:layout_gravity="center"
++			android:orientation="vertical">
++			
++			<androidx.recyclerview.widget.RecyclerView
++				android:id="@+id/inventory_list"
++				android:layout_width="match_parent"
++				android:layout_height="match_parent"
++				tools:listitem="@layout/generate_invoicedialog_listview" />
++		</LinearLayout>
++	</LinearLayout>
++	
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_invoice_management.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_invoice_management.xml	(date 1614145862522)
++++ app/src/main/res/layout/activity_invoice_management.xml	(date 1614145862522)
+@@ -0,0 +1,286 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++	xmlns:app="http://schemas.android.com/apk/res-auto"
++	xmlns:tools="http://schemas.android.com/tools"
++	android:layout_width="match_parent"
++	android:layout_height="match_parent"
++	android:orientation="vertical"
++	tools:context=".Activities.MainActivity">
++	
++	<LinearLayout
++		android:id="@+id/pdflayout"
++		android:layout_width="match_parent"
++		android:layout_height="match_parent"
++		android:orientation="vertical"
++		android:visibility="gone">
++		
++		<Button
++			android:id="@+id/backdl"
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:text="back" />
++		
++		<com.github.barteksc.pdfviewer.PDFView
++			android:id="@+id/pdfview"
++			android:layout_width="match_parent"
++			android:layout_height="550dp"
++			android:background="@color/blue" />
++		
++		<Button
++			android:id="@+id/DLbtn"
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:text="download" />
++	</LinearLayout>
++	
++	<LinearLayout
++		android:id="@+id/pdflistscreen"
++		android:layout_width="match_parent"
++		android:layout_height="wrap_content"
++		android:orientation="vertical"
++		android:visibility="visible">
++		<!--	<LinearLayout
++				android:id="@+id/linearLayout1"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_alignParentLeft="true"
++				android:layout_alignParentTop="true"
++				android:orientation="horizontal" >
++				<Button
++					android:layout_width="wrap_content"
++					android:layout_height="wrap_content"
++					android:id="@+id/demo"
++					android:text="screen2"/>
++				<Button
++					android:id="@+id/screen3"
++					android:layout_width="wrap_content"
++					android:layout_height="wrap_content"
++					android:height="50dp"
++					android:text="Screen3" />
++			</LinearLayout> -->
++		<!-- search bar starts-->
++		<com.google.android.material.appbar.AppBarLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:theme="@style/Theme.BigBusiness.AppBarOverlay"
++			tools:ignore="MissingConstraints"
++			android:id="@+id/heading"
++			android:background="@color/colorPrimary">
++			
++			<TextView
++				android:id="@+id/title"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:gravity="center"
++				android:background="@color/colorPrimary"
++				android:textColor="@color/white"
++				android:minHeight="?actionBarSize"
++				android:padding="@dimen/appbar_padding"
++				android:text="@string/HomeHeader"
++				android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
++		
++		</com.google.android.material.appbar.AppBarLayout>
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:background="#DCDCDC"
++			android:padding="7dp"
++			android:weightSum="1.0">
++			
++			<SearchView
++				android:id="@+id/inventorySearchBar"
++				android:layout_width="0dp"
++				android:layout_height="35dp"
++				android:layout_weight=".5"
++				android:background="#fff" />
++			
++		<!--	<LinearLayout
++				android:layout_width="0dp"
++				android:layout_height="35dp"
++				android:layout_weight=".5">
++				
++				<Button
++					android:layout_width="0dp"
++					android:layout_height="match_parent"
++					android:layout_marginLeft="5dp"
++					android:layout_weight=".2"
++					android:background="#fff"
++					android:shadowColor="#000"
++					android:text="Sort"
++					android:textColor="#000"
++					android:textSize="10dp"
++					android:textStyle="bold" />
++				
++				<Button
++					android:layout_width="0dp"
++					android:layout_height="match_parent"
++					android:layout_marginLeft="5dp"
++					android:layout_weight=".2"
++					android:background="#fff"
++					android:shadowColor="#000"
++					android:text="Filter"
++					android:textColor="#000"
++					android:textSize="10dp"
++					android:textStyle="bold" />
++			</LinearLayout> -->
++		</LinearLayout>
++		<!-- search bar ends-->
++		<!-- add items starts-->
++		<!--	<LinearLayout
++				android:layout_width="match_parent"
++				android:layout_height="wrap_content"
++				android:layout_weight="5.0">
++				
++				<LinearLayout
++					android:layout_width="0dp"
++					android:layout_height="match_parent"
++					android:layout_weight="2">
++					
++					<CheckBox
++						android:id="@+id/checkbox_meat"
++						android:layout_width="wrap_content"
++						android:layout_height="wrap_content"
++						android:layout_weight="0.05" />
++					
++					<TextView
++						android:id="@+id/selectall"
++						android:layout_width="0dp"
++						android:layout_height="match_parent"
++						android:layout_marginLeft="2dp"
++						android:layout_marginTop="12dp"
++						android:layout_weight="1"
++						android:text="SELECT ALL"
++						android:textColor="#000"
++						android:textSize="15dp"
++						android:textStyle="bold" />
++				</LinearLayout>
++				
++				<LinearLayout
++					android:layout_width="0dp"
++					android:layout_height="wrap_content"
++					android:layout_weight="2.5"
++					android:padding="7dp">
++					
++					<Button
++						android:id="@+id/refreshbutton"
++						android:layout_width="0dp"
++						android:layout_height="match_parent"
++						android:layout_weight="1"
++						android:text="Refresh"
++						android:textColor="#000"
++						android:textSize="5dp"
++						android:textStyle="bold" />
++					
++					<Button
++						android:layout_width="0dp"
++						android:layout_height="match_parent"
++						android:layout_marginLeft="5dp"
++						android:layout_weight="1"
++						android:text="Delete"
++						android:textColor="#000"
++						android:textSize="5dp"
++						android:textStyle="bold" />
++					
++					<Button
++						android:layout_width="0dp"
++						android:layout_height="match_parent"
++						android:layout_marginLeft="5dp"
++						android:layout_weight="1"
++						android:text="Cancel"
++						android:textColor="#000"
++						android:textSize="5dp"
++						android:textStyle="bold" /> -->
++			</LinearLayout>
++	
++		<!--<LinearLayout
++			android:layout_width="0dp"
++			android:layout_height="wrap_content"
++			android:layout_weight="3.0">
++			<CheckBox android:id="@+id/checkbox_meat"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_weight="0.05"
++				/>
++
++			<com.google.android.material.textfield.TextInputEditText
++				android:layout_width="0dp"
++				android:layout_height="match_parent"
++				android:layout_weight="1"
++				android:hint="add item quantity"
++				android:textColorHint="#A9A9A9"
++				/>
++		</LinearLayout>
++		<LinearLayout
++			android:layout_width="0dp"
++			android:layout_height="match_parent"
++			android:layout_weight="2.0">
++			<Button
++				android:id="@+id/decrease"
++				android:layout_width="0dp"
++				android:layout_weight="0.2"
++				android:layout_height="wrap_content"
++				android:onClick="@+id/decreaseInteger"
++				android:text="-" />
++
++			<TextView
++				android:id="@+id/item_name"
++				android:layout_width="0dp"
++				android:layout_weight="0.3"
++				android:layout_height="wrap_content"
++				android:text="0"
++				android:textAlignment="center"
++				android:textStyle="bold"
++				/>
++
++			<Button
++				android:id="@+id/increase"
++				android:layout_width="0dp"
++				android:layout_weight="0.2"
++				android:layout_height="wrap_content"
++				android:onClick="@+id/increaseInteger"
++				android:text="+" />
++		</LinearLayout>
++
++	</LinearLayout> -->
++		
++		<!-- Item list starts-->
++		
++		<!-- Item list ends -->
++	
++	
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_height="520dp"
++		android:background="#f9f9f9">
++		
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="match_parent"
++			android:layout_gravity="center"
++			android:orientation="vertical">
++			
++			<androidx.recyclerview.widget.RecyclerView
++				android:id="@+id/invoice_list"
++				android:layout_width="match_parent"
++				android:layout_height="match_parent"
++				tools:listitem="@layout/invoice_list_item" />
++		</LinearLayout>
++	</LinearLayout>
++	
++	<LinearLayout
++		android:layout_width="match_parent"
++		android:layout_height="0dip"
++		android:layout_weight="1"
++		android:gravity="center"
++		android:orientation="vertical">
++		
++		<Button
++			android:id="@+id/addinvoice"
++			android:layout_width="100dp"
++			android:layout_height="70dp"
++			android:layout_gravity="right"
++			android:background="@drawable/plusicon"
++			
++			/>
++	</LinearLayout>
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/invoice_list_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/invoice_list_item.xml	(date 1614145862530)
++++ app/src/main/res/layout/invoice_list_item.xml	(date 1614145862530)
+@@ -0,0 +1,196 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++	xmlns:card_view="http://schemas.android.com/apk/res-auto"
++	android:layout_width="match_parent"
++	android:layout_height="wrap_content"
++	android:background="#f9f9f9"
++	android:orientation="vertical"
++	android:layout_marginLeft="10dp"
++	android:padding="6dp"
++	android:tag="cards main container">
++	
++	<androidx.cardview.widget.CardView xmlns:card_view="https://schemas.android.com/apk/res-auto"
++		 android:id="@+id/card_view"
++		 android:layout_width="match_parent"
++		 android:layout_height="wrap_content"
++		 card_view:cardBackgroundColor="#FFF"
++		 card_view:cardCornerRadius="10dp"
++		 card_view:cardElevation="5dp"
++		 card_view:cardUseCompatPadding="true">
++ 
++		 <LinearLayout
++			 android:layout_width="match_parent"
++			 android:layout_height="wrap_content"
++			 android:orientation="horizontal">
++ 
++			 <LinearLayout
++				 android:layout_width="match_parent"
++				 android:layout_height="wrap_content"
++				 android:layout_weight="10">
++			  
++				 <LinearLayout
++					 android:layout_width="0dp"
++					 android:layout_height="wrap_content"
++					 android:layout_weight="4">
++ 
++					
++					 <TextView
++						 android:id="@+id/invoicepdf_name"
++						 android:layout_width="0dp"
++						 android:layout_height="fill_parent"
++						 android:layout_marginTop="10dp"
++						 android:layout_weight="1"
++						 android:hint="item name"
++						 android:textAlignment="center"
++						 android:textSize="15dp"
++						 android:textStyle="bold" />
++				 </LinearLayout>
++ 
++ 
++				 <LinearLayout
++					 android:layout_width="0dp"
++					 android:layout_height="wrap_content"
++					 android:layout_weight="1.8"
++					 android:padding="5dp">
++ 
++					 <Button
++						 android:id="@+id/arrow"
++						 android:layout_width="50dp"
++						 android:layout_height="30dp"
++						 android:layout_weight="2"
++						 android:textColor="#000"
++						 android:background="@drawable/arrow"
++						 />
++ 
++				 </LinearLayout>
++			 </LinearLayout>
++		 </LinearLayout>
++	 </androidx.cardview.widget.CardView>
++	
++	<!--<androidx.cardview.widget.CardView
++		android:id="@+id/card_view"
++		android:layout_width="150dp"
++		android:layout_height="150dp"
++		card_view:cardBackgroundColor="#FFF"
++		card_view:cardCornerRadius="10dp"
++		card_view:cardElevation="5dp"
++		card_view:cardUseCompatPadding="true">
++		
++		<LinearLayout
++			android:layout_width="match_parent"
++			android:layout_height="wrap_content"
++			android:layout_weight="10"
++			>
++			
++			<LinearLayout
++				android:layout_width="0dp"
++				android:layout_height="wrap_content"
++				android:layout_weight="7">
++				
++				<TextView
++					android:id="@+id/item_name"
++					android:layout_width="0dp"
++					android:layout_height="match_parent"
++					android:layout_weight="2"
++					android:hint="item name"
++					android:textStyle="bold"
++					android:textAlignment="center"
++					android:textSize="13dp"
++					/>
++				
++				<TextView
++					android:id="@+id/item_unit"
++					android:layout_width="0dp"
++					android:layout_height="match_parent"
++					android:layout_weight="2"
++					android:text="0"
++					android:textSize="10dp"
++					android:textAlignment="center"
++					android:textStyle="bold" />
++			</LinearLayout>
++			
++			<LinearLayout
++				android:layout_width="0dp"
++				android:layout_height="wrap_content"
++				android:layout_weight="3">
++				
++				<ImageView
++					android:layout_width="40dp"
++					android:layout_height="20dp"
++					android:layout_marginLeft="10dp"
++					android:id="@+id/hamburger_menu"
++					android:layout_gravity="right"
++					android:src="@drawable/threedot"/>
++			</LinearLayout>
++		</LinearLayout>
++		<LinearLayout
++			android:layout_width="50dp"
++			android:layout_height="50dp"
++			android:layout_gravity="center"
++			>
++			
++			<ImageView
++				android:id="@+id/item_cover_image"
++				android:layout_width="match_parent"
++				android:layout_gravity="center"
++				android:layout_height="match_parent"
++				android:background="@drawable/pp"
++				android:scaleType="centerCrop" />
++		</LinearLayout>
++		<LinearLayout
++			android:layout_width="wrap_content"
++			android:layout_height="wrap_content"
++			android:layout_marginTop="110dp"
++			android:weightSum="1">
++			
++			<TextView
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_marginLeft="20dp"
++				android:layout_weight="0.5"
++				android:text="Price :"
++				android:textSize="10dp"
++				android:textStyle="bold" />
++			<TextView
++				android:id="@+id/itemprice"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_weight="0.5"
++				android:layout_marginLeft="15dp"
++				android:hint="Price"
++				android:textStyle="bold"
++				android:textSize="10dp"
++				/>
++		
++		</LinearLayout>
++		
++		<LinearLayout
++			android:layout_width="wrap_content"
++			android:layout_height="wrap_content"
++			android:layout_marginTop="130dp"
++			android:weightSum="1">
++			
++			<TextView
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_weight="0.5"
++				android:layout_marginLeft="20dp"
++				android:text="Quantity :"
++				android:textStyle="bold"
++				android:textSize="10dp"
++				/>
++			<TextView
++				android:id="@+id/item_quantity"
++				android:layout_width="wrap_content"
++				android:layout_height="wrap_content"
++				android:layout_weight="0.5"
++				android:layout_marginLeft="10dp"
++				android:hint="Quantity"
++				android:textStyle="bold"
++				android:textSize="10dp"
++				/>
++		
++		</LinearLayout>
++	
++	</androidx.cardview.widget.CardView> -->
++</LinearLayout>
+Index: app/src/main/res/layout/generate_invoicedialog_listview.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/generate_invoicedialog_listview.xml	(date 1614145862528)
++++ app/src/main/res/layout/generate_invoicedialog_listview.xml	(date 1614145862528)
+@@ -0,0 +1,100 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++	xmlns:card_view="http://schemas.android.com/apk/res-auto"
++	android:layout_width="wrap_content"
++	android:layout_height="wrap_content"
++	android:background="#f9f9f9"
++	android:orientation="vertical"
++	android:layout_marginLeft="10dp"
++	android:padding="6dp"
++	android:tag="cards main container">
++	
++	<androidx.cardview.widget.CardView xmlns:card_view="https://schemas.android.com/apk/res-auto"
++		 android:id="@+id/card_view"
++		 android:layout_width="match_parent"
++		 android:layout_height="wrap_content"
++		 card_view:cardBackgroundColor="#FFF"
++		 card_view:cardCornerRadius="10dp"
++		 card_view:cardElevation="5dp"
++		 card_view:cardUseCompatPadding="true">
++ 
++		 <LinearLayout
++			 android:layout_width="match_parent"
++			 android:layout_height="wrap_content"
++			 android:orientation="horizontal">
++ 
++			 <LinearLayout
++				 android:layout_width="match_parent"
++				 android:layout_height="wrap_content"
++				 android:layout_weight="10">
++			  
++				 <LinearLayout
++					 android:layout_width="0dp"
++					 android:layout_height="wrap_content"
++					 android:layout_weight="4">
++ 
++					
++					 <TextView
++						 android:id="@+id/item_name"
++						 android:layout_width="0dp"
++						 android:layout_height="fill_parent"
++						 android:layout_marginTop="10dp"
++						 android:layout_weight="1"
++						 android:hint="item name"
++						 android:textAlignment="center"
++						 android:textSize="15dp"
++						 android:textStyle="bold" />
++				 </LinearLayout>
++ 
++				 <LinearLayout
++					 android:layout_width="0dp"
++					 android:layout_height="match_parent"
++					 android:layout_marginTop="5dp"
++					 android:layout_weight="3">
++ 
++					 <Button
++						 android:id="@+id/decrease"
++						 android:layout_width="0dp"
++						 android:layout_height="wrap_content"
++						 android:layout_weight="0.3"
++						 android:text="-"
++						 android:textColor="#000" />
++ 
++					 <TextView
++						 android:id="@+id/item_quantity"
++						 android:layout_width="0dp"
++						 android:layout_height="wrap_content"
++						 android:layout_weight="0.3"
++						 android:text="0"
++						 android:textAlignment="center"
++						 android:textStyle="bold" />
++ 
++					 <Button
++						 android:id="@+id/increase"
++						 android:layout_width="0dp"
++						 android:layout_height="wrap_content"
++						 android:layout_weight="0.3"
++						 android:text="+"
++						 android:textColor="#000" />
++				 </LinearLayout>
++ 
++				 <LinearLayout
++					 android:layout_width="0dp"
++					 android:layout_height="wrap_content"
++					 android:layout_weight="1.8"
++					 android:padding="5dp">
++ 
++					 <Button
++						 android:id="@+id/deleteitem"
++						 android:layout_width="0dp"
++						 android:layout_height="match_parent"
++						 android:layout_weight="2"
++						 android:text="Delete"
++						 android:textColor="#000"
++						 android:textSize="6dp" />
++ 
++				 </LinearLayout>
++			 </LinearLayout>
++		 </LinearLayout>
++	 </androidx.cardview.widget.CardView>
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/invoicedialog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/invoicedialog.xml	(date 1614145862532)
++++ app/src/main/res/layout/invoicedialog.xml	(date 1614145862532)
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout
++	xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
++	android:layout_height="wrap_content"
++	android:orientation="horizontal"
++	android:gravity="center"
++	android:layout_gravity="center">
++	
++	<!-- <Button
++		android:id="@+id/addFromDevice"
++		android:layout_width="wrap_content"
++		android:layout_height="60dp"
++		android:text="ADD FROM DEVICE"
++		android:textStyle="bold"
++		android:layout_marginTop="50dp"
++		android:layout_gravity="center"
++		android:textColor="@color/white"
++		/>
++	<Button
++		android:id="@+id/generateInvoice"
++		android:layout_width="wrap_content"
++		android:layout_height="60dp"
++		android:layout_marginTop="50dp"
++		android:layout_marginBottom="50dp"
++		android:text="GENERATE INVOICE"
++		android:textStyle="bold"
++		android:layout_gravity="center"
++		android:textColor="@color/white"
++		/> -->
++
++</LinearLayout>
+\ No newline at end of file

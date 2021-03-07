@@ -8,13 +8,18 @@ import java.util.ArrayList;
 public class DuesCardsManager {
     ArrayList<Dues> duesCards = new ArrayList<Dues>();
     private static DuesCardsManager instance;
+    private DuesFBHelper duesFBHelper;
 
     public DuesCardsManager()
     {
-        duesCards.add(new Dues("Demo1","1222","Receive"));
-        duesCards.add(new Dues("Demo2","7453","Receive"));
-        duesCards.add(new Dues("Demo3","486754","Pay"));
-        duesCards.add(new Dues("Demo4","486789","Pay"));
+        duesFBHelper = DuesFBHelper.getInstance();
+        addDues(new Dues("Demo1","1222","Receive"));
+        addDues(new Dues("Demo3","486754","Pay"));
+        addDues(new Dues("Demo4","486789","Pay"));
+//        duesCards.add(new Dues("Demo1","1222","Receive"));
+//        duesCards.add(new Dues("Demo2","7453","Receive"));
+//        duesCards.add(new Dues("Demo3","486754","Pay"));
+//        duesCards.add(new Dues("Demo4","486789","Pay"));
     }
 
     public static DuesCardsManager getInstance()
@@ -31,17 +36,19 @@ public class DuesCardsManager {
         return duesCards;
     }
 
-    public void addDues(Reminder card)
+    public void addDues(Dues card)
     {
-        Dues duesCard = new Dues(card.getTitle(),card.getAmount(), card.getPaymentType());
-        duesCards.add(duesCard);
+        this.duesFBHelper.addCard(card);
+//        Dues duesCard = new Dues(card.getTitle(),card.getPrice(), card.getPaymentType());
+//        duesCards.add(duesCard);
     }
 
-    public boolean delete(int id)
+    public void delete(Dues card)
     {
-        if(id >= duesCards.size())
-            return false;
-        duesCards.remove(id);
-        return true;
+        this.duesFBHelper.removeCard(card);
+//        if(id >= duesCards.size())
+//            return false;
+//        duesCards.remove(id);
+//        return true;
     }
 }

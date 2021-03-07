@@ -1,0 +1,1384 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ .idea/modules.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BigBusiness.iml" filepath="$PROJECT_DIR$/.idea/modules/BigBusiness.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BigBusiness.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BigBusiness.app.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath \"com.android.tools.build:gradle:4.1.1\"\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ build.gradle	(date 1612964670380)
+@@ -6,6 +6,7 @@
+     }
+     dependencies {
+         classpath "com.android.tools.build:gradle:4.1.1"
++        classpath 'com.google.gms:google-services:4.3.5'
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+Index: app/src/main/res/layout/activity_google_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_google_login.xml	(date 1612965222488)
++++ app/src/main/res/layout/activity_google_login.xml	(date 1612965222488)
+@@ -0,0 +1,65 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context="Login.GoogleLogin">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:paddingTop="100dp"
++        android:orientation="vertical"
++        android:paddingRight="20dp"
++        android:paddingLeft="20dp">
++
++
++        <com.mikhaellopez.circularimageview.CircularImageView
++            android:layout_width="250dp"
++            android:layout_height="250dp"
++            android:layout_gravity="center_horizontal"
++            app:civ_border_color="@color/yellow"
++            app:civ_border_width="4dp"
++            app:civ_shadow="true"
++            app:civ_shadow_radius="10dp"
++            app:civ_shadow_color="#3f51b5"
++            android:src="@drawable/bigbusiness_logo" />
++
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:includeFontPadding="false"
++            android:paddingTop="20sp"
++            android:shadowColor="#0E0E0E"
++            android:text="Sign In"
++            android:textAlignment="center"
++            android:textColor="#000000"
++            android:textSize="45sp" />
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:includeFontPadding="false"
++            android:shadowColor="#0E0E0E"
++            android:text="Sign-In with Google using Firebase!"
++            android:textAlignment="center"
++            android:textColor="#000000"
++            android:textSize="14sp" />
++
++
++        <Space
++            android:layout_width="match_parent"
++            android:layout_height="100dp"/>
++
++
++        <com.google.android.gms.common.SignInButton
++            android:id="@+id/google_signIn"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:elevation="8dp"
++            android:textColor="#fff" />
++
++
++    </LinearLayout>
++</ScrollView>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.2\"\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.bigbusiness\"\r\n        minSdkVersion 26\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'androidx.navigation:navigation-fragment:2.3.3'\r\n    implementation 'androidx.navigation:navigation-ui:2.3.3'\r\n    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'\r\n    implementation 'androidx.recyclerview:recyclerview:1.1.0'\r\n    implementation 'androidx.annotation:annotation:1.1.0'\r\n    testImplementation 'junit:junit:4.13.1'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n    //noinspection GradleCompatible\r\n    implementation 'com.android.support:cardview-v7:28.0.0'\r\n    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'\r\n    implementation 'commons-io:commons-io:2.5'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/build.gradle	(date 1612966721345)
+@@ -2,6 +2,8 @@
+     id 'com.android.application'
+ }
+ 
++apply plugin: 'com.google.gms.google-services'
++
+ android {
+     compileSdkVersion 30
+     buildToolsVersion "30.0.2"
+@@ -40,6 +42,8 @@
+     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+     implementation 'androidx.annotation:annotation:1.1.0'
++    implementation 'com.google.android.gms:play-services-auth:19.0.0'
++    implementation 'com.google.firebase:firebase-database:19.6.0'
+     testImplementation 'junit:junit:4.13.1'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+@@ -48,4 +52,15 @@
+     implementation 'com.android.support:cardview-v7:28.0.0'
+     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+     implementation 'commons-io:commons-io:2.5'
++
++    implementation 'com.hbb20:ccp:2.3.1'
++
++    implementation 'com.chaos.view:pinview:1.4.3'
++
++    implementation 'com.google.firebase:firebase-auth:20.0.2'
++
++    implementation 'de.hdodenhof:circleimageview:3.1.0'
++    implementation 'com.mikhaellopez:circularimageview:4.2.0'
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">BigBusiness</string>\r\n    <string name=\"btnid\">BigBusiness</string>\r\n    <string name=\"profileid\">BigBusiness</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"title_activity_main1\">MainActivity</string>\r\n    <string name=\"title_home\">Home</string>\r\n    <string name=\"title_dashboard\">Dashboard</string>\r\n    <string name=\"title_notifications\">Notifications</string>\r\n    <string name=\"title_activity_finance\">FinanceActivity</string>\r\n    <string name=\"finance_tab1\">Transaction History</string>\r\n    <string name=\"finance_tab2\">Reminders And Dues</string>\r\n    <string name=\"HomeHeader\">BIG BUSINESS</string>\r\n    <string name=\"addInvoice\">+</string>\r\n    <string name=\"profile\">Profile</string>\r\n    <!-- Strings related to login -->\r\n    <string name=\"prompt_email\">Email</string>\r\n    <string name=\"prompt_password\">Password</string>\r\n    <string name=\"action_sign_in\">Sign in or register</string>\r\n    <string name=\"action_sign_in_short\">Sign in</string>\r\n    <string name=\"welcome\">\"Welcome!\"</string>\r\n    <string name=\"invalid_username\">Not a valid username</string>\r\n    <string name=\"invalid_password\">Password must be >5 characters</string>\r\n    <string name=\"login_failed\">\"Login failed\"</string>\r\n\r\n    <string-array name=\"item_unit_arrays\">\r\n        <item>Milli Litre</item>\r\n        <item>Gram</item>\r\n        <item>Kilogram</item>\r\n        <item>Litre</item>\r\n    </string-array>\r\n    <string name=\"item_prompt\">Choose a unit</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/src/main/res/values/strings.xml	(date 1612968212175)
+@@ -1,12 +1,12 @@
+ <resources>
+-    <string name="app_name">BigBusiness</string>
+-    <string name="btnid">BigBusiness</string>
+-    <string name="profileid">BigBusiness</string>
++    <string name="app_name" translatable="false">BigBusiness</string>
++    <string name="btnid" translatable="false">BigBusiness</string>
++    <string name="profileid" translatable="false">BigBusiness</string>
+     <!-- TODO: Remove or change this placeholder text -->
+-    <string name="hello_blank_fragment">Hello blank fragment</string>
+-    <string name="title_activity_main1">MainActivity</string>
+-    <string name="title_home">Home</string>
+-    <string name="title_dashboard">Dashboard</string>
++    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
++    <string name="title_activity_main1" translatable="false">MainActivity</string>
++    <string name="title_home" translatable="false">Home</string>
++    <string name="title_dashboard" translatable="false">Dashboard</string>
+     <string name="title_notifications">Notifications</string>
+     <string name="title_activity_finance">FinanceActivity</string>
+     <string name="finance_tab1">Transaction History</string>
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n    <color name=\"colorPrimary\">#DAA520</color>\r\n    <color name=\"colorPrimaryDark\">#388E3C</color>\r\n    <color name=\"colorAccent\">#ff7058</color>\r\n    <color name=\"litherGray\">#a1a1a1</color>\r\n    <color name=\"green\">#388E3C</color>\r\n    <color name=\"blue\">#0000FF</color>\r\n    <color name=\"red\">#D32F2F</color>\r\n    <color name=\"darkgold\">#DAA520</color>\r\n\r\n<!--    <array name=\"random_color\">-->\r\n<!--        <item name=\"red_400\" type=\"color\">#e84e40</item>-->\r\n<!--        <item name=\"pink_400\" type = \"color\">#ec407a</item>-->\r\n<!--        <item name=\"purple_400\" type=\"color\">#ab47bc</item>-->\r\n<!--        <item name=\"deep_purple_400\" type = \"color\">#7e57c2</item>-->\r\n<!--        <item name=\"indigo_400\" type=\"color\">#5c6bc0</item>-->\r\n<!--        <item name=\"blue_400\" type = \"color\">#738ffe</item>-->\r\n<!--        <item name=\"light_blue_400\" type=\"color\">#29b6f6</item>-->\r\n<!--        <item name=\"cyan_400\" type = \"color\">#26c6da</item>-->\r\n<!--        <item name=\"teal_400\" type=\"color\">#26a69a</item>-->\r\n<!--        <item name=\"green_400\" type = \"color\">#2baf2b</item>-->\r\n<!--        <item name=\"light_green_400\" type=\"color\">#9ccc65</item>-->\r\n<!--        <item name=\"lime_400\" type = \"color\">#d4e157</item>-->\r\n<!--        <item name=\"yellow_400\" type=\"color\">#ffee58</item>-->\r\n<!--        <item name=\"orange_400\" type = \"color\">#ffa726</item>-->\r\n<!--        <item name=\"deep_orange_400\" type=\"color\">#ff7043</item>-->\r\n<!--        <item name=\"brown_400\" type = \"color\">#8d6e63</item>-->\r\n<!--        <item name=\"grey_400\" type=\"color\">#bdbdbd</item>-->\r\n<!--        <item name=\"blue_grey_400\" type = \"color\">#78909c</item>-->\r\n<!--    </array>-->\r\n    <array name=\"random_color\">\r\n        <item name=\"gold\">#DAA520</item>\r\n    </array>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/src/main/res/values/colors.xml	(date 1612965051456)
+@@ -15,6 +15,11 @@
+     <color name="blue">#0000FF</color>
+     <color name="red">#D32F2F</color>
+     <color name="darkgold">#DAA520</color>
++    <color name="yellow">#FFE501</color>
++    <color name="colorTextSecondary">#757575</color>
++    <color name="colorAccent2">#F44336</color>
++    <color name="colorTextPrimary">#212121</color>
++    <color name="colorDivider">#BDBDBD</color>
+ 
+ <!--    <array name="random_color">-->
+ <!--        <item name="red_400" type="color">#e84e40</item>-->
+Index: app/src/main/java/com/example/bigbusiness/Login/Registration_form.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Login/Registration_form.java	(date 1613048910760)
++++ app/src/main/java/com/example/bigbusiness/Login/Registration_form.java	(date 1613048910760)
+@@ -0,0 +1,54 @@
++package com.example.bigbusiness.Login;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++
++import com.example.bigbusiness.Main.Main1Activity;
++import com.example.bigbusiness.MainActivity911;
++import com.example.bigbusiness.R;
++import com.google.android.material.textfield.TextInputEditText;
++import com.google.android.material.textfield.TextInputLayout;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++
++import java.io.Serializable;
++
++public class Registration_form extends AppCompatActivity {
++
++    FirebaseAuth firebaseAuth;
++    Button submit;
++    TextInputLayout username;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_registration_form);
++
++        username = (TextInputLayout) findViewById(R.id.Username);
++        String userFullName = username.getEditText().getText().toString();
++
++        submit = findViewById(R.id.submit_login_form);
++        firebaseAuth = firebaseAuth.getInstance();
++        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
++
++        if (currentUser != null) {
++            Intent intent = new Intent(Registration_form.this, Main1Activity.class);
++            startActivity(intent);
++            finish();
++        } else {
++
++            submit.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    Intent i = new Intent(Registration_form.this, MainActivity911.class);
++                    i.putExtra("user", userFullName);
++                    startActivity(i);
++                }
++            });
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_registration_form.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_registration_form.xml	(date 1613045575201)
++++ app/src/main/res/layout/activity_registration_form.xml	(date 1613045575201)
+@@ -0,0 +1,78 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".Login.Registration_form">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:id="@+id/centerLine"
++        android:layout_centerInParent="true">
++
++    </RelativeLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_above="@+id/centerLine"
++        android:id="@+id/Username"
++        app:hintTextColor="@color/colorAccent2"
++        app:boxStrokeColor="@color/colorAccent2"
++        android:layout_marginEnd="16dp"
++        android:elevation="5dp"
++        android:layout_marginBottom="30dp">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Enter Your Name"
++            android:inputType="textCapWords"
++            android:paddingStart="8dp"
++            android:paddingEnd="8dp"
++            android:textSize="18sp" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:id="@+id/BusinessName"
++        android:layout_below="@+id/centerLine"
++        app:hintTextColor="@color/colorAccent2"
++        app:boxStrokeColor="@color/colorAccent2"
++        android:layout_marginEnd="16dp"
++        android:layout_marginTop="30dp"
++        android:layout_marginBottom="16dp"
++        android:elevation="5dp">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Enter Business/Organization Name"
++            android:inputType="textCapWords"
++            android:paddingStart="8dp"
++            android:paddingEnd="8dp"
++            android:textSize="18sp" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:layout_below="@+id/BusinessName"
++        android:layout_marginTop="30dp"
++        android:gravity="end">
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginRight="10dp"
++            android:backgroundTint="@color/colorAccent"
++            android:text="Submit"
++            android:id="@+id/submit_login_form"/>
++    </LinearLayout>
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/menu/logout_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/menu/logout_menu.xml	(date 1613041105822)
++++ app/src/main/res/menu/logout_menu.xml	(date 1613041105822)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <item
++        android:id="@+id/logout_btn"
++        android:title="logout" />
++</menu>
+\ No newline at end of file
+Index: app/google-services.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/google-services.json	(date 1612966692165)
++++ app/google-services.json	(date 1612966692165)
+@@ -0,0 +1,47 @@
++{
++  "project_info": {
++    "project_number": "707553159068",
++    "project_id": "bigbusiness-10250",
++    "storage_bucket": "bigbusiness-10250.appspot.com"
++  },
++  "client": [
++    {
++      "client_info": {
++        "mobilesdk_app_id": "1:707553159068:android:c64024a70c78d4cd910a59",
++        "android_client_info": {
++          "package_name": "com.example.bigbusiness"
++        }
++      },
++      "oauth_client": [
++        {
++          "client_id": "707553159068-c8l8lkggupfmn743iou4ipkuh3hgm9eq.apps.googleusercontent.com",
++          "client_type": 1,
++          "android_info": {
++            "package_name": "com.example.bigbusiness",
++            "certificate_hash": "29f11fd68096f80b229af148c2b6fa5a9fb423f6"
++          }
++        },
++        {
++          "client_id": "707553159068-3v7knihbeu9m20ji2oapv4jue4ulof4g.apps.googleusercontent.com",
++          "client_type": 3
++        }
++      ],
++      "api_key": [
++        {
++          "current_key": "AIzaSyBeRuv4Y2Zf0OuJot1zGb2-TWy0z8nweqc"
++        }
++      ],
++      "services": {
++        "appinvite_service": {
++          "other_platform_oauth_client": [
++            {
++              "client_id": "707553159068-3v7knihbeu9m20ji2oapv4jue4ulof4g.apps.googleusercontent.com",
++              "client_type": 3
++            }
++          ]
++        }
++      }
++    }
++  ],
++  "configuration_version": "1"
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable-v24/background_button.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-v24/background_button.xml	(date 1612805946450)
++++ app/src/main/res/drawable-v24/background_button.xml	(date 1612805946450)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <solid android:color="@color/colorPrimary"/>
++    <corners android:radius="8dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.bigbusiness\">\r\n\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.BigBusiness\">\r\n        <activity\r\n            android:name=\".Main.ui.Finance.FinanceActivity\"\r\n            android:label=\"@string/title_activity_finance\"\r\n            android:theme=\"@style/Theme.BigBusiness.NoActionBar\" />\r\n        <activity\r\n            android:name=\".Main.Main1Activity\"\r\n            android:label=\"@string/title_activity_main1\"\r\n            android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\">\r\n                <intent-filter>\r\n                    <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                    <category android:name=\"android.intent.category.LAUNCHER\" />\r\n                </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".addinvoice\" />\r\n        <activity\r\n            android:name=\".MainActivity911\">\r\n        </activity>\r\n        <activity\r\n            android:name=\".Main.ui.Finance.RemindersAndDues.ReminderFormActivity\"\r\n            android:label=\"ReminderFormActivity\">\r\n        </activity>\r\n        <activity android:name=\".Main.ui.Inventory.InventoryActivity\"></activity>\r\n        <activity android:name=\".Main.ui.Inventory.AddInventoryItem\"></activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/src/main/AndroidManifest.xml	(date 1613044051136)
+@@ -13,30 +13,55 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.BigBusiness">
++        <activity android:name=".Login.Registration_form"></activity>
+         <activity
+-            android:name=".Main.ui.Finance.FinanceActivity"
+-            android:label="@string/title_activity_finance"
+-            android:theme="@style/Theme.BigBusiness.NoActionBar" />
++            android:name=".Login.VerifyOTP"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
+         <activity
+-            android:name=".Main.Main1Activity"
+-            android:label="@string/title_activity_main1"
+-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+-                <intent-filter>
+-                    <action android:name="android.intent.action.MAIN" />
++            android:name=".Login.SendOtp"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
+ 
+-                    <category android:name="android.intent.category.LAUNCHER" />
+-                </intent-filter>
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
+         </activity>
+-        <activity android:name=".addinvoice" />
++
++        <activity
++            android:name=".Main.ui.Finance.FinanceActivity"
++            android:label="@string/title_activity_finance"
++            android:screenOrientation="portrait"
++            android:theme="@style/Theme.BigBusiness.NoActionBar"
++            android:windowSoftInputMode="adjustResize" />
+         <activity
+-            android:name=".MainActivity911">
+-        </activity>
++            android:name=".Main.Main1Activity"
++            android:label="@string/title_activity_main1"
++            android:screenOrientation="portrait"
++            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
++            android:windowSoftInputMode="adjustResize" />
++        <activity
++            android:name=".addinvoice"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
++        <activity
++            android:name=".MainActivity911"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
+         <activity
+             android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
+-            android:label="ReminderFormActivity">
+-        </activity>
+-        <activity android:name=".Main.ui.Inventory.InventoryActivity"></activity>
+-        <activity android:name=".Main.ui.Inventory.AddInventoryItem"></activity>
++            android:label="ReminderFormActivity"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
++        <activity
++            android:name=".Main.ui.Inventory.InventoryActivity"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
++        <activity
++            android:name=".Main.ui.Inventory.AddInventoryItem"
++            android:screenOrientation="portrait"
++            android:windowSoftInputMode="adjustResize" />
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Login/SendOtp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Login/SendOtp.java	(date 1612965753135)
++++ app/src/main/java/com/example/bigbusiness/Login/SendOtp.java	(date 1612965753135)
+@@ -0,0 +1,115 @@
++package com.example.bigbusiness.Login;
++
++import androidx.annotation.NonNull;
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.Toast;
++
++import com.example.bigbusiness.R;
++import com.google.firebase.FirebaseException;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++import com.google.firebase.auth.PhoneAuthCredential;
++import com.google.firebase.auth.PhoneAuthProvider;
++import com.hbb20.CountryCodePicker;
++
++import java.util.concurrent.TimeUnit;
++
++public class SendOtp extends AppCompatActivity {
++
++    EditText inputMobile;
++    Button buttonGetOtp;
++    CountryCodePicker countryCodePicker;
++    FirebaseAuth mAuth;
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++
++        mAuth = mAuth.getInstance();
++        FirebaseUser user = mAuth.getCurrentUser();
++        if (user != null) {
++            Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
++            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++            finish();
++            startActivity(intent);
++        }
++
++    }
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_send_otp);
++
++        inputMobile = findViewById(R.id.inputMobile);
++        buttonGetOtp = findViewById(R.id.buttonGetOtp);
++        countryCodePicker = findViewById(R.id.country_code_picker);
++
++
++        final ProgressBar progressBar = findViewById(R.id.progressBar);
++
++        buttonGetOtp.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                if(inputMobile.getText().toString().trim().isEmpty())
++                {
++                    Toast.makeText(SendOtp.this , "Enter Mobile Number!" , Toast.LENGTH_SHORT).show();
++                    return;
++                }
++                String _getUserEnteredPhoneNumber = inputMobile.getText().toString().trim();
++                //Remove first zero if entered!
++                if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
++                    _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
++                }
++                //Complete phone number
++                final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
++
++                progressBar.setVisibility(View.VISIBLE);
++                buttonGetOtp.setVisibility(View.INVISIBLE);
++
++                PhoneAuthProvider.getInstance().verifyPhoneNumber(
++                        _phoneNo,
++                        60,
++                        TimeUnit.SECONDS,
++                        SendOtp.this,
++                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
++
++                            @Override
++                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
++                                progressBar.setVisibility(View.GONE);
++                                buttonGetOtp.setVisibility(View.VISIBLE);
++                            }
++
++                            @Override
++                            public void onVerificationFailed(@NonNull FirebaseException e) {
++                                progressBar.setVisibility(View.GONE);
++                                buttonGetOtp.setVisibility(View.VISIBLE);
++                                Toast.makeText(SendOtp.this , e.getMessage() , Toast.LENGTH_SHORT).show();
++                            }
++
++                            @Override
++                            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
++                                progressBar.setVisibility(View.GONE);
++                                buttonGetOtp.setVisibility(View.VISIBLE);
++                                Intent intent = new Intent(getApplicationContext() , VerifyOTP.class);
++                                intent.putExtra("phoneNo" , _phoneNo);
++                                intent.putExtra("verificationId" , verificationId);
++                                startActivity(intent);
++
++                            }
++                        }
++                );
++
++            }
++        });
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/container\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Main.Main1Activity\">\r\n\r\n    <com.google.android.material.appbar.AppBarLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:theme=\"@style/Theme.BigBusiness.AppBarOverlay\"\r\n        tools:ignore=\"MissingConstraints\"\r\n        android:id=\"@+id/heading\"\r\n        android:background=\"@color/colorPrimary\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/title\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center\"\r\n            android:background=\"@color/colorPrimary\"\r\n            android:textColor=\"@color/white\"\r\n            android:minHeight=\"?actionBarSize\"\r\n            android:padding=\"@dimen/appbar_padding\"\r\n            android:text=\"@string/HomeHeader\"\r\n            android:textAppearance=\"@style/TextAppearance.Widget.AppCompat.Toolbar.Title\" />\r\n\r\n    </com.google.android.material.appbar.AppBarLayout>\r\n\r\n\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/bottom_navigation\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"0dp\"\r\n        android:layout_marginEnd=\"0dp\"\r\n        android:background=\"?android:attr/windowBackground\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:itemIconTint=\"@drawable/navbar_color\"\r\n        app:itemTextColor=\"@drawable/navbar_color\"\r\n        app:menu=\"@menu/bottom_nav_menu\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/nav_host_fragment\"\r\n        android:name=\"androidx.navigation.fragment.NavHostFragment\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:defaultFocusHighlightEnabled=\"false\"\r\n        app:defaultNavHost=\"true\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/bottom_navigation\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.0\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/heading\"\r\n        app:layout_constraintVertical_bias=\"0.513\"\r\n        app:navGraph=\"@navigation/main_navgraph\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/src/main/res/layout/activity_main.xml	(date 1613045859800)
+@@ -25,11 +25,40 @@
+             android:textColor="@color/white"
+             android:minHeight="?actionBarSize"
+             android:padding="@dimen/appbar_padding"
+-            android:text="@string/HomeHeader"
+-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
++            android:text="@string/HomeHeader" />
++
+ 
+     </com.google.android.material.appbar.AppBarLayout>
+ 
++    <TextView
++        android:id="@+id/hello"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="4dp"
++        android:text="Hello.!"
++        android:textColor="@color/colorTextPrimary"
++        android:textSize="26sp"
++        android:textStyle="bold"
++        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
++        app:layout_constraintEnd_toStartOf="@+id/NameofTheUser"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"
++        app:layout_constraintVertical_bias="0.103" />
++
++    <TextView
++        android:id="@+id/NameofTheUser"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:layout_marginStart="4dp"
++        android:textColor="@color/colorTextPrimary"
++        android:textSize="26sp"
++        android:textStyle="bold"
++        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
++        app:layout_constraintLeft_toRightOf="@+id/hello"
++        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"
++        app:layout_constraintVertical_bias="0.109" />
+ 
+     <com.google.android.material.bottomnavigation.BottomNavigationView
+         android:id="@+id/bottom_navigation"
+@@ -57,6 +86,5 @@
+         app:layout_constraintHorizontal_bias="0.0"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/heading"
+-        app:layout_constraintVertical_bias="0.513"
+         app:navGraph="@navigation/main_navgraph" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_send_otp.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_send_otp.xml	(date 1612968164272)
++++ app/src/main/res/layout/activity_send_otp.xml	(date 1612968164272)
+@@ -0,0 +1,120 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:overScrollMode="never"
++    tools:context=".Login.SendOtp">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:gravity="center_horizontal">
++
++        <ImageView
++            android:layout_width="130dp"
++            android:layout_height="130dp"
++            android:layout_marginTop="80dp"
++            android:src="@drawable/paper_plane"
++            android:contentDescription="@string/app_name"/>
++
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="30dp"
++            android:text="OTP Verification"
++            android:textSize="28sp"
++            android:textColor="@color/colorTextPrimary"
++            android:textStyle="bold"/>
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="50dp"
++            android:layout_marginTop="8dp"
++            android:layout_marginEnd="50dp"
++            android:gravity="center"
++            android:text="We Will Send a One Time Password On This Mobile Number"
++            android:textSize="14sp"
++            android:textColor="@color/colorTextSecondary"/>
++
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="50dp"
++            android:layout_marginEnd="30dp"
++            android:layout_marginStart="30dp"
++            android:gravity="center"
++            android:text="Enter Mobile Number"
++            android:textColor="@color/colorTextSecondary"
++            android:textSize="14sp"/>
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
++
++            <com.hbb20.CountryCodePicker
++                android:id="@+id/country_code_picker"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                app:ccp_autoDetectCountry="true"
++                app:ccp_showFlag="true"
++                app:ccp_showFullName="true"
++                app:ccp_showNameCode="true"
++                android:layout_marginStart="20dp"/>
++
++            <EditText
++                android:layout_width="wrap_content"
++                android:layout_height="40dp"
++                android:id="@+id/inputMobile"
++                android:importantForAutofill="no"
++                android:imeOptions="actionDone"
++                android:inputType="phone"
++                android:background="@null"
++                android:hint="1234567890"
++                android:textColor="@color/colorTextPrimary"
++                android:textSize="20sp"
++                android:textStyle="bold"/>
++
++        </LinearLayout>
++
++        <View
++            android:layout_width="match_parent"
++            android:layout_height="2dp"
++            android:layout_marginEnd="40dp"
++            android:layout_marginStart="40dp"
++            android:layout_marginTop="8dp"
++            android:background="@color/colorDivider"/>
++
++        <FrameLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content">
++
++            <Button
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:layout_margin="30dp"
++                android:background="@drawable/background_button"
++                android:text="GET OTP"
++                android:id="@+id/buttonGetOtp"
++                android:textColor="@color/white"
++                android:textSize="18sp"
++                android:textStyle="bold"/>
++
++            <ProgressBar
++                android:layout_width="40dp"
++                android:layout_height="40dp"
++                android:id="@+id/progressBar"
++                android:layout_gravity="center"
++                android:visibility="gone"/>
++
++        </FrameLayout>
++
++    </LinearLayout>
++
++
++</ScrollView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Login/VerifyOTP.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Login/VerifyOTP.java	(date 1613038117453)
++++ app/src/main/java/com/example/bigbusiness/Login/VerifyOTP.java	(date 1613038117453)
+@@ -0,0 +1,161 @@
++package com.example.bigbusiness.Login;
++
++import androidx.annotation.NonNull;
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.content.Intent;
++import android.graphics.Color;
++import android.os.Bundle;
++import android.os.CountDownTimer;
++import android.view.View;
++import android.widget.Button;
++import android.widget.ProgressBar;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.chaos.view.PinView;
++import com.example.bigbusiness.Main.Main1Activity;
++import com.example.bigbusiness.R;
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.FirebaseException;
++import com.google.firebase.auth.AuthResult;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++import com.google.firebase.auth.PhoneAuthCredential;
++import com.google.firebase.auth.PhoneAuthProvider;
++
++import java.util.concurrent.TimeUnit;
++
++public class VerifyOTP extends AppCompatActivity {
++
++    PinView pinView;
++    TextView textMobile , timerOtp;
++    ProgressBar progressBar;
++    Button buttonVerify;
++    private String verificationId;
++    public int counter = 60;
++    FirebaseAuth mAuth;
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++
++        mAuth = mAuth.getInstance();
++        FirebaseUser user = mAuth.getCurrentUser();
++        if (user != null) {
++            Intent intent = new Intent(getApplicationContext(), Main1Activity.class);
++            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++            finish();
++            startActivity(intent);
++        }
++
++    }
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_verify_o_t_p);
++
++        pinView = findViewById(R.id.pin_view);
++        timerOtp = findViewById(R.id.timerofOtp);
++        textMobile = findViewById(R.id.TextMobile);
++        String showPhnNo = getIntent().getStringExtra("phoneNo");
++        textMobile.setText(showPhnNo);
++
++        progressBar = findViewById(R.id.progressBar);
++
++        buttonVerify = findViewById(R.id.buttonVerify);
++        verificationId = getIntent().getStringExtra("verificationId");
++
++        buttonVerify.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++
++
++                if(pinView == null)
++                {
++                    Toast.makeText(VerifyOTP.this , "Please Enter Valid Code!" , Toast.LENGTH_SHORT).show();
++                    return;
++                }
++
++                String code = pinView.getText().toString();
++
++                if(verificationId != null){
++                    progressBar.setVisibility(View.VISIBLE);
++                    buttonVerify.setVisibility(View.INVISIBLE);
++                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
++                            verificationId , code
++                    );
++                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
++                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
++                                @Override
++                                public void onComplete(@NonNull Task<AuthResult> task) {
++                                    progressBar.setVisibility(View.GONE);
++                                    buttonVerify.setVisibility(View.VISIBLE);
++                                    if(task.isSuccessful()){
++                                        Intent i = new Intent(getApplicationContext() , Registration_form.class);
++                                        Toast.makeText(VerifyOTP.this , "Verification SuccessFull" , Toast.LENGTH_SHORT).show();
++                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
++                                        startActivity(i);
++                                    }
++                                    else
++                                    {
++                                        Toast.makeText(VerifyOTP.this , "The Verification Code Entered is Invalid!!" , Toast.LENGTH_SHORT).show();
++                                    }
++                                }
++                            });
++                }
++            }
++        });
++
++        final TextView resendOtp = findViewById(R.id.textResendOTP);
++        resendOtp.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++
++                new CountDownTimer(60000 , 1000){
++                    public void onTick(long millisUntilFinished){
++                        timerOtp.setText(String.valueOf(counter));
++                        resendOtp.setEnabled(false);
++                        resendOtp.setTextColor(Color.parseColor("#757575"));
++                        timerOtp.setVisibility(View.VISIBLE);
++                        counter--;
++                    }
++                    public void onFinish(){
++                        resendOtp.setEnabled(true);
++                        resendOtp.setTextColor(Color.parseColor("#F44336"));
++                        timerOtp.setVisibility(View.GONE);
++                        counter = 60;
++                    }
++                }.start();
++
++                PhoneAuthProvider.getInstance().verifyPhoneNumber(
++                        getIntent().getStringExtra("phoneNo"),
++                        60,
++                        TimeUnit.SECONDS,
++                        VerifyOTP.this,
++                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
++
++                            @Override
++                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
++
++                            }
++
++                            @Override
++                            public void onVerificationFailed(@NonNull FirebaseException e) {
++
++                                Toast.makeText(VerifyOTP.this , e.getMessage() , Toast.LENGTH_SHORT).show();
++                            }
++
++                            @Override
++                            public void onCodeSent(@NonNull String newverificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
++                                verificationId = newverificationId;
++                                Toast.makeText(VerifyOTP.this , "OTP Sent" , Toast.LENGTH_SHORT).show();
++                            }
++                        }
++                );
++            }
++        });
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/bigbusiness/Main/Main1Activity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.bigbusiness.Main;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.MenuItem;\r\n\r\nimport com.example.bigbusiness.Main.ui.home.HomeFragment;\r\nimport com.example.bigbusiness.R;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.navigation.NavController;\r\nimport androidx.navigation.Navigation;\r\nimport androidx.navigation.ui.AppBarConfiguration;\r\nimport androidx.navigation.ui.NavigationUI;\r\n\r\npublic class Main1Activity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);\r\n\r\n//        bottomNavigation.setOnNavigationItemSelectedListener(navSeletedItem);\r\n//\r\n//        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,\r\n//                new HomeFragment()).commit();\r\n        // Passing each menu ID as a set of Ids because each\r\n        // menu should be considered as top level destinations.\r\n//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(\r\n//                R.id.homeFragment, R.id.addInvoiceFragment, R.id.profileFragment)\r\n//                .build();\r\n        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);\r\n        NavigationUI.setupWithNavController(bottomNavigation, navController);\r\n//        NavigationUI.setupActionBarWithNavController(this, navController);\r\n    }\r\n\r\n//    private BottomNavigationView.OnNavigationItemSelectedListener navSeletedItem =\r\n//            new BottomNavigationView.OnNavigationItemSelectedListener() {\r\n//                @Override\r\n//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n//                    Fragment selectedFragment = null;\r\n//\r\n//                    switch(item.getItemId())\r\n//                    {\r\n//                        case R.id.navigation_home:\r\n//                            selectedFragment = new HomeFragment();\r\n//                            break;\r\n//                        default:\r\n//                            break;\r\n//                    }\r\n//                    getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,\r\n//                            selectedFragment).commit();\r\n//                    return true;\r\n//                }\r\n//            };\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/bigbusiness/Main/Main1Activity.java	(revision e3a6e3879f4f43a2a6c8ea58dfb87dbc22e38e9f)
++++ app/src/main/java/com/example/bigbusiness/Main/Main1Activity.java	(date 1613048566810)
+@@ -1,28 +1,54 @@
+ package com.example.bigbusiness.Main;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.Menu;
++import android.view.MenuInflater;
+ import android.view.MenuItem;
++import android.widget.TextView;
+ 
+-import com.example.bigbusiness.Main.ui.home.HomeFragment;
++import com.example.bigbusiness.Login.SendOtp;
+ import com.example.bigbusiness.R;
+ import com.google.android.material.bottomnavigation.BottomNavigationView;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.fragment.app.Fragment;
+ import androidx.navigation.NavController;
+ import androidx.navigation.Navigation;
+-import androidx.navigation.ui.AppBarConfiguration;
+ import androidx.navigation.ui.NavigationUI;
+ 
+ public class Main1Activity extends AppCompatActivity {
+ 
++    private FirebaseAuth firebaseAuth;
++    TextView NameoftheUser;
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++
++        FirebaseAuth mAuth = FirebaseAuth.getInstance();
++        FirebaseUser user = mAuth.getCurrentUser();
++        if(user == null){
++            Intent i = new Intent(getApplicationContext() , SendOtp.class);
++            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
++            startActivity(i);
++        }
++    }
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
+         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+ 
++        firebaseAuth = FirebaseAuth.getInstance();
++
++        NameoftheUser = findViewById(R.id.NameofTheUser);
++        String showUserName = getIntent().getStringExtra("user");
++        NameoftheUser.setText(showUserName);
++
+ //        bottomNavigation.setOnNavigationItemSelectedListener(navSeletedItem);
+ //
+ //        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,
+@@ -56,4 +82,25 @@
+ //                    return true;
+ //                }
+ //            };
++
++
++    @Override
++    public boolean onCreateOptionsMenu(Menu menu) {
++
++        MenuInflater inflater = getMenuInflater();
++        inflater.inflate(R.menu.logout_menu , menu);
++        return true;
++    }
++
++    @Override
++    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
++        switch (item.getItemId()){
++            case R.id.logout_btn:
++                firebaseAuth.signOut();
++                finish();
++                Intent intent = new Intent(Main1Activity.this,SendOtp.class);
++                startActivity(intent);
++        }
++        return super.onOptionsItemSelected(item);
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_verify_o_t_p.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_verify_o_t_p.xml	(date 1612968163929)
++++ app/src/main/res/layout/activity_verify_o_t_p.xml	(date 1612968163929)
+@@ -0,0 +1,146 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:scrollbars="none"
++    android:overScrollMode="never"
++    tools:context=".Login.VerifyOTP">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        android:gravity="center_horizontal">
++
++        <ImageView
++            android:layout_width="130dp"
++            android:layout_height="130dp"
++            android:layout_marginTop="80dp"
++            android:src="@drawable/received"
++            android:contentDescription="@string/app_name"/>
++
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="30dp"
++            android:text="OTP Verification"
++            android:textSize="28sp"
++            android:textColor="@color/colorTextPrimary"
++            android:textStyle="bold"/>
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="50dp"
++            android:layout_marginTop="8dp"
++            android:layout_marginEnd="50dp"
++            android:gravity="center"
++            android:text="Enter The OTP Sent To"
++            android:textSize="14sp"
++            android:textColor="@color/colorTextSecondary"/>
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/TextMobile"
++            android:layout_marginStart="50dp"
++            android:layout_marginEnd="50dp"
++            android:layout_marginTop="4dp"
++            android:gravity="center"
++            android:textColor="@color/colorTextPrimary"
++            android:textSize="14sp"
++            android:textStyle="bold"/>
++
++
++        <com.chaos.view.PinView
++            android:id="@+id/pin_view"
++            style="@style/PinWidget.PinView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center"
++            android:layout_marginTop="30dp"
++            android:cursorVisible="true"
++            android:inputType="number"
++            android:itemBackground="#65EAEAEA"
++            app:cursorColor="@color/black"
++            app:hideLineWhenFilled="true"
++            app:itemCount="6"
++            app:itemHeight="50dp"
++            app:itemRadius="5dp"
++            app:itemWidth="50dp"
++            app:lineColor="@color/yellow"
++            app:lineWidth="1dp" />
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="20dp"
++            android:gravity="center"
++            android:orientation="horizontal">
++
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="Didn\'t Recieve The OTP ?"
++                android:textColor="@color/colorTextSecondary"
++                android:textSize="14sp"/>
++
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:id="@+id/textResendOTP"
++                android:layout_marginStart="8dp"
++                android:text="RESEND OTP"
++                android:textColor="@color/colorAccent2"
++                android:textSize="15sp"
++                android:textStyle="bold"/>
++
++        </LinearLayout>
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:gravity="center"
++            android:layout_marginStart="40dp"
++            android:layout_marginEnd="40dp"
++            android:layout_marginTop="4dp"
++            android:orientation="horizontal">
++
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:id="@+id/timerofOtp"
++                android:layout_gravity="center"
++                android:textColor="@color/colorAccent"/>
++
++        </LinearLayout>
++
++        <FrameLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content">
++
++            <Button
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:layout_margin="30dp"
++                android:background="@drawable/background_button"
++                android:text="VERIFY"
++                android:textColor="@color/white"
++                android:textSize="18sp"
++                android:textStyle="bold"
++                android:id="@+id/buttonVerify"/>
++
++            <ProgressBar
++                android:layout_width="40dp"
++                android:layout_height="40dp"
++                android:id="@+id/progressBar"
++                android:visibility="gone"
++                android:layout_gravity="center"/>
++
++        </FrameLayout>
++
++    </LinearLayout>
++
++</ScrollView>
+\ No newline at end of file
+Index: app/google-services (3).json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/google-services (3).json	(date 1612963631555)
++++ app/google-services (3).json	(date 1612963631555)
+@@ -0,0 +1,47 @@
++{
++  "project_info": {
++    "project_number": "707553159068",
++    "project_id": "bigbusiness-10250",
++    "storage_bucket": "bigbusiness-10250.appspot.com"
++  },
++  "client": [
++    {
++      "client_info": {
++        "mobilesdk_app_id": "1:707553159068:android:c64024a70c78d4cd910a59",
++        "android_client_info": {
++          "package_name": "com.example.bigbusiness"
++        }
++      },
++      "oauth_client": [
++        {
++          "client_id": "707553159068-c8l8lkggupfmn743iou4ipkuh3hgm9eq.apps.googleusercontent.com",
++          "client_type": 1,
++          "android_info": {
++            "package_name": "com.example.bigbusiness",
++            "certificate_hash": "29f11fd68096f80b229af148c2b6fa5a9fb423f6"
++          }
++        },
++        {
++          "client_id": "707553159068-3v7knihbeu9m20ji2oapv4jue4ulof4g.apps.googleusercontent.com",
++          "client_type": 3
++        }
++      ],
++      "api_key": [
++        {
++          "current_key": "AIzaSyBeRuv4Y2Zf0OuJot1zGb2-TWy0z8nweqc"
++        }
++      ],
++      "services": {
++        "appinvite_service": {
++          "other_platform_oauth_client": [
++            {
++              "client_id": "707553159068-3v7knihbeu9m20ji2oapv4jue4ulof4g.apps.googleusercontent.com",
++              "client_type": 3
++            }
++          ]
++        }
++      }
++    }
++  ],
++  "configuration_version": "1"
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_organization_type__details.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_organization_type__details.xml	(date 1612966471372)
++++ app/src/main/res/layout/activity_organization_type__details.xml	(date 1612966471372)
+@@ -0,0 +1,62 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".Login.OrganizationType_Details">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:id="@+id/centerLine"
++        android:layout_centerInParent="true">
++
++    </RelativeLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:id="@+id/BusinessType"
++        android:layout_above="@+id/centerLine"
++        app:hintTextColor="@color/colorAccent"
++        app:boxStrokeColor="@color/colorAccent"
++        android:layout_marginEnd="16dp"
++        android:elevation="5dp"
++        android:layout_marginBottom="30dp">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Enter Business/Organization Type"
++            android:inputType="textCapWords"
++            android:paddingStart="8dp"
++            android:paddingEnd="8dp"
++            android:textSize="18sp" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:id="@+id/BusinessName"
++        android:layout_below="@+id/centerLine"
++        app:hintTextColor="@color/colorAccent"
++        app:boxStrokeColor="@color/colorAccent"
++        android:layout_marginEnd="16dp"
++        android:layout_marginTop="30dp"
++        android:layout_marginBottom="16dp"
++        android:elevation="5dp">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Enter Business/Organization Name"
++            android:inputType="textCapWords"
++            android:paddingStart="8dp"
++            android:paddingEnd="8dp"
++            android:textSize="18sp" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++</RelativeLayout>
+\ No newline at end of file

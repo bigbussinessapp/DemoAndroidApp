@@ -1,0 +1,14 @@
+<changelist name="finance_atuh_with_firebase" date="1614145925336" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/finance_atuh_with_firebase/shelved.patch" />
+  <option name="DESCRIPTION" value="finance atuh with firebase" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable-v24/arrow.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/finance_atuh_with_firebase/arrow.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable-v24/plusicon.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/finance_atuh_with_firebase/plusicon.png" />
+  </binary>
+</changelist>
