@@ -8,11 +8,25 @@ public class InventoryItem implements Serializable {
     int item_ID;
     String name;
     String unit;
+    String uom;
     int quantity;
     int price;
     int totalprice;
     String invoiceId;
     byte[] image;
+
+    public InventoryItem(String name, String quantity, String unit, String uom, String price, String invoiceId){
+//        this.item_ID = id ++;
+        this.item_ID = id;
+        this.name = name;
+        this.quantity = Integer.parseInt(quantity);
+        this.unit = unit;
+        this.uom = uom;
+        this.price = Integer.parseInt(price);
+        this.totalprice = this.price * this.quantity;
+        this.invoiceId = invoiceId;
+        this.image = image;
+    }
 
     public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId,byte[] image){
 //        this.item_ID = id ++;
@@ -23,7 +37,7 @@ public class InventoryItem implements Serializable {
         this.price = price;
         this.totalprice = price * quantity;
         this.invoiceId = invoiceId;
-        this.image = image;
+//        this.image = image;
     }
 
     public int getQuantity() {
@@ -52,7 +66,14 @@ public class InventoryItem implements Serializable {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
 
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
     }
 
     public int getPrice() {
@@ -61,6 +82,10 @@ public class InventoryItem implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getTotalprice() {
+        return totalprice;
     }
 
     public String getInvoiceId()

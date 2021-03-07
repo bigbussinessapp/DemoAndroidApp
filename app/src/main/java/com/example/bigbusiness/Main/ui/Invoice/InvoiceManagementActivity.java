@@ -16,7 +16,7 @@ import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
 import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
 import com.example.bigbusiness.R;
 
-public class InvoiceManagement extends AppCompatActivity {
+public class InvoiceManagementActivity extends AppCompatActivity {
     Button addInvoice;
     RecyclerView invoiceListView;
     @Override
@@ -36,8 +36,7 @@ public class InvoiceManagement extends AppCompatActivity {
         super.onStart();
 
         invoiceListView = findViewById(R.id.invoice_list);
-        InvoiceDBHelper invoiceDBHelper = new InvoiceDBHelper(this);
-        InvoiceManager invoiceManager = new InvoiceManager(invoiceDBHelper);
+        InvoiceManager invoiceManager = InvoiceManager.getInstance();
         InvoiceListAdapter invoiceListAdapter = new InvoiceListAdapter(this, this, invoiceManager);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1 , StaggeredGridLayoutManager.VERTICAL);
@@ -49,13 +48,15 @@ public class InvoiceManagement extends AppCompatActivity {
         this.addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+//                openDialog();
+                Intent i = new Intent(InvoiceManagementActivity.this, AddInvoiceActivity.class);
+                startActivity(i);
             }
 
-            private void openDialog() {
-                InvoiceDialog invoicedialog = new InvoiceDialog();
-                invoicedialog.show(getSupportFragmentManager(),"invoice dialog");
-            }
+//            private void openDialog() {
+//                InvoiceDialog invoicedialog = new InvoiceDialog();
+//                invoicedialog.show(getSupportFragmentManager(),"invoice dialog");
+//            }
         });
     }
 }

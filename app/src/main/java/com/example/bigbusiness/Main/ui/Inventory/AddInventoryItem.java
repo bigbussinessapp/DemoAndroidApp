@@ -67,7 +67,7 @@ public class AddInventoryItem extends AppCompatActivity implements AdapterView.O
     private void displayInventoryForm(InventoryItem cardToBeEdited) {
 
         InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
-        inventoryManager = new InventoryManager(inventoryDBHelper);
+        inventoryManager = InventoryManager.getInstance();//new InventoryManager(inventoryDBHelper);
         name = findViewById(R.id.itemname);
         price = findViewById(R.id.price);
         quantity = findViewById(R.id.Quantity);
@@ -114,7 +114,7 @@ public class AddInventoryItem extends AppCompatActivity implements AdapterView.O
                 int item_quantity_num = Integer.parseInt(item_quantity);
                 int item_price_num = item_price;
 
-                InventoryItem newItem = new InventoryItem(100,item_name, item_quantity_num, item_units, item_price_num,  "invoice-"+item_name,imageViewToByte(imageView));
+                InventoryItem newItem = new InventoryItem(100,item_name, item_quantity_num, item_units, item_price_num,  "invoice-"+item_name,null);//imageViewToByte(imageView));
                 if(cardToBeEdited != null)
                 {
                     inventoryManager.editItem(newItem);

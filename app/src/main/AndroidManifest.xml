@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BigBusiness">
+        <activity android:name=".Main.ui.Invoice.AddInvoiceActivity"></activity>
         <activity
             android:name=".Main.ui.Finance.FinanceActivity"
             android:label="@string/title_activity_finance"
@@ -21,23 +22,21 @@
             android:name=".Main.Main1Activity"
             android:label="@string/title_activity_main1"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".addinvoice" />
         <activity
-            android:name=".MainActivity911">
-        </activity>
-        <activity
             android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
-            android:label="ReminderFormActivity">
+            android:label="ReminderFormActivity"/>
+        <activity android:name=".Main.ui.Invoice.InvoiceManagementActivity">
+
         </activity>
-        <activity android:name=".Main.ui.Invoice.InvoiceManagement"/>
-        <activity android:name=".Main.ui.Inventory.InventoryActivity"></activity>
-        <activity android:name=".Main.ui.Inventory.AddInventoryItem"></activity>
+        <activity android:name=".Main.ui.Inventory.InventoryActivity" />
+        <activity android:name=".Main.ui.Inventory.AddInventoryItem" />
     </application>
 
 </manifest>
