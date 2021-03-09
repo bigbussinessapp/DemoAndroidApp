@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class InventoryItem implements Serializable {
     static int id=0;
 
-    int item_ID;
+    String item_code;
     String name;
     String unit;
     String uom;
@@ -15,9 +15,8 @@ public class InventoryItem implements Serializable {
     String invoiceId;
     byte[] image;
 
-    public InventoryItem(String name, String quantity, String unit, String uom, String price, String invoiceId){
-//        this.item_ID = id ++;
-        this.item_ID = id;
+    public InventoryItem(String id, String name, String quantity, String unit, String uom, String price, String invoiceId, byte[] image){
+        this.item_code = id;
         this.name = name;
         this.quantity = Integer.parseInt(quantity);
         this.unit = unit;
@@ -28,9 +27,9 @@ public class InventoryItem implements Serializable {
         this.image = image;
     }
 
-    public InventoryItem(int id, String name, int quantity, String unit, int price, String invoiceId,byte[] image){
+    public InventoryItem(String id, String name, int quantity, String unit, int price, String invoiceId, byte[] image){
 //        this.item_ID = id ++;
-        this.item_ID = id;
+        this.item_code = id;
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
@@ -48,8 +47,8 @@ public class InventoryItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getItemID() {
-        return this.item_ID;
+    public String getItemCode() {
+        return this.item_code;
     }
 
     public String getName() {

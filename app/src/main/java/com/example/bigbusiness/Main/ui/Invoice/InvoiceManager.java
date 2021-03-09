@@ -1,7 +1,6 @@
 package com.example.bigbusiness.Main.ui.Invoice;
 
 import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
-import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.Models.InvoiceItem;
 import com.example.bigbusiness.Models.InvoiceProduct;
 
@@ -58,18 +57,18 @@ public class InvoiceManager {
 
     public void addProduct(InvoiceProduct item)
     {
-        if(!productsWithQuantity.containsKey(item.getProductId()))
+        if(!productsWithQuantity.containsKey(item.getProductCode()))
         {
-            productsWithQuantity.put(item.getProductId(), item.getQuantity());
-            productIDWithProduct.put(item.getProductId(), item);
+            productsWithQuantity.put(item.getProductCode(), item.getQuantity());
+            productIDWithProduct.put(item.getProductCode(), item);
         }
         else
         {
-            String quantity = productsWithQuantity.get(item.getProductId());
+            String quantity = productsWithQuantity.get(item.getProductCode());
             String updatedQuantity = String.valueOf(Integer.parseInt(quantity) + Integer.parseInt(item.getQuantity()));
-            productsWithQuantity.put(item.getProductId(), updatedQuantity);
+            productsWithQuantity.put(item.getProductCode(), updatedQuantity);
             item.setQuantity(updatedQuantity);
-            productIDWithProduct.replace(item.getProductId(), item);
+            productIDWithProduct.replace(item.getProductCode(), item);
         }
         this.invoiceProducts.add(item);
     }
@@ -96,7 +95,7 @@ public class InvoiceManager {
         this.invoiceProducts = new ArrayList<>();
     }
 
-    public int getAddedQuantityById(int itemID) {
+    public int getAddedQuantityById(String itemID) {
         if(productsWithQuantity.containsKey(String.valueOf(itemID)))
         {
             return Integer.parseInt(productsWithQuantity.get(String.valueOf(itemID)));

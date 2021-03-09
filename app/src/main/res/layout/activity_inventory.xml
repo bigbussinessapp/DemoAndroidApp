@@ -8,32 +8,6 @@
     tools:context=".Main.ui.Inventory.InventoryActivity">
 
     <LinearLayout
-        android:id="@+id/pdflayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/backdl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="back" />
-
-        <com.github.barteksc.pdfviewer.PDFView
-            android:id="@+id/pdfview"
-            android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:background="@color/blue" />
-
-        <Button
-            android:id="@+id/DLbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="download" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/pdflistscreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

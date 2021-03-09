@@ -79,7 +79,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 selectedItem = inventoryManager.getInventoryItems().get(position);
                 if(selectedItem == null)
                     Toast.makeText(AddInvoiceActivity.this, "Item not found in inventory", Toast.LENGTH_SHORT).show();
-                availableQuantity = selectedItem.getQuantity() - invoiceManager.getAddedQuantityById(selectedItem.getItemID());
+                availableQuantity = selectedItem.getQuantity() - invoiceManager.getAddedQuantityById(selectedItem.getItemCode());
                 availableInventoryView.setText("* AvailableInventory: "+String.valueOf(availableQuantity));
             }
 
@@ -115,7 +115,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    InvoiceProduct item = new InvoiceProduct(String.valueOf(selectedItem.getItemID()), quantity);
+                    InvoiceProduct item = new InvoiceProduct(String.valueOf(selectedItem.getItemCode()), quantity);
                     invoiceManager.addProduct(item);
                     availableQuantity -= Integer.parseInt(quantity);
                     availableInventoryView.setText("* AvailableInventory: "+String.valueOf(availableQuantity));
@@ -153,6 +153,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                     invoiceManager.clearItems();
                     Intent i = new Intent(AddInvoiceActivity.this, InvoiceManagementActivity.class);
                     startActivity(i);
+                    finish();
                 }
             }
         });

@@ -5,12 +5,12 @@ import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
 import java.io.Serializable;
 
 public class InvoiceProduct implements Serializable {
-    String productId;
+    String productCode;
     String quantity;
     InventoryManager inventoryManager;
 
-    public InvoiceProduct(String productId, String quantity){
-        this.productId = productId;
+    public InvoiceProduct(String productCode, String quantity){
+        this.productCode = productCode;
         this.quantity = quantity;
         inventoryManager = InventoryManager.getInstance();
     }
@@ -20,8 +20,8 @@ public class InvoiceProduct implements Serializable {
         return inventoryManager.getItemById(productId).getName();
     }
 
-    public String getProductId() {
-        return productId;
+    public String getProductCode() {
+        return productCode;
     }
 
     public String getQuantity() {
