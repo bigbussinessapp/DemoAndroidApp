@@ -4,20 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.bigbusiness.Main.ui.Inventory.AddInventoryItem;
-import com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;
-import com.example.bigbusiness.Main.ui.Inventory.InventoryDBHelper;
-import com.example.bigbusiness.Main.ui.Inventory.InventoryListAdapter;
-import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
 import com.example.bigbusiness.R;
 
 public class InvoiceManagementActivity extends AppCompatActivity {
-    Button addInvoice;
+    ImageView addInvoice;
     RecyclerView invoiceListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +40,7 @@ public class InvoiceManagementActivity extends AppCompatActivity {
         invoiceListView.setAdapter(invoiceListAdapter);
 
 
-        this.addInvoice = (Button) findViewById(R.id.addinvoice);
+        this.addInvoice = (ImageView) findViewById(R.id.addinvoice);
         this.addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

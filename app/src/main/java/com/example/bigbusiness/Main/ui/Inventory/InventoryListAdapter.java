@@ -47,39 +47,14 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InventoryItem itemClicked = this.inventoryManager.getInventoryItems().get(position);
-        int id = itemClicked.getItemID();
+        String id = itemClicked.getItemCode();
         holder.item_name.setText(itemClicked.getName());
         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
         holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));
         holder.item_unit.setText(itemClicked.getUnit());
 
         byte[] image = itemClicked.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-      //  holder.imageView.setImageBitmap(bitmap);
-       // holder.item_price.setText(itemClicked.getPrice());
-//        final int[] minteger = {0};
-
-/*        holder.increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inventoryManager.increaseQuantity(itemClicked);
-                notifyDataSetChanged();
-            }
-        });
-        holder.decrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inventoryManager.decreaseQuantity(itemClicked);
-                notifyDataSetChanged();
-            }
-        });
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inventoryManager.removeItem(itemClicked);
-                notifyItemRangeRemoved(position, inventoryItemsList.size());
-            }
-        });*/
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
 
         holder.hamburger_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,16 +78,14 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
                         }
                     }
                     public void editedItem() {
-                        inventoryManager.editItem(itemClicked);
+                        inventoryManager.updateItem(itemClicked);
                         Intent intent = new Intent(context,AddInventoryItem.class);
-                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemID()));
+                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemCode()));
                         intent.putExtra("name",String.valueOf(itemClicked.getName()));
                         intent.putExtra("qunatity",String.valueOf(itemClicked.getQuantity()));
                         intent.putExtra("price",String.valueOf(itemClicked.getPrice()));
                         intent.putExtra("units",String.valueOf(itemClicked.getUnit()));
                         context.startActivity(intent);
-
-
                     }
                 });
                 popup.show();
@@ -158,9 +131,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
             itemprice = (TextView)itemView.findViewById(R.id.itemprice);
             item_unit = (TextView)itemView.findViewById(R.id.item_unit);
             hamburger_menu = (ImageView)itemView.findViewById(R.id.hamburger_menu);
-            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
-
-
+//            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
         }
     }
 

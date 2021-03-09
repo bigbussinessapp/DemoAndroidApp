@@ -39,7 +39,7 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         inventoryListView = findViewById(R.id.inventory_list);
-        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
+//        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
         InventoryManager inventoryManager = InventoryManager.getInstance();//new InventoryManager(inventoryDBHelper);
         InventoryListAdapter inventoryListAdapter = new InventoryListAdapter(this, this, inventoryManager);
 

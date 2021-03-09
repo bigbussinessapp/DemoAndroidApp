@@ -30,14 +30,14 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoice_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoice_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InvoiceItem itemClicked = this.invoicesList.get(position);
-//        holder.pdf_name.setText(itemClicked.getName());
+        holder.invoice_name.setText(itemClicked.getInvoiceName());
     }
 
 
@@ -47,10 +47,10 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView pdf_name;
+        TextView invoice_name;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            pdf_name = (TextView) itemView.findViewById(R.id.invoicepdf_name);
+            invoice_name = (TextView) itemView.findViewById(R.id.invoice_name);
         }
     }
 }

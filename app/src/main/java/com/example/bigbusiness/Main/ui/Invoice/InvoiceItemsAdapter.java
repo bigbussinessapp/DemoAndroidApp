@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.Models.InvoiceProduct;
 import com.example.bigbusiness.R;
 
@@ -42,7 +40,7 @@ public class InvoiceItemsAdapter extends RecyclerView.Adapter<InvoiceItemsAdapte
     @Override
     public void onBindViewHolder(@NonNull InvoiceItemsAdapter.viewHolder holder, int position) {
         InvoiceProduct item = this.invoiceManager.getAddedItems().get(position);
-        holder.name.setText(item.getName(item.getProductId()));
+        holder.name.setText(item.getName(item.getProductCode()));
         holder.quantity.setText(String.valueOf(item.getQuantity()));
     }
 

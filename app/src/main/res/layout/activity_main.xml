@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.BigBusiness.AppBarOverlay"
+        app:title="Big Business"
         tools:ignore="MissingConstraints"
         android:id="@+id/heading"
         android:background="@color/colorPrimary">
@@ -19,7 +20,6 @@
       <androidx.appcompat.widget.Toolbar
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:title="Big Business"
           android:id="@+id/toolbar"
           android:background="@color/colorPrimary"
           android:textColor="@color/white"
