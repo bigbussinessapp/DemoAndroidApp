@@ -14,7 +14,7 @@ public class PaymentDetails {
     private EmployeePenalties penalties;
     private BankDetails bankDetails;
 
-    public PaymentDetails(String curr_salary, String baseSalary, String bonus, String lastPaidOn, String amountPaid, String advancePayment, String taxDetails, String providentFund, String paymentDue, EmployeeIncentives incentives, EmployeePenalties penalties, BankDetails bankDetails) {
+    public PaymentDetails(String curr_salary, String baseSalary, String bonus, String lastPaidOn, String amountPaid, String advancePayment, String taxDetails, String providentFund, EmployeeIncentives incentives, EmployeePenalties penalties, BankDetails bankDetails) {
         this.curr_salary = curr_salary;
         this.baseSalary = baseSalary;
         this.bonus = bonus;
@@ -23,10 +23,10 @@ public class PaymentDetails {
         this.advancePayment = advancePayment;
         this.taxDetails = taxDetails;
         this.providentFund = providentFund;
-        this.paymentDue = paymentDue;
         this.incentives = incentives;
         this.penalties = penalties;
         this.bankDetails = bankDetails;
+        setPaymentDue(this.paymentDue);
     }
 
     public String getCurr_salary() {
@@ -94,11 +94,11 @@ public class PaymentDetails {
     }
 
     public String getPaymentDue() {
-        return paymentDue;
+        return this.paymentDue;
     }
 
     public void setPaymentDue(String paymentDue) {
-        this.paymentDue = paymentDue;
+        this.paymentDue = String.valueOf(Double.parseDouble(this.curr_salary)-Double.parseDouble(this.amountPaid));
     }
 
     public EmployeeIncentives getIncentives() {

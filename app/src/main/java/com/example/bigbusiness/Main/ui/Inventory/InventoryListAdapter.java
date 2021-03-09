@@ -137,6 +137,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     public void setInventoryItemsList(ArrayList<InventoryItem> updatedItemsList)
     {
         this.inventoryItemsList = updatedItemsList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

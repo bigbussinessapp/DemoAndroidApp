@@ -51,12 +51,47 @@ public class EmployeeService {
                 null,
                 "boppesricharan@gmail.com",
                 new AttendanceDetails("9", dummy),
-                new PaymentDetails("1000", "2000", "100", "11/02/2020", "1500", "1000", "", "10", "200",
+                new PaymentDetails("2000", "2000", "100", "11/02/2020", "500", "1000", "", "10",
                         new EmployeeIncentives("100","good"),
                         new EmployeePenalties("100","late"),
                         new BankDetails("12337289", "638761283", "mandpeta", "boi", "charan")),
                 vacations,"Curently_working");
+        Employee employee2 = new Employee(
+                "emp0002",
+                "darshit",
+                "21",
+                "6309833542",
+                "11/01/2020",
+                "DEV",
+                null,
+                "boppesricharan@gmail.com",
+                new AttendanceDetails("9", dummy),
+                new PaymentDetails("10000.98", "2000", "100", "11/02/2020", "1500.90", "1000", "", "10",
+                        new EmployeeIncentives("100","good"),
+                        new EmployeePenalties("100","late"),
+                        new BankDetails("12337289", "638761283", "mandpeta", "boi", "charan")),
+                vacations,"Curently_working");
+        Employee employee3 = new Employee(
+                "emp0003",
+                "Rohit",
+                "21",
+                "6309833542",
+                "12/01/2020",
+                "DEV",
+                null,
+                "boppesricharan@gmail.com",
+                new AttendanceDetails("9", dummy),
+                new PaymentDetails("10200.89", "2000", "100", "11/02/2020", "1500.08", "1000", "", "10",
+                        new EmployeeIncentives("100","good"),
+                        new EmployeePenalties("100","late"),
+                        new BankDetails("12337289", "638761283", "mandpeta", "boi", "charan")),
+                vacations,"Curently_working");
+
+
+
         employee.add(employee1);
+        employee.add(employee2);
+        employee.add(employee3);
     }
 
 
