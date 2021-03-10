@@ -7,12 +7,19 @@ import java.io.Serializable;
 public class InvoiceProduct implements Serializable {
     String productCode;
     String quantity;
+    String name;
     InventoryManager inventoryManager;
 
+    public InvoiceProduct()
+    {
+
+    }
+
     public InvoiceProduct(String productCode, String quantity){
+        inventoryManager = InventoryManager.getInstance();
         this.productCode = productCode;
         this.quantity = quantity;
-        inventoryManager = InventoryManager.getInstance();
+        this.name = getName(productCode);
     }
 
     public String getName(String productId)

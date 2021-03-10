@@ -10,17 +10,19 @@ public class InventoryManager {
     List<InventoryItem> inventoryItems = new ArrayList<>();
 //    InventoryDBHelper inventoryDBHelper;
     private static InventoryManager instance = null;
+    InventoryFBHelper inventoryFBHelper;
 
     public InventoryManager()
     {
+        this.inventoryFBHelper = InventoryFBHelper.getInstance();
 //        this.inventoryDBHelper = inventoryDBHelper;
 //        addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000",));
 //        addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001",null));
 //        addItem(new InventoryItem(3, "prod3",20, "kgs", 50, "1002",null));
 
-        addItem(new InventoryItem("100000", "Eye drops", "20", "20", "ml", "200", "1000",null));
-        addItem(new InventoryItem("200000","Coconut Oil","100", "200", "ml", "15", "1001",null));
-        addItem(new InventoryItem("300000", "Rice","200", "5", "kg", "50", "1002",null));
+//        addItem(new InventoryItem("100000", "Eye drops", "20", "20", "ml", "200",null));
+//        addItem(new InventoryItem("200000","Coconut Oil","100", "200", "ml", "15", null));
+//        addItem(new InventoryItem("300000", "Rice","200", "5", "kg", "50", null));
     }
 
     public static InventoryManager getInstance()
@@ -34,6 +36,7 @@ public class InventoryManager {
 
     public void addItem(InventoryItem item)
     {
+        this.inventoryFBHelper.addItem(item);
         inventoryItems.add(item);
 //            if(this.inventoryDBHelper.addItem(item))
 //            {
@@ -64,6 +67,7 @@ public class InventoryManager {
 
     public void deleteItem(InventoryItem item)
     {
+        this.inventoryFBHelper.deleteItem(item);
 //        boolean success = this.inventoryDBHelper.deleteItem(item);
 //
 //        if(success)
@@ -75,6 +79,7 @@ public class InventoryManager {
     }
 
     public void updateItem(InventoryItem item){
+        this.inventoryFBHelper.updateItem(item);
 //        boolean success = this.inventoryDBHelper.updateItem(item);
 //        if(success)
 //        {
@@ -96,8 +101,7 @@ public class InventoryManager {
     }
 
     public List<InventoryItem> getInventoryItems() {
-//            return this.inventoryDBHelper.getAllItems();
-        return inventoryItems;
+        return this.inventoryFBHelper.getAllItems();
     }
 
     public void updateItems(HashMap<String, String> productsWithQuantity) {
@@ -105,5 +109,13 @@ public class InventoryManager {
         {
             updateItemWithQuantity(id, productsWithQuantity.get(id));
         }
+    }
+
+    public void setItems(List<InventoryItem> inventoryItemsList) {
+        this.inventoryItems = inventoryItemsList;
+    }
+
+    public void refreshInventoryItems() {
+        inventoryFBHelper.refresh();
     }
 }

@@ -2,6 +2,8 @@ package com.example.bigbusiness.Models;
 
 public class BuyerDetails {
     String name;
+    public BuyerDetails(){}
+
     public BuyerDetails(String name){
         this.name = name;
     }

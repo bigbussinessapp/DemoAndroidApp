@@ -20,9 +20,13 @@ import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.Models.InvoiceItem;
 import com.example.bigbusiness.Models.InvoiceProduct;
 import com.example.bigbusiness.R;
+import com.example.bigbusiness.Services.UserDataService;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddInvoiceActivity extends AppCompatActivity {
@@ -37,12 +41,19 @@ public class AddInvoiceActivity extends AppCompatActivity {
     InventoryManager inventoryManager;
     int availableQuantity = 0;
     InventoryItem selectedItem = null;
+    FirebaseDatabase database;
+    DatabaseReference inventoryReference;
+    UserDataService userDataService;
     private static int count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_invoice);
+        userDataService = UserDataService.getInstance();
+        database = FirebaseDatabase.getInstance();
+        inventoryReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Inventory");
+
         invoiceManager = InvoiceManager.getInstance();
         inventoryListView = (RecyclerView) findViewById(R.id.inventory_list_view);
 
@@ -62,32 +73,34 @@ public class AddInvoiceActivity extends AppCompatActivity {
         //final InventoryItem[] selectedItem = new InventoryItem[1];
         invoiceId = "Invoice"+count++;
 
-        List<String> inventoryItems = new ArrayList<String>();
-
-        inventoryManager.getInventoryItems().forEach(x -> {
-            inventoryItems.add(x.getName());
-        });
-
+        List<String> inventoryItems = new ArrayList<>();
+        inventoryManager.getInventoryItems().forEach(item -> inventoryItems.add(item.getName()));
         ArrayAdapter<String> invItemsAdapter = new ArrayAdapter<>(AddInvoiceActivity.this,
                 android.R.layout.simple_list_item_1, inventoryItems );
         invItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         inventoryItemsSpinner.setAdapter(invItemsAdapter);
-
-        inventoryItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedItem = inventoryManager.getInventoryItems().get(position);
-                if(selectedItem == null)
-                    Toast.makeText(AddInvoiceActivity.this, "Item not found in inventory", Toast.LENGTH_SHORT).show();
-                availableQuantity = selectedItem.getQuantity() - invoiceManager.getAddedQuantityById(selectedItem.getItemCode());
-                availableInventoryView.setText("* AvailableInventory: "+String.valueOf(availableQuantity));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        inventoryItemsSpinner.setOnItemSelectedListener(itemsSpinnerEvent(inventoryItems));
+//
+//        inventoryReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot item: snapshot.getChildren())
+//                {
+//                    InventoryItem invItem = item.getValue(InventoryItem.class);
+//                    inventoryItems.add(invItem.getName());
+//                }
+//                invItemsAdapter.addAll(inventoryItems);
+//                inventoryItemsSpinner.setOnItemSelectedListener(itemsSpinnerEvent(inventoryItems));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        inventoryManager.getInventoryItems().forEach(x -> {
+//            inventoryItems.add(x.getName());
+//        });
 
         List<InvoiceProduct> itemsList = invoiceManager.getAddedItems();
         InvoiceItemsAdapter invoiceItemsAdapter = new InvoiceItemsAdapter(this, itemsList);
@@ -139,7 +152,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = invoiceName.getText().toString();
                 BuyerDetails buyer = new BuyerDetails(buyerName.getText().toString());
-                List<InvoiceProduct> items = invoiceManager.getAddedItems();
+                HashMap<String, InvoiceProduct> items = invoiceManager.getAddedItemsWithIds();
 
                 if(name.isEmpty() || buyer.getName().isEmpty())
                 {
@@ -148,7 +161,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 else
                 {
                     InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items);
-                    invoiceItem.setInvoiceId(invoiceId);
+//                    invoiceItem.setInvoiceId(invoiceId);
                     invoiceManager.addInvoice(invoiceItem);
                     invoiceManager.clearItems();
                     Intent i = new Intent(AddInvoiceActivity.this, InvoiceManagementActivity.class);
@@ -157,5 +170,24 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private AdapterView.OnItemSelectedListener itemsSpinnerEvent(List<String> inventoryItems)
+    {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = inventoryManager.getInventoryItems().get(position);
+                if(selectedItem == null)
+                    Toast.makeText(AddInvoiceActivity.this, "Item not found in inventory", Toast.LENGTH_SHORT).show();
+                availableQuantity = selectedItem.getQuantity() - invoiceManager.getAddedQuantityById(selectedItem.getItemCode());
+                availableInventoryView.setText("* AvailableInventory: "+String.valueOf(availableQuantity));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
     }
 }

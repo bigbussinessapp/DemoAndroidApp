@@ -29,6 +29,7 @@
         <item>Gram</item>
         <item>Kilogram</item>
         <item>Litre</item>
+        <item>LOL</item>
     </string-array>
     <string name="item_prompt">Choose a unit</string>
 </resources>

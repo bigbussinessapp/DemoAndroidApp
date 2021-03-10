@@ -52,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // store in firebase here only
                 User user = getUserData();
-                usersDatabase.child(user.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                usersDatabase.child(user.getUid()).child("Profile").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
