@@ -17,7 +17,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbusiness.Main.ui.Finance.RemindersAndDues.ReminderCardsManager;
+import com.example.bigbusiness.Main.ui.Finance.RemindersAndDues.RemindersAndDuesFragment;
 import com.example.bigbusiness.Models.InventoryItem;
+import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
 
 import java.util.ArrayList;
@@ -29,6 +32,15 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     List<InventoryItem> inventoryItemsList;
     InventoryActivity inventory;
     Context context;
+
+    public InventoryListAdapter(Context context, List<InventoryItem> inventoryItemsList)
+    {
+        this.context = context;
+        this.inventoryItemsList = inventoryItemsList;
+        this.inventoryManager = InventoryManager.getInstance();
+        this.inventoryManager.setItems(this.inventoryItemsList);
+    }
+
 
     public InventoryListAdapter(Context context, InventoryActivity inventoryActivity, InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
@@ -46,7 +58,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        InventoryItem itemClicked = this.inventoryManager.getInventoryItems().get(position);
+        InventoryItem itemClicked = this.inventoryItemsList.get(position);
         String id = itemClicked.getItemCode();
         holder.item_name.setText(itemClicked.getName());
         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
@@ -66,32 +78,25 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.edit_item:
-                                inventory.editItem(itemClicked);
-                                notifyDataSetChanged();
+                                Intent i = new Intent(context, AddInventoryItem.class);
+                                i.putExtra("editCard", itemClicked);
+                                context.startActivity(i);
+                                break;
+                                //inventory.editItem(itemClicked);
+//                                notifyDataSetChanged();
 //                                inventoryManager.editItem(itemClicked);
 
                             case R.id.delete_item:
                                 inventoryManager.deleteItem(itemClicked);
                                 notifyDataSetChanged();
+                                break;
                             default:
                                 return false;
                         }
-                    }
-                    public void editedItem() {
-                        inventoryManager.updateItem(itemClicked);
-                        Intent intent = new Intent(context,AddInventoryItem.class);
-                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemCode()));
-                        intent.putExtra("name",String.valueOf(itemClicked.getName()));
-                        intent.putExtra("qunatity",String.valueOf(itemClicked.getQuantity()));
-                        intent.putExtra("price",String.valueOf(itemClicked.getPrice()));
-                        intent.putExtra("units",String.valueOf(itemClicked.getUnit()));
-                        context.startActivity(intent);
+                        return true;
                     }
                 });
                 popup.show();
-               /* Context context = view.getContext();
-                Intent intent = new Intent(context,InventoryEditItem.class);
-                context.startActivity(intent);*/
             }
         });
 
@@ -107,7 +112,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         return this.inventoryItemsList;
     }
 
-    public void setInventoryItemsList(ArrayList<InventoryItem> updatedItemsList)
+    public void setInventoryItemsList(List<InventoryItem> updatedItemsList)
     {
         this.inventoryItemsList = updatedItemsList;
     }

@@ -1,15 +1,20 @@
 package com.example.bigbusiness.Models;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class InvoiceItem implements Serializable {
     String invoiceId;
     String invoiceName;
     BuyerDetails buyer;
-    List<InvoiceProduct> items;
+    HashMap<String, InvoiceProduct> items;
 
-    public InvoiceItem(String invoiceName, BuyerDetails buyer, List<InvoiceProduct> items){
+    public InvoiceItem()
+    {
+
+    }
+    public InvoiceItem(String invoiceName, BuyerDetails buyer, HashMap<String, InvoiceProduct> items){
         this.invoiceName = invoiceName;
         this.buyer = buyer;
         this.items = items;
@@ -39,11 +44,11 @@ public class InvoiceItem implements Serializable {
         this.buyer = buyer;
     }
 
-    public void setItems(List<InvoiceProduct> items) {
+    public void setItems(HashMap<String, InvoiceProduct> items) {
         this.items = items;
     }
 
-    public List<InvoiceProduct> getItems() {
+    public HashMap<String, InvoiceProduct> getItems() {
         return items;
     }
 }

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.bigbusiness.Models.User;
 import com.example.bigbusiness.R;
@@ -22,6 +24,7 @@ public class ProfileFragment extends Fragment {
 
     TextInputEditText user_name , user_email , user_mobilenumber , user_business_name , user_business_type;
     UserDataService userDataService;
+    Button updateProfile;
     User user;
 
 
@@ -76,7 +79,7 @@ public class ProfileFragment extends Fragment {
         user_mobilenumber = (TextInputEditText) v.findViewById(R.id.user_mobileNo);
         user_business_name = (TextInputEditText) v.findViewById(R.id.user_business_name);
         user_business_type = (TextInputEditText) v.findViewById(R.id.user_business_type);
-
+        updateProfile = v.findViewById(R.id.updateProfile);
         userDataService = UserDataService.getInstance();
         User user = userDataService.getLoggedInUser();
 
@@ -85,6 +88,27 @@ public class ProfileFragment extends Fragment {
         user_mobilenumber.setText(user.getPhoneNo());
         user_business_name.setText(user.getOrganizationName());
         user_business_type.setText(user.getOrganizationType());
+
+        updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = user_name.getText().toString();
+                String email = user_email.getText().toString();
+                String mobileNumber = user_mobilenumber.getText().toString();
+                String businessName = user_business_name.getText().toString();
+                String businessType = user_business_type.getText().toString();
+                if(name.isEmpty() || email.isEmpty() || mobileNumber.isEmpty() ||
+                    businessName.isEmpty() || businessType.isEmpty())
+                {
+                    Toast.makeText(getContext(), "Fill all details!!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    User newUser = new User(userDataService.getLoggedInUser().getUid(), name, email, mobileNumber, businessName, businessType);
+                    userDataService.updateUserData(newUser);
+                }
+            }
+        });
 
         return v;
     }

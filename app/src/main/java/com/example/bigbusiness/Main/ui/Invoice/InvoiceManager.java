@@ -13,15 +13,15 @@ public class InvoiceManager {
     List<InvoiceItem> invoices;
     private static InvoiceManager instance;
     private InventoryManager inventoryManager;
-    private List<InvoiceProduct> invoiceProducts; //itemid, quantity
-    private HashMap<String, String> productsWithQuantity = new HashMap<>();
-    private HashMap<String, InvoiceProduct> productIDWithProduct = new HashMap<>();
+    private InvoiceFBHelper invoiceFBHelper;
+    private HashMap<String, InvoiceProduct> invoiceProducts; //item id, item
+    private HashMap<String, String> productsWithQuantity = new HashMap<>();//itemid, quantity
 
     private InvoiceManager() {
         invoices = new ArrayList<>();
-        invoiceProducts = new ArrayList<>();
+        invoiceProducts = new HashMap<>();
         inventoryManager = InventoryManager.getInstance();
-
+        invoiceFBHelper = InvoiceFBHelper.getInstance();
 //        InventoryItem dummy1 = new InventoryItem("item 1", "20", "1", "nos", "300", "invoiceId1");
 //        InventoryItem dummy2 = new InventoryItem("item 2", "30", "1","nos", "30", "invoiceId1");
 //        InventoryItem dummy3 = new InventoryItem("item 3", "50", "1", "nos", "3000", "invoiceId1");
@@ -44,15 +44,11 @@ public class InvoiceManager {
 
     public void addInvoice(InvoiceItem item)
     {
-        this.invoices.add(item);
+//        this.invoices.add(item);
+        invoiceFBHelper.addInvoice(item);
         invoiceProducts.clear();
-        productIDWithProduct.clear();
         productsWithQuantity.clear();
-        inventoryManager.updateItems(productsWithQuantity);
-//        if(this.invoiceDBHelper.addItem(item))
-//        {
-//            String success = "yeahh";
-//        }
+//        inventoryManager.updateItems(productsWithQuantity);
     }
 
     public void addProduct(InvoiceProduct item)
@@ -60,7 +56,6 @@ public class InvoiceManager {
         if(!productsWithQuantity.containsKey(item.getProductCode()))
         {
             productsWithQuantity.put(item.getProductCode(), item.getQuantity());
-            productIDWithProduct.put(item.getProductCode(), item);
         }
         else
         {
@@ -68,31 +63,32 @@ public class InvoiceManager {
             String updatedQuantity = String.valueOf(Integer.parseInt(quantity) + Integer.parseInt(item.getQuantity()));
             productsWithQuantity.put(item.getProductCode(), updatedQuantity);
             item.setQuantity(updatedQuantity);
-            productIDWithProduct.replace(item.getProductCode(), item);
+            invoiceProducts.replace(item.getProductCode(), item);
         }
-        this.invoiceProducts.add(item);
+        this.invoiceProducts.put(item.getProductCode(), item);
     }
 
     public List<InvoiceItem> getAllInvoices() {
         return this.invoices;
     }
 
-    public List<InvoiceProduct> getAddedItems()
+    public HashMap<String, InvoiceProduct> getAddedItemsWithIds()
     {
-//        return this.invoiceProducts;
-        return new ArrayList<InvoiceProduct>( this.productIDWithProduct.values() );
+        return this.invoiceProducts;
     }
 
-    public void updateQuantity(int index, int updatedQuantity) {
-        this.invoiceProducts.get(index).setQuantity(String.valueOf(updatedQuantity));
+    public List<InvoiceProduct> getAddedItems()
+    {
+        return new ArrayList<>(this.invoiceProducts.values());
     }
+
 
     public void deleteItem(int position) {
         this.invoiceProducts.remove(position);
     }
 
     public void clearItems() {
-        this.invoiceProducts = new ArrayList<>();
+        this.invoiceProducts = new HashMap<>();
     }
 
     public int getAddedQuantityById(String itemID) {

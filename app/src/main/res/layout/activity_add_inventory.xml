@@ -111,8 +111,7 @@
 				android:layout_weight="2"
 				android:entries="@array/item_unit_arrays"
 				android:layout_marginEnd="16dp"
-				android:prompt="@string/item_prompt"
-				android:textSize="10sp" />
+				android:textSize="5sp" />
 		
 		</LinearLayout>
 		

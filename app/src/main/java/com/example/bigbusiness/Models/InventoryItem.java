@@ -5,37 +5,40 @@ import java.io.Serializable;
 public class InventoryItem implements Serializable {
     static int id=0;
 
-    String item_code;
+    String itemCode;
     String name;
     String unit;
     String uom;
     int quantity;
     int price;
     int totalprice;
-    String invoiceId;
     byte[] image;
 
-    public InventoryItem(String id, String name, String quantity, String unit, String uom, String price, String invoiceId, byte[] image){
-        this.item_code = id;
+    //For firebase purpose
+    public InventoryItem()
+    {
+
+    }
+
+    public InventoryItem(String id, String name, String quantity, String unit, String uom, String price, byte[] image){
+        this.itemCode = id;
         this.name = name;
         this.quantity = Integer.parseInt(quantity);
         this.unit = unit;
         this.uom = uom;
         this.price = Integer.parseInt(price);
         this.totalprice = this.price * this.quantity;
-        this.invoiceId = invoiceId;
         this.image = image;
     }
 
     public InventoryItem(String id, String name, int quantity, String unit, int price, String invoiceId, byte[] image){
 //        this.item_ID = id ++;
-        this.item_code = id;
+        this.itemCode = id;
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
         this.price = price;
         this.totalprice = price * quantity;
-        this.invoiceId = invoiceId;
 //        this.image = image;
     }
 
@@ -48,7 +51,7 @@ public class InventoryItem implements Serializable {
     }
 
     public String getItemCode() {
-        return this.item_code;
+        return this.itemCode;
     }
 
     public String getName() {
@@ -87,16 +90,6 @@ public class InventoryItem implements Serializable {
         return totalprice;
     }
 
-    public String getInvoiceId()
-    {
-        return this.invoiceId;
-    }
-
-    public void setInvoiceId(String invoiceId)
-    {
-        this.invoiceId = invoiceId;
-    }
-
     public byte[] getImage() {
         return image;
     }
@@ -104,12 +97,4 @@ public class InventoryItem implements Serializable {
     public void setImage(byte[] image) {
         this.image = image;
     }
-//
-//    public String getTotalprice() {
-//        return totalprice;
-//    }
-//
-//    public void setTotalprice(String totalprice) {
-//        this.totalprice = totalprice;
-//    }
 }

@@ -46,6 +46,10 @@ public class InvoiceListAdapter extends RecyclerView.Adapter<InvoiceListAdapter.
         return this.invoicesList.size();
     }
 
+    public void setInventoryItemsList(List<InvoiceItem> invoicesList) {
+            this.invoicesList = invoicesList;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView invoice_name;
         public ViewHolder(@NonNull View itemView) {

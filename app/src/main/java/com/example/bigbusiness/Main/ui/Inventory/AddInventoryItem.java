@@ -1,5 +1,6 @@
 package com.example.bigbusiness.Main.ui.Inventory;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -30,7 +31,7 @@ public class AddInventoryItem extends AppCompatActivity {
     private TextInputLayout name, code, quantity, units, price;
     Spinner unit_spinner;
     String selectedUOM;
-    String UOMList[]={"select unit","Milli Litre","Gram","Kilogram","Litre","None"};
+    String UOMList[]={"None","Milli Litre","Gram","Kilogram","Litre"};
     ArrayAdapter unitspinnerdapter;
     Button saveBtn, cancelBtn;
 //    String base64data;
@@ -56,6 +57,7 @@ public class AddInventoryItem extends AppCompatActivity {
         displayInventoryForm(card);
     }
 
+    @SuppressLint("ResourceType")
     private void displayInventoryForm(InventoryItem cardToBeEdited) {
 
 //        InventoryDBHelper inventoryDBHelper = new InventoryDBHelper(this);
@@ -66,15 +68,16 @@ public class AddInventoryItem extends AppCompatActivity {
         quantity = findViewById(R.id.Quantity);
         units = findViewById(R.id.units);
 
+        if(cardToBeEdited != null)
+            code.getEditText().setFocusable(false);
 //        additempicturebtn = findViewById(R.id.uploaditempicture);
         unit_spinner = findViewById(R.id.unitspinner);
         unitspinnerdapter = new ArrayAdapter(this, android.R.layout.select_dialog_item, UOMList);
         unit_spinner.setAdapter(unitspinnerdapter);
-
         unit_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedUOM = UOMList[position];
+                selectedUOM = unit_spinner.getSelectedItem().toString();
             }
 
             @Override
@@ -89,6 +92,13 @@ public class AddInventoryItem extends AppCompatActivity {
             price.getEditText().setText(String.valueOf(cardToBeEdited.getPrice()));
             quantity.getEditText().setText(String.valueOf(cardToBeEdited.getQuantity()));
             units.getEditText().setText(cardToBeEdited.getUnit());
+
+            for(int i = 0; i < unit_spinner.getCount(); i++){
+                if(unit_spinner.getItemAtPosition(i).toString().equals(cardToBeEdited.getUom())){
+                    unit_spinner.setSelection(i);
+                    break;
+                }
+            }
         }
 
 //        additempicturebtn.setOnClickListener(new View.OnClickListener() {
@@ -115,14 +125,27 @@ public class AddInventoryItem extends AppCompatActivity {
                 String item_price = price.getEditText().getText().toString();
                 String item_quantity = quantity.getEditText().getText().toString();
 
-                InventoryItem newItem = new InventoryItem(item_code, item_name, item_quantity, item_units, selectedUOM, item_price, "invoice-" + item_name, null);//imageViewToByte(imageView));
-                if (cardToBeEdited != null) {
-                    inventoryManager.updateItem(newItem);
-                } else {
-                    inventoryManager.addItem(newItem);
+                if(item_code.isEmpty() || item_name.isEmpty() || item_price.isEmpty() ||
+                    item_units.isEmpty() || item_quantity.isEmpty())
+                {
+                    Toast.makeText(AddInventoryItem.this, "Fill all details", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(AddInventoryItem.this, InventoryActivity.class);
-                startActivity(intent);
+                else if(item_code.contains("/"))
+                {
+                    Toast.makeText(AddInventoryItem.this, "Item Code Invalid", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    InventoryItem newItem = new InventoryItem(item_code, item_name, item_quantity, item_units, selectedUOM, item_price, null);//imageViewToByte(imageView));
+                    if (cardToBeEdited != null) {
+                        inventoryManager.updateItem(newItem);
+                    } else {
+                        inventoryManager.addItem(newItem);
+                    }
+                    Intent intent = new Intent(AddInventoryItem.this, InventoryActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

@@ -13,30 +13,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BigBusiness">
-        <activity android:name=".Main.ui.Invoice.AddInvoiceActivity"></activity>
         <activity
-            android:name=".Main.ui.Finance.FinanceActivity"
-            android:label="@string/title_activity_finance"
-            android:theme="@style/Theme.BigBusiness.NoActionBar" />
+            android:name=".Main.ui.Invoice.AddInvoiceActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".Main.Main1Activity"
-            android:label="@string/title_activity_main1"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".Login.RegistrationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Login.VerifyOTPActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addinvoice" />
+        <activity
+            android:name=".Main.ui.Finance.FinanceActivity"
+            android:label="@string/title_activity_finance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.BigBusiness.NoActionBar" />
+        <activity
+            android:name=".Main.Main1Activity"
+            android:label="@string/title_activity_main1"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
-            android:label="ReminderFormActivity"/>
-        <activity android:name=".Main.ui.Invoice.InvoiceManagementActivity">
-
-        </activity>
-        <activity android:name=".Main.ui.Inventory.InventoryActivity" />
-        <activity android:name=".Main.ui.Inventory.AddInventoryItem" />
+            android:label="ReminderFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Main.ui.Invoice.InvoiceManagementActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Main.ui.Inventory.InventoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Main.ui.Inventory.AddInventoryItem"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
