@@ -118,4 +118,5 @@ public class InventoryManager {
     public void refreshInventoryItems() {
         inventoryFBHelper.refresh();
     }
+
 }

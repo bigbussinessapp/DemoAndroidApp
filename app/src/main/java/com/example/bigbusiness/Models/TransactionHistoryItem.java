@@ -3,20 +3,21 @@ package com.example.bigbusiness.Models;
 public class TransactionHistoryItem {
     private String TransactionMerchant;
     private String TransactionAmount;
-    private String Date;
+    private String date;
     private String transaction_credited_debited , transaction_type;
-    private String invoice = "Invoice";
+    private String invoiceId;
 
 
     public TransactionHistoryItem() {
     }
 
-    public TransactionHistoryItem(String TransactionMerchant, String transactionAmount , String Date , String transaction_type , String transaction_credited_debited) {
+    public TransactionHistoryItem(String TransactionMerchant, String transactionAmount , String date , String transaction_type , String transaction_credited_debited, String invoiceId) {
         this.TransactionMerchant = TransactionMerchant;
         this.TransactionAmount = transactionAmount;
-        this.Date = Date;
+        this.date = date;
         this.transaction_type = transaction_type;
         this.transaction_credited_debited = transaction_credited_debited;
+        this.invoiceId = invoiceId;
     }
 
     public String getTransaction_type() {
@@ -28,11 +29,11 @@ public class TransactionHistoryItem {
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
     }
 
     public String getTransaction_credited_debited() {
@@ -43,12 +44,12 @@ public class TransactionHistoryItem {
         this.transaction_credited_debited = transaction_credited_debited;
     }
 
-    public String getInvoice() {
-        return invoice;
+    public String getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setInvoice(String invoice) {
-        this.invoice = invoice;
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     public String getTransactionMerchant() {

@@ -60,6 +60,14 @@ public class InventoryFBHelper {
     public void deleteItem(InventoryItem item)
     {
         reference.child(item.getItemCode()).removeValue();
+        for(int i=0; i < items.size(); i++)
+        {
+            if(items.get(i).getItemCode().equals(item.getItemCode()))
+            {
+                items.remove(i);
+                break;
+            }
+        }
 //        int index = getIndex(Item);
 //        if(index == -1)
 //            return null;
