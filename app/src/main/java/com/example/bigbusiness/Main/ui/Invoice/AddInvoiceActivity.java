@@ -25,7 +25,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -160,7 +163,9 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items);
+
+                    String date = new SimpleDateFormat("MMMM dd, yyyy, HH: mm").format(Calendar.getInstance().getTime());;
+                    InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items, date);
 //                    invoiceItem.setInvoiceId(invoiceId);
                     invoiceManager.addInvoice(invoiceItem);
                     invoiceManager.clearItems();

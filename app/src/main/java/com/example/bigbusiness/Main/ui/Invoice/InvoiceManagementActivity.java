@@ -89,11 +89,6 @@ public class InvoiceManagementActivity extends AppCompatActivity {
                 Intent i = new Intent(InvoiceManagementActivity.this, AddInvoiceActivity.class);
                 startActivity(i);
             }
-
-//            private void openDialog() {
-//                InvoiceDialog invoicedialog = new InvoiceDialog();
-//                invoicedialog.show(getSupportFragmentManager(),"invoice dialog");
-//            }
         });
     }
 }

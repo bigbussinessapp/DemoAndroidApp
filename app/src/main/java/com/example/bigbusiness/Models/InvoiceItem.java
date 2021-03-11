@@ -1,6 +1,7 @@
 package com.example.bigbusiness.Models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,16 +9,18 @@ public class InvoiceItem implements Serializable {
     String invoiceId;
     String invoiceName;
     BuyerDetails buyer;
+    String createdOn;
     HashMap<String, InvoiceProduct> items;
 
     public InvoiceItem()
     {
 
     }
-    public InvoiceItem(String invoiceName, BuyerDetails buyer, HashMap<String, InvoiceProduct> items){
+    public InvoiceItem(String invoiceName, BuyerDetails buyer, HashMap<String, InvoiceProduct> items, String createdOn){
         this.invoiceName = invoiceName;
         this.buyer = buyer;
         this.items = items;
+        this.createdOn = createdOn;
     }
 
     public String getInvoiceId() {
@@ -50,5 +53,13 @@ public class InvoiceItem implements Serializable {
 
     public HashMap<String, InvoiceProduct> getItems() {
         return items;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
     }
 }

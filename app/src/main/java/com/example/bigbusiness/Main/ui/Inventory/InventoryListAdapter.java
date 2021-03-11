@@ -82,9 +82,6 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
                                 i.putExtra("editCard", itemClicked);
                                 context.startActivity(i);
                                 break;
-                                //inventory.editItem(itemClicked);
-//                                notifyDataSetChanged();
-//                                inventoryManager.editItem(itemClicked);
 
                             case R.id.delete_item:
                                 inventoryManager.deleteItem(itemClicked);

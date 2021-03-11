@@ -54,7 +54,9 @@ public class UserDataService {
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
         inventoryManager = InventoryManager.getInstance();
+        invoiceManager = InvoiceManager.getInstance();
         inventoryManager.refreshInventoryItems();
+        invoiceManager.refreshInvoices();
     }
 
     public void updateUserData(User user)

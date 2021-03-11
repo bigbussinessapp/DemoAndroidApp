@@ -69,7 +69,7 @@ public class InvoiceManager {
     }
 
     public List<InvoiceItem> getAllInvoices() {
-        return this.invoices;
+        return this.invoiceFBHelper.getInvoices();
     }
 
     public HashMap<String, InvoiceProduct> getAddedItemsWithIds()
@@ -100,5 +100,22 @@ public class InvoiceManager {
         {
             return 0;
         }
+    }
+
+    public InvoiceItem getInvoiceById(String invoiceId) {
+        InvoiceItem invoiceFound = null;
+        for (InvoiceItem i: getAllInvoices())
+        {
+            if(i.getInvoiceId().equals(invoiceId))
+            {
+                invoiceFound = i;
+                break;
+            }
+        }
+        return invoiceFound;
+    }
+
+    public void refreshInvoices() {
+        invoiceFBHelper.refresh();
     }
 }
