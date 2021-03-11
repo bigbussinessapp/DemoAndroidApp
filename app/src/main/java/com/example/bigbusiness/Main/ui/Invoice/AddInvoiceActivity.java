@@ -28,14 +28,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class AddInvoiceActivity extends AppCompatActivity {
 
     private TextInputEditText invoiceName, buyerName, itemName, itemQuantity;
-    TextView availableInventoryView;
+    TextView availableInventoryView, totalPriceView;
     private Button addItemBtn, clearBtn, saveToPdfBtn;
     RecyclerView inventoryListView;
     InvoiceManager invoiceManager;
@@ -47,6 +46,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference inventoryReference;
     UserDataService userDataService;
+    int totalAmount = 0;
     private static int count = 1;
 
     @Override
@@ -68,6 +68,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
         inventoryManager = InventoryManager.getInstance();
         inventoryItemsSpinner = findViewById(R.id.in_inv_item_spinner);
         availableInventoryView = findViewById(R.id.available_inv);
+        totalPriceView = findViewById(R.id.total_amount);
     }
 
     @Override
@@ -75,6 +76,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
         super.onStart();
         //final InventoryItem[] selectedItem = new InventoryItem[1];
         invoiceId = "Invoice"+count++;
+        totalAmount = 0;
 
         List<String> inventoryItems = new ArrayList<>();
         inventoryManager.getInventoryItems().forEach(item -> inventoryItems.add(item.getName()));
@@ -136,6 +138,8 @@ public class AddInvoiceActivity extends AppCompatActivity {
                     availableQuantity -= Integer.parseInt(quantity);
                     availableInventoryView.setText("* AvailableInventory: "+String.valueOf(availableQuantity));
                     invoiceItemsAdapter.notifyDataSetChanged();
+                    totalAmount = totalAmount + selectedItem.getPrice()*Integer.parseInt(quantity);
+                    totalPriceView.setText("Total amount: "+ String.valueOf(totalAmount));
                 }
             }
         });
@@ -165,7 +169,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 {
 
                     String date = new SimpleDateFormat("MMMM dd, yyyy, HH: mm").format(Calendar.getInstance().getTime());;
-                    InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items, date);
+                    InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items, date, String.valueOf(totalAmount));
 //                    invoiceItem.setInvoiceId(invoiceId);
                     invoiceManager.addInvoice(invoiceItem);
                     invoiceManager.clearItems();

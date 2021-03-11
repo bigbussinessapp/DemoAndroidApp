@@ -25,6 +25,14 @@
 		android:layout_marginRight="25dp"
 		android:hint="quantity"
 		android:layout_centerVertical="true"
+		android:layout_toLeftOf="@id/in_inv_price" />
+	<TextView
+		android:id="@+id/in_inv_price"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="25dp"
+		android:hint="price"
+		android:layout_centerVertical="true"
 		android:layout_toLeftOf="@id/in_inv_menu" />
 	<ImageView
 		android:id="@+id/in_inv_menu"

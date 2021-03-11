@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
 import com.example.bigbusiness.Models.InvoiceProduct;
 import com.example.bigbusiness.R;
 
@@ -20,6 +21,7 @@ public class InvoiceItemsAdapter extends RecyclerView.Adapter<InvoiceItemsAdapte
     private List<InvoiceProduct> items;
     private Context context;
     InvoiceManager invoiceManager;
+    InventoryManager inventoryManager;
     private Button addItemsBtn;
 
     public InvoiceItemsAdapter(Context context, List<InvoiceProduct> items)
@@ -27,6 +29,7 @@ public class InvoiceItemsAdapter extends RecyclerView.Adapter<InvoiceItemsAdapte
         this.context = context;
         this.items = items;
         this.invoiceManager = InvoiceManager.getInstance();
+        this.inventoryManager = InventoryManager.getInstance();
     }
 
     @NonNull
@@ -42,6 +45,7 @@ public class InvoiceItemsAdapter extends RecyclerView.Adapter<InvoiceItemsAdapte
         InvoiceProduct item = this.invoiceManager.getAddedItems().get(position);
         holder.name.setText(item.getName(item.getProductCode()));
         holder.quantity.setText(String.valueOf(item.getQuantity()));
+        holder.price.setText("Rs. "+inventoryManager.getItemById(item.getProductCode()).getPrice()+"/pc");
     }
 
     @Override
@@ -51,12 +55,13 @@ public class InvoiceItemsAdapter extends RecyclerView.Adapter<InvoiceItemsAdapte
 
     public class viewHolder extends RecyclerView.ViewHolder{
 
-        TextView name , quantity;
+        TextView name , quantity, price;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.in_inv_item_name);
             quantity = itemView.findViewById(R.id.in_inv_item_quantity);
+            price = itemView.findViewById(R.id.in_inv_price);
         }
     }
 }

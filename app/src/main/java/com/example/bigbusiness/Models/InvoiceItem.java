@@ -10,17 +10,27 @@ public class InvoiceItem implements Serializable {
     String invoiceName;
     BuyerDetails buyer;
     String createdOn;
+    String totalPrice;
     HashMap<String, InvoiceProduct> items;
 
     public InvoiceItem()
     {
 
     }
-    public InvoiceItem(String invoiceName, BuyerDetails buyer, HashMap<String, InvoiceProduct> items, String createdOn){
+    public InvoiceItem(String invoiceName, BuyerDetails buyer, HashMap<String, InvoiceProduct> items, String createdOn, String totalPrice){
         this.invoiceName = invoiceName;
         this.buyer = buyer;
         this.items = items;
         this.createdOn = createdOn;
+        this.totalPrice = totalPrice;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getInvoiceId() {

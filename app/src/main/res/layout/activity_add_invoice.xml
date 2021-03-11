@@ -119,6 +119,14 @@
                 android:layout_weight="1"
                 tools:listitem="@layout/generate_invoicedialog_listview" />
 
+            <TextView
+                android:id="@+id/total_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Total Amount: "
+                android:textColor="@color/blue" />
             <Button
                 android:id="@+id/saveToPdfBtn"
                 android:layout_width="match_parent"
