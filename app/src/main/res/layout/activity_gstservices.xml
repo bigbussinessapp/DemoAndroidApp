@@ -46,7 +46,7 @@
 			android:layout_height="wrap_content"
 			android:weightSum="1.0"
 			android:orientation="horizontal">
-			
+
 			<com.google.android.material.textfield.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 				android:layout_weight="0.5"
 				android:layout_marginEnd="16dp"
 				android:layout_marginBottom="16dp">
-				
+
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/state"
 					android:layout_width="match_parent"
@@ -72,7 +72,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:textSize="10sp"
-				android:entries="@array/item_unit_arrays"
+				android:entries="@array/states"
 				android:prompt="@string/item_prompt" />
 		
 		</LinearLayout>
@@ -96,7 +96,7 @@
 					android:layout_height="wrap_content"
 					android:hint="Enter your phone number"
 					android:id="@+id/phonenumber"
-					android:inputType="textCapWords"
+					android:inputType="number"
 					android:paddingStart="8dp"
 					android:paddingEnd="8dp"
 					android:textSize="18sp" />

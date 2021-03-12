@@ -31,8 +31,8 @@ public class GSTServiceActivity extends AppCompatActivity implements AdapterView
     private TextInputEditText phoneno;
     Spinner state_spinner;
     String getstate;
-    String states[]={"select state","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","jharkhand","Karnataka","kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram"};
-    ArrayAdapter statespinnerdapter;
+    //String states[]={"select state","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","jharkhand","Karnataka","kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram"};
+   // ArrayAdapter statespinnerdapter;
     Button saveBtn, cancelBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,12 @@ public class GSTServiceActivity extends AppCompatActivity implements AdapterView
         gstin = findViewById(R.id.gstin);
         phoneno = findViewById(R.id.phonenumber);
         state = findViewById(R.id.state);
-        state_spinner = findViewById(R.id.unitspinner);
+        state_spinner = findViewById(R.id.statespinner);
+        //statespinnerdapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,states);
+        ArrayAdapter<CharSequence> statespinneradapter =ArrayAdapter.createFromResource(this,R.array.states, android.R.layout.simple_spinner_item);
+        statespinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        state_spinner.setAdapter(statespinneradapter);
         state_spinner.setOnItemSelectedListener(GSTServiceActivity.this);
-        statespinnerdapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,states);
-        state_spinner.setAdapter(statespinnerdapter);
 
         saveBtn = findViewById(R.id.save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +63,9 @@ public class GSTServiceActivity extends AppCompatActivity implements AdapterView
     private void saveItemToSheet(){
         final String gst = gstin.getText().toString().trim();
         final String phone = phoneno.getText().toString().trim();
-        final String stat = state.getText().toString().trim();
+        final String state_item = state.getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbyMHTk2ej36s_IiSCGm_qFTlPcb4Wm_7P_Av_Yw2Jw58fVrkvC-3p67c2F0eJMCwIuZNQ/exec",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbyLMhfC0ums-TEwZH_kdYsbGPc_mhIGgRd4KHnIiqYPC3vrTGqOufyl8wvt_7Lw4tSEHA/exec",
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -83,9 +85,10 @@ public class GSTServiceActivity extends AppCompatActivity implements AdapterView
             Map<String, String> parmas = new HashMap<>();
 
             //here we pass params
-            parmas.put("GSTIN",gst);
-            parmas.put("PhoneNumber",phone);
-            parmas.put("State",stat);
+            parmas.put("action","addItem");
+            parmas.put("gstinnumber",gst);
+            parmas.put("state",state_item);
+            parmas.put("phonenumber",phone);
 
             return parmas;
         }
