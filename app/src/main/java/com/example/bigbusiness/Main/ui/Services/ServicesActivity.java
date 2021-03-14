@@ -16,7 +16,7 @@ public class ServicesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
-        gstBtn =(Button)findViewById(R.id.gst_service);
+        gstBtn = findViewById(R.id.gst_service);
 
         gstBtn.setOnClickListener(gstServiceClick);
 
