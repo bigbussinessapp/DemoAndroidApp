@@ -89,7 +89,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                     buttonVerify.setVisibility(View.VISIBLE);
                                     if(task.isSuccessful()){
                                         userId =  mAuth.getCurrentUser().getUid();
-                                        firebaseDb.getReference("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        firebaseDb.getReference("Users").child(userId).child("Profile").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 Intent i;

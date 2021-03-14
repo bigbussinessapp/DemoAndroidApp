@@ -8,8 +8,7 @@ public class Reminder implements Serializable {
     //title, amount, date, paymentType, deletebutton, editbutton
 
 
-    String title , amount , date , time ;
-    String  btndel="DELETE" , btnedit = "EDIT";
+    String title , amount , paymentDate, paymentTime;
     String paymentType;
     String cardId;
     static int id = 0;
@@ -18,13 +17,13 @@ public class Reminder implements Serializable {
     {
 
     }
-    public Reminder(String title, String amount, String paymentType, String Date , String time)
+    public Reminder(String title, String amount, String paymentType, String paymentDate, String paymentTime)
     {
             this.title = title;
             this.amount = amount;
-            this.date = Date;
+            this.paymentDate = paymentDate;
             this.paymentType = paymentType;
-            this.time = time;
+            this.paymentTime = paymentTime;
 //            this.cardId = id++;
 
         //auto create
@@ -33,12 +32,12 @@ public class Reminder implements Serializable {
         //createRadioButton(this.radioReceive);
     }
 
-    public String getTime() {
-        return time;
+    public String getPaymentTime() {
+        return paymentTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setPaymentTime(String paymentTime) {
+        this.paymentTime = paymentTime;
     }
 
     public String getTitle() {
@@ -57,28 +56,12 @@ public class Reminder implements Serializable {
         this.amount = amount;
     }
 
-    public String getDate() {
-        return date;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setDate(String date) {
-        date = date;
-    }
-
-    public String getBtndel() {
-        return btndel;
-    }
-
-    public void setBtndel(String btndel) {
-        this.btndel = btndel;
-    }
-
-    public String getBtnedit() {
-        return btnedit;
-    }
-
-    public void setBtnedit(String btnedit) {
-        this.btnedit = btnedit;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getPaymentType() {

@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.example.bigbusiness.Login.RegistrationActivity;
 import com.example.bigbusiness.Main.Main1Activity;
+import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
+import com.example.bigbusiness.Main.ui.Invoice.InvoiceManager;
 import com.example.bigbusiness.Models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +27,8 @@ public class UserDataService {
     DatabaseReference usersDatabase;
     FirebaseAuth mAuth;
     private static UserDataService instance;
+    private InventoryManager inventoryManager;
+    private InvoiceManager invoiceManager;
 
     public static UserDataService getInstance()
     {
@@ -49,5 +53,14 @@ public class UserDataService {
 
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
+        inventoryManager = InventoryManager.getInstance();
+        invoiceManager = InvoiceManager.getInstance();
+        inventoryManager.refreshInventoryItems();
+        invoiceManager.refreshInvoices();
+    }
+
+    public void updateUserData(User user)
+    {
+        usersDatabase.child(this.getLoggedInUser().getUid()).child("Profile").setValue(user);
     }
 }

@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagement;
+import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagementActivity;
 import com.example.bigbusiness.R;
 
 public class ServicesActivity extends AppCompatActivity {

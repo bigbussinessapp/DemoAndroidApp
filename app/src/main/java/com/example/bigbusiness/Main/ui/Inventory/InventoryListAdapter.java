@@ -17,17 +17,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbusiness.Main.ui.Finance.RemindersAndDues.ReminderCardsManager;
+import com.example.bigbusiness.Main.ui.Finance.RemindersAndDues.RemindersAndDuesFragment;
 import com.example.bigbusiness.Models.InventoryItem;
+import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdapter.ViewHolder> {
 
     InventoryManager inventoryManager;
-    ArrayList<InventoryItem> inventoryItemsList;
+    List<InventoryItem> inventoryItemsList;
     InventoryActivity inventory;
     Context context;
+
+    public InventoryListAdapter(Context context, List<InventoryItem> inventoryItemsList)
+    {
+        this.context = context;
+        this.inventoryItemsList = inventoryItemsList;
+        this.inventoryManager = InventoryManager.getInstance();
+        this.inventoryManager.setItems(this.inventoryItemsList);
+    }
+
 
     public InventoryListAdapter(Context context, InventoryActivity inventoryActivity, InventoryManager inventoryManager) {
         this.inventoryManager = inventoryManager;
@@ -46,40 +59,14 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InventoryItem itemClicked = this.inventoryItemsList.get(position);
-        int id = itemClicked.getItemID();
+        String id = itemClicked.getItemCode();
         holder.item_name.setText(itemClicked.getName());
         holder.quantitytextview.setText(itemClicked.getQuantity()+"");
         holder.itemprice.setText(String.valueOf(itemClicked.getPrice()));
         holder.item_unit.setText(itemClicked.getUnit());
 
-        //byte[] image = itemClicked.getImage();
-       // Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-
-        //holder.imageView.setImageBitmap(bitmap);
-       // holder.item_price.setText(itemClicked.getPrice());
-//        final int[] minteger = {0};
-
-/*        holder.increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inventoryManager.increaseQuantity(itemClicked);
-                notifyDataSetChanged();
-            }
-        });
-        holder.decrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inventoryManager.decreaseQuantity(itemClicked);
-                notifyDataSetChanged();
-            }
-        });
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                inventoryManager.removeItem(itemClicked);
-                notifyItemRangeRemoved(position, inventoryItemsList.size());
-            }
-        });*/
+        byte[] image = itemClicked.getImage();
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
 
         holder.hamburger_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,34 +78,22 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.edit_item:
-                                inventory.editItem(itemClicked);
-                                notifyDataSetChanged();
-//                                inventoryManager.editItem(itemClicked);
+                                Intent i = new Intent(context, AddInventoryItem.class);
+                                i.putExtra("editCard", itemClicked);
+                                context.startActivity(i);
+                                break;
 
                             case R.id.delete_item:
                                 inventoryManager.deleteItem(itemClicked);
                                 notifyDataSetChanged();
+                                break;
                             default:
                                 return false;
                         }
-                    }
-                    public void editedItem() {
-                        inventoryManager.editItem(itemClicked);
-                        Intent intent = new Intent(context,AddInventoryItem.class);
-                        intent.putExtra("invoiceId",String.valueOf(itemClicked.getItemID()));
-                        intent.putExtra("name",String.valueOf(itemClicked.getName()));
-                        intent.putExtra("qunatity",String.valueOf(itemClicked.getQuantity()));
-                        intent.putExtra("price",String.valueOf(itemClicked.getPrice()));
-                        intent.putExtra("units",String.valueOf(itemClicked.getUnit()));
-                        context.startActivity(intent);
-
-
+                        return true;
                     }
                 });
                 popup.show();
-               /* Context context = view.getContext();
-                Intent intent = new Intent(context,InventoryEditItem.class);
-                context.startActivity(intent);*/
             }
         });
 
@@ -129,12 +104,12 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         return this.inventoryItemsList.size();
     }
 
-    public ArrayList<InventoryItem> getInventoryItemsList()
+    public List<InventoryItem> getInventoryItemsList()
     {
         return this.inventoryItemsList;
     }
 
-    public void setInventoryItemsList(ArrayList<InventoryItem> updatedItemsList)
+    public void setInventoryItemsList(List<InventoryItem> updatedItemsList)
     {
         this.inventoryItemsList = updatedItemsList;
     }
@@ -158,9 +133,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
             itemprice = (TextView)itemView.findViewById(R.id.itemprice);
             item_unit = (TextView)itemView.findViewById(R.id.item_unit);
             hamburger_menu = (ImageView)itemView.findViewById(R.id.hamburger_menu);
-            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
-
-
+//            imageView = (ImageView)itemView.findViewById(R.id.imageView2);
         }
     }
 

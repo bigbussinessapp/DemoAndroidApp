@@ -1,7 +1,6 @@
 package com.example.bigbusiness.Main.ui.Finance.RemindersAndDues;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bigbusiness.Models.Reminder;
 import com.example.bigbusiness.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -71,8 +69,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
         {
             holder.Amount.setTextColor(Color.RED);
         }
-        holder.Date.setText(cardClicked.getDate());
-        holder.time.setText(cardClicked.getTime());
+        holder.Date.setText(cardClicked.getPaymentDate());
+        holder.time.setText(cardClicked.getPaymentTime());
         holder.buttonDelete.setOnClickListener(v -> {
             this.rmManager.removeCard(cardClicked);
             Toast.makeText(context, "Deleting", Toast.LENGTH_SHORT).show();

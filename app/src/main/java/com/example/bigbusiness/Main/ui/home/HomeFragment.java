@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bigbusiness.Main.ui.Finance.FinanceActivity;
 import com.example.bigbusiness.Main.ui.Inventory.InventoryActivity;
-import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagement;
 import com.example.bigbusiness.Main.ui.Services.ServicesActivity;
+import com.example.bigbusiness.Main.ui.Invoice.InvoiceManagementActivity;
 import com.example.bigbusiness.R;
 
 public class HomeFragment extends Fragment {
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), InvoiceManagement.class);
+                    Intent i = new Intent(getActivity(), InvoiceManagementActivity.class);
                     startActivity(i);
                 }
             };

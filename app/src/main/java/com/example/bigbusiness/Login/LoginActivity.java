@@ -46,15 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser() != null)
         {
             database = FirebaseDatabase.getInstance();
-            reference = database.getReference("Users");
             String id = mAuth.getCurrentUser().getUid();
-            reference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            reference = database.getReference("Users").child(id);
+            reference.child("Profile").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists())
                     {
                         UserDataService userDataService = UserDataService.getInstance();
-                        userDataService.setLoggedInUser(snapshot.getValue(User.class));
+                        User loggedInUser = snapshot.getValue(User.class);
+                        userDataService.setLoggedInUser(loggedInUser);
                         Intent i = new Intent(LoginActivity.this , Main1Activity.class);
                         startActivity(i);
                         finish();

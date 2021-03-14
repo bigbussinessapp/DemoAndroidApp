@@ -84,7 +84,7 @@ public class ReminderFormActivity extends AppCompatActivity {
 //        return cardToBeEdited;
 //    }
 
-    public void addRemainderCard(View Button)
+    public void addRemainderCard(View view)
     {
         //cardToBeHandled = new Cards(title, amount, selectedType, date , time );
         Reminder cardToBeHandled = createCard();
@@ -201,34 +201,55 @@ public class ReminderFormActivity extends AppCompatActivity {
             {
                 titleET.getEditText().setText(cardToBeEdited.getTitle());
                 amountInput.getEditText().setText(cardToBeEdited.getAmount());
-                cardToBeEdited.setPaymentType(paymentTypeGroup.getCheckedRadioButtonId() + "");
-                dateInput.setText(cardToBeEdited.getDate());
-                timeInput.setText(cardToBeEdited.getTime());
+//                cardToBeEdited.setPaymentType(paymentTypeGroup.getCheckedRadioButtonId() + "");
+                dateInput.setText(cardToBeEdited.getPaymentDate());
+                timeInput.setText(cardToBeEdited.getPaymentTime());
+                paymentTypeGroup.check(cardToBeEdited.getPaymentType().equals("Receive") ? R.id.radioReceive : R.id.radioPay);
 
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        editRemainderCard(cardToBeEdited);
-                    }}
-                );
+//                submit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v)
+//                    {
+//                        editRemainderCard(cardToBeEdited);
+//                    }}
+//                );
             }
-            else
-            {
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
+//            else
+//            {
+//                submit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v)
+//                    {
+//                        addRemainderCard(v);
+//                    }}
+//                );
+//            }
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Reminder reminder = createCard();
+                    if(cardToBeEdited != null)
                     {
-                        addRemainderCard(v);
-                    }}
-                );
-            }
+                        reminder.setCardId(cardToBeEdited.getCardId());
+                        reminderCardsManager.updateCard(reminder);
+                    }
+                    else
+                    {
+                        reminderCardsManager.addCard(reminder);
+                    }
+                    Intent i = new Intent(ReminderFormActivity.this, FinanceActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
+                }}
+            );
+
             radioGroup = findViewById(R.id.radioGrup);
             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     switch (checkedId){
-                        case R.id.radioRecieve:
+                        case R.id.radioReceive:
                             break;
                         case R.id.radioPay:
                             break;

@@ -135,12 +135,12 @@
         android:layout_marginTop="30dp"
         android:gravity="end">
         <Button
+            android:id="@+id/submit_login_form"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Submit"
-            android:id="@+id/submit_login_form"/>
+            android:layout_marginRight="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Submit"/>
     </LinearLayout>
 
 </RelativeLayout>

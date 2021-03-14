@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:card_view="http://schemas.android.com/apk/res-auto"
+	xmlns:card_view2="https://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="#f9f9f9"
@@ -9,14 +10,14 @@
 	android:padding="6dp"
 	android:tag="cards main container">
 	
-	<androidx.cardview.widget.CardView xmlns:card_view="https://schemas.android.com/apk/res-auto"
-		 android:id="@+id/card_view"
+	<androidx.cardview.widget.CardView
+		android:id="@+id/card_view"
 		 android:layout_width="match_parent"
 		 android:layout_height="wrap_content"
-		 card_view:cardBackgroundColor="#FFF"
-		 card_view:cardCornerRadius="10dp"
-		 card_view:cardElevation="5dp"
-		 card_view:cardUseCompatPadding="true">
+		 card_view2:cardBackgroundColor="#FFF"
+		 card_view2:cardCornerRadius="10dp"
+		 card_view2:cardElevation="5dp"
+		 card_view2:cardUseCompatPadding="true">
  
 		 <LinearLayout
 			 android:layout_width="match_parent"
@@ -32,12 +33,12 @@
 					 android:layout_width="0dp"
 					 android:layout_height="wrap_content"
 					 android:layout_weight="4">
- 
-					
+
+
 					 <TextView
 						 android:id="@+id/invoicepdf_name"
 						 android:layout_width="0dp"
-						 android:layout_height="fill_parent"
+						 android:layout_height="wrap_content"
 						 android:layout_marginTop="10dp"
 						 android:layout_weight="1"
 						 android:hint="item name"
@@ -55,142 +56,13 @@
  
 					 <Button
 						 android:id="@+id/arrow"
-						 android:layout_width="50dp"
-						 android:layout_height="30dp"
+						 android:layout_width="20dp"
+						 android:layout_height="20dp"
 						 android:layout_weight="2"
 						 android:textColor="#000"
-						 android:background="@drawable/arrow"
-						 />
- 
+						 android:background="@drawable/ic_baseline_share_24"/>
 				 </LinearLayout>
 			 </LinearLayout>
 		 </LinearLayout>
 	 </androidx.cardview.widget.CardView>
-	
-	<!--<androidx.cardview.widget.CardView
-		android:id="@+id/card_view"
-		android:layout_width="150dp"
-		android:layout_height="150dp"
-		card_view:cardBackgroundColor="#FFF"
-		card_view:cardCornerRadius="10dp"
-		card_view:cardElevation="5dp"
-		card_view:cardUseCompatPadding="true">
-		
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="10"
-			>
-			
-			<LinearLayout
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="7">
-				
-				<TextView
-					android:id="@+id/item_name"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="2"
-					android:hint="item name"
-					android:textStyle="bold"
-					android:textAlignment="center"
-					android:textSize="13dp"
-					/>
-				
-				<TextView
-					android:id="@+id/item_unit"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="2"
-					android:text="0"
-					android:textSize="10dp"
-					android:textAlignment="center"
-					android:textStyle="bold" />
-			</LinearLayout>
-			
-			<LinearLayout
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="3">
-				
-				<ImageView
-					android:layout_width="40dp"
-					android:layout_height="20dp"
-					android:layout_marginLeft="10dp"
-					android:id="@+id/hamburger_menu"
-					android:layout_gravity="right"
-					android:src="@drawable/threedot"/>
-			</LinearLayout>
-		</LinearLayout>
-		<LinearLayout
-			android:layout_width="50dp"
-			android:layout_height="50dp"
-			android:layout_gravity="center"
-			>
-			
-			<ImageView
-				android:id="@+id/item_cover_image"
-				android:layout_width="match_parent"
-				android:layout_gravity="center"
-				android:layout_height="match_parent"
-				android:background="@drawable/pp"
-				android:scaleType="centerCrop" />
-		</LinearLayout>
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="110dp"
-			android:weightSum="1">
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="20dp"
-				android:layout_weight="0.5"
-				android:text="Price :"
-				android:textSize="10dp"
-				android:textStyle="bold" />
-			<TextView
-				android:id="@+id/itemprice"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"
-				android:layout_marginLeft="15dp"
-				android:hint="Price"
-				android:textStyle="bold"
-				android:textSize="10dp"
-				/>
-		
-		</LinearLayout>
-		
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="130dp"
-			android:weightSum="1">
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"
-				android:layout_marginLeft="20dp"
-				android:text="Quantity :"
-				android:textStyle="bold"
-				android:textSize="10dp"
-				/>
-			<TextView
-				android:id="@+id/item_quantity"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"
-				android:layout_marginLeft="10dp"
-				android:hint="Quantity"
-				android:textStyle="bold"
-				android:textSize="10dp"
-				/>
-		
-		</LinearLayout>
-	
-	</androidx.cardview.widget.CardView> -->
 </LinearLayout>
