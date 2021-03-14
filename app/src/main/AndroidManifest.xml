@@ -56,6 +56,11 @@
         <activity
             android:name=".Main.ui.Inventory.AddInventoryItem"
             android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Main.ui.Services.ServicesActivity"/>
+        <activity android:name=".Main.ui.Services.GSTServiceActivity"/>
+
     </application>
 
 </manifest>
