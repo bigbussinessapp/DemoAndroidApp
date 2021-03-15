@@ -12,14 +12,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BigBusiness">
-        <activity android:name=".Main.TestActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".Main.ui.Invoice.NewAddInvoiceActivity" />
+        <activity android:name=".Main.ui.Invoice.NewInvoiceManagementActivity" />
+        <activity android:name=".Login.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main.ui.Inventory.NewAddInventoryActivity" />
+        <activity android:name=".Main.ui.Inventory.NewInventoryActivity" />
+        <activity
+            android:name=".Main.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main.ui.Invoice.AddInvoiceActivity"
             android:screenOrientation="portrait" />
@@ -28,24 +35,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login.VerifyOTPActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login.LoginActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main.ui.Finance.FinanceActivity"
             android:label="@string/title_activity_finance"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.BigBusiness.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main.Main1Activity"
             android:label="@string/title_activity_main1"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main.ui.Finance.RemindersAndDues.ReminderFormActivity"
             android:label="ReminderFormActivity"
@@ -59,11 +60,8 @@
         <activity
             android:name=".Main.ui.Inventory.AddInventoryItem"
             android:screenOrientation="portrait" />
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".Main.ui.Services.ServicesActivity"/>
-        <activity android:name=".Main.ui.Services.GSTServiceActivity"/>
-
+        <activity android:name=".Main.ui.Services.ServicesActivity" />
+        <activity android:name=".Main.ui.Services.GSTServiceActivity" />
     </application>
 
 </manifest>

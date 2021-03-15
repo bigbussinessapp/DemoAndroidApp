@@ -4,6 +4,7 @@
 	android:layout_height="match_parent"
 	android:background="@drawable/splashscreenui">
 	<Button
+		android:id="@+id/getStartedBtn"
 		android:layout_width="340dp"
 		android:layout_height="60dp"
 		android:background="@drawable/loginbutton"
@@ -11,6 +12,5 @@
 		android:layout_gravity="center"
 		android:layout_marginLeft="33dp"
 		android:text="GET STARTED"
-		/>
-
+		android:textColor="@color/white"/>
 </LinearLayout>

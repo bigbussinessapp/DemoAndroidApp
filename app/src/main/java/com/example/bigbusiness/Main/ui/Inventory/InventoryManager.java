@@ -14,7 +14,7 @@ public class InventoryManager {
 
     public InventoryManager()
     {
-        this.inventoryFBHelper = InventoryFBHelper.getInstance();
+//        this.inventoryFBHelper = InventoryFBHelper.getInstance();
 //        this.inventoryDBHelper = inventoryDBHelper;
 //        addItem(new InventoryItem(1, "prod1", 20, "ml", 200, "1000",));
 //        addItem(new InventoryItem(2,"prod2",100, "ml", 15, "1001",null));
@@ -101,7 +101,8 @@ public class InventoryManager {
     }
 
     public List<InventoryItem> getInventoryItems() {
-        return this.inventoryFBHelper.getAllItems();
+        //return this.inventoryFBHelper.getAllItems();
+        return this.inventoryItems;
     }
 
     public void updateItems(HashMap<String, String> productsWithQuantity) {

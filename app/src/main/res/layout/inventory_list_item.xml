@@ -150,14 +150,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3">
-                    
+
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
                         android:id="@+id/hamburger_menu"
+                        android:layout_width="40dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="right"
-                        android:src="@drawable/threedot"/>
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/threedot" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

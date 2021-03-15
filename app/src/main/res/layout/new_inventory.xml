@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/search_inventory"
@@ -12,20 +11,20 @@
         android:layout_height="52dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/home_feature_shape"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:paddingLeft="10dp"
-        android:hint="Search here..."
-        android:drawableRight="@drawable/ic_filter_inventory"
-        android:paddingRight="10dp"
-        android:gravity="center"
         android:backgroundTint="#F4F7FF"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:drawableRight="@drawable/ic_filter_inventory"
+        android:gravity="center"
+        android:hint="Search here..."
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
-        android:id="@+id/add_inventory"
+        android:id="@+id/add_inventory_empty"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="20dp"
@@ -38,8 +37,9 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_inventory_empty"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_inventory"
         app:srcCompat="@drawable/empty1_inventory" />

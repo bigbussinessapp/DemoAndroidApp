@@ -29,49 +29,49 @@ public class RegistrationActivity extends AppCompatActivity {
     DatabaseReference usersDatabase;
     UserDataService userService;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        userService = UserDataService.getInstance();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration_form);
-
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDatabase = firebaseDatabase.getReference("Users");
-
-        phoneNo = findViewById(R.id.mobileNumber);
-        submit = findViewById(R.id.submit_login_form);
-        firebaseAuth = firebaseAuth.getInstance();
-
-        Intent i = getIntent();
-        phoneNo.getEditText().setText(i.getStringExtra("phoneNo"));
-        phoneNo.getEditText().setFocusable(false);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // store in firebase here only
-                User user = getUserData();
-                usersDatabase.child(user.getUid()).child("Profile").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
-                            userService.setLoggedInUser(user);// = user;
-                            Toast.makeText(RegistrationActivity.this, "Registration Successful! Welcome "+user.getName(), Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(RegistrationActivity.this, Main1Activity.class);
-                            startActivity(i);
-                            finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(RegistrationActivity.this, "Error while adding user", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        userService = UserDataService.getInstance();
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_registration_form);
+//
+//
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//        usersDatabase = firebaseDatabase.getReference("Users");
+//
+//        phoneNo = findViewById(R.id.mobileNumber);
+//        submit = findViewById(R.id.submit_login_form);
+//        firebaseAuth = firebaseAuth.getInstance();
+//
+//        Intent i = getIntent();
+//        phoneNo.getEditText().setText(i.getStringExtra("phoneNo"));
+//        phoneNo.getEditText().setFocusable(false);
+//
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // store in firebase here only
+//                User user = getUserData();
+//                usersDatabase.child(user.getUid()).child("Profile").setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful())
+//                        {
+//                            userService.setLoggedInUser(user);// = user;
+//                            Toast.makeText(RegistrationActivity.this, "Registration Successful! Welcome "+user.getName(), Toast.LENGTH_SHORT).show();
+//                            Intent i = new Intent(RegistrationActivity.this, Main1Activity.class);
+//                            startActivity(i);
+//                            finish();
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(RegistrationActivity.this, "Error while adding user", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//    }
 
     private User getUserData() {
         String uid = firebaseAuth.getUid();
@@ -93,5 +93,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
         User new_user = new User(uid , userFullName , emailid , mobileNo , BusinessName , BusinessType);
         return new_user;
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registration_form);
     }
 }

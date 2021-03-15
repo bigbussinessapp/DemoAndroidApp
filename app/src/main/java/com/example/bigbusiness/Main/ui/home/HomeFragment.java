@@ -31,9 +31,9 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        invoiceBtn = (Button) root.findViewById(R.id.invoice_btn);
-        inventoryBtn = (Button) root.findViewById(R.id.inventory_btn);
-        financeBtn = (Button) root.findViewById(R.id.finance_btn);
+        invoiceBtn = (Button) root.findViewById(R.id.invoice_btn_home);
+        inventoryBtn = (Button) root.findViewById(R.id.inventory_btn_home);
+        financeBtn = (Button) root.findViewById(R.id.finance_btn_home);
 
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
