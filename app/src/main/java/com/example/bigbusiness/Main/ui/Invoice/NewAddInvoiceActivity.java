@@ -1,4 +1,4 @@
-package com.example.bigbusiness.Main.ui.Invoice;
+package com.example.bigbusiness.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
