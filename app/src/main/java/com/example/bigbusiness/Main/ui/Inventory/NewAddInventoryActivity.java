@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bigbusiness.Main.HomeActivity;
+import com.example.bigbusiness.Main.ui.Profile.NewProfileActivity;
 import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,6 +33,26 @@ public class NewAddInventoryActivity extends AppCompatActivity {
         unitsET = findViewById(R.id.units_inventory);
         uomET = findViewById(R.id.uom_inventory);
         priceET = findViewById(R.id.price_inventory);
+
+        TextView titleBtn;
+        ImageView profile;
+        titleBtn = findViewById(R.id.titleHeading);
+        profile = findViewById(R.id.profileIcon);
+        titleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NewAddInventoryActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NewAddInventoryActivity.this, NewProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     @Override

@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Main.ui.Profile.NewProfileActivity"></activity>
         <activity android:name=".Main.ui.Invoice.NewAddInvoiceActivity" />
         <activity android:name=".Main.ui.Invoice.NewInvoiceManagementActivity" />
         <activity android:name=".Login.LandingActivity">

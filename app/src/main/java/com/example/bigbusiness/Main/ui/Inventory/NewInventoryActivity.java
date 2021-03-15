@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.bigbusiness.Main.HomeActivity;
+import com.example.bigbusiness.Main.ui.Profile.NewProfileActivity;
 import com.example.bigbusiness.Models.InventoryItem;
 import com.example.bigbusiness.R;
 
@@ -35,6 +38,26 @@ public class NewInventoryActivity extends AppCompatActivity {
         items = new ArrayList<>();
         InventoryItem dummyItem = new InventoryItem("demo code", "demo name", "100", "250", "gms", "45", null);
         items.add(dummyItem);
+
+        TextView titleBtn;
+        ImageView profile;
+        titleBtn = findViewById(R.id.titleHeading);
+        profile = findViewById(R.id.profileIcon);
+        titleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NewInventoryActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NewInventoryActivity.this, NewProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     @Override
