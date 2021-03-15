@@ -1,26 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/registrationui"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@drawable/regui"
 	android:orientation="vertical">
 	
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-	
-	
-	</LinearLayout>
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		
+		<de.hdodenhof.circleimageview.CircleImageView
+			android:layout_marginTop="100dp"
+			android:layout_marginLeft="120dp"
+			app:civ_border_width="4dp"
+			android:layout_centerInParent="true"
+			android:src="@drawable/ic_baseline_account_circle_24"
+			android:layout_width="150dp"
+			android:layout_height="180dp"/>
+		
+		<LinearLayout
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dp"
+			>
+			
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@drawable/user" />
+			
+			<TextView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_weight="2"
+				android:textSize="20sp"
+				tools:ignore="SmallSp"
+				tools:text="Name"
+				android:textStyle="bold"/>
+		
+		</LinearLayout>
+		
+		<EditText
+			android:layout_width="300dp"
+			android:layout_height="40dp"
+			android:hint="Your name"
+			android:layout_marginLeft="50dp"></EditText>
+		
+		<LinearLayout
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dp"
+			android:layout_marginTop="10dp">
+			
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@drawable/mail" />
+			
+			<TextView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_weight="2"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				tools:ignore="SmallSp"
+				tools:text="Mail" />
+		
+		</LinearLayout>
+		
+		<EditText
+			android:layout_width="300dp"
+			android:layout_height="40dp"
+			android:hint="Your name"
+			android:layout_marginLeft="50dp"></EditText>
+		
+		<LinearLayout
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dp"
+			android:layout_marginTop="10dp"
+			>
+			
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@drawable/mob" />
+			
+			<TextView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_weight="2"
+				android:textSize="20sp"
+				tools:ignore="SmallSp"
+				tools:text="Mobile"
+				android:textStyle="bold"/>
+		
+		</LinearLayout>
+		<EditText
+			android:layout_width="300dp"
+			android:layout_height="40dp"
+			android:hint="Your name"
+			android:layout_marginLeft="50dp"></EditText>
+		
+		<LinearLayout
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="50dp"
+			>
+			
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@drawable/org" />
+			
+			<TextView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_weight="2"
+				android:textSize="20sp"
+				tools:ignore="SmallSp"
+				tools:text="Oranization"
+				android:textStyle="bold"/>
+		
+		</LinearLayout>
+		<EditText
+			android:layout_width="300dp"
+			android:layout_height="40dp"
+			android:hint="Your name"
+			android:layout_marginLeft="50dp"></EditText>
+		
+		<LinearLayout
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="50dp"
+			android:layout_marginTop="10dp"
+			>
+			
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@drawable/orgtype" />
+			
+			<TextView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_weight="2"
+				android:textSize="20sp"
+				tools:ignore="SmallSp"
+				tools:text="organization Type"
+				android:textStyle="bold"/>
+		
+			
+		</LinearLayout>
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:layout_width="300dp"
+			android:layout_height="40dp"
+			android:layout_marginLeft="50dp"
+			></androidx.appcompat.widget.AppCompatSpinner>
 	
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@drawable/loginbutton"
-		android:text="CONTINUE"
-		android:layout_marginTop="650dp"
-		android:layout_gravity="bottom|right"
-		android:layout_marginRight="20dp"
-		android:layout_marginBottom="40dp"></Button>
+		android:text="Update  ->"
+		android:layout_gravity="right"
+		android:layout_marginRight="50dp"></Button>
+		
+		
 
 </LinearLayout>
