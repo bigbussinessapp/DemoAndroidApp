@@ -20,7 +20,7 @@ public class ReminderCardsManager extends Fragment {
 
     private ReminderCardsManager()
     {
-        reminderFBHelper = ReminderFBHelper.getInstance();
+       // reminderFBHelper = ReminderFBHelper.getInstance();
 //        userDataService = UserDataService.getInstance();
 //        database = FirebaseDatabase.getInstance();
 //        reference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Reminders");

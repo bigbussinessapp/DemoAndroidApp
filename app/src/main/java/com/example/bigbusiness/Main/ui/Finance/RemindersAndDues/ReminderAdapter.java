@@ -49,7 +49,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.reminder_card,parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.new_reminder_cards,parent, false);
 
         return new viewHolder(view);
     }
@@ -71,21 +71,21 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
         }
         holder.Date.setText(cardClicked.getPaymentDate());
         holder.time.setText(cardClicked.getPaymentTime());
-        holder.buttonDelete.setOnClickListener(v -> {
-            this.rmManager.removeCard(cardClicked);
-            Toast.makeText(context, "Deleting", Toast.LENGTH_SHORT).show();
-            notifyDataSetChanged();
-        });
+//        holder.buttonDelete.setOnClickListener(v -> {
+//            this.rmManager.removeCard(cardClicked);
+//            Toast.makeText(context, "Deleting", Toast.LENGTH_SHORT).show();
+//            notifyDataSetChanged();
+//        });
 
-        holder.buttonEdit.setOnClickListener(v -> {
-//            list.remove(position);
-            //Reminder cardToBeEdited = cardClicked;//reminderCardsManag6er.createCard("title1","amount1" ,"Recieve" ," date" , "time");//data u want);
-            remindersAndDuesFragment.editRemainderCard(cardClicked);
-//            rmManager.updateCard(cardClicked);
-
-            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-            notifyDataSetChanged();
-        });
+//        holder.buttonEdit.setOnClickListener(v -> {
+////            list.remove(position);
+//            //Reminder cardToBeEdited = cardClicked;//reminderCardsManag6er.createCard("title1","amount1" ,"Recieve" ," date" , "time");//data u want);
+//            remindersAndDuesFragment.editRemainderCard(cardClicked);
+////            rmManager.updateCard(cardClicked);
+//
+//            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+//            notifyDataSetChanged();
+//        });
 //        holder.buttonEdit.setText(model.getBtnedit());
 
 //        holder.buttonMoveToDues.setOnClickListener(v -> {
@@ -114,9 +114,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
             Amount = itemView.findViewById(R.id.amount);
             Date = itemView.findViewById(R.id.Date);
 //            viewColorTag = itemView.findViewById(R.id.viewColorTag);
-            buttonDelete = itemView.findViewById(R.id.btndel);
-            buttonEdit = itemView.findViewById(R.id.btnedit);
-            colors = itemView.getResources().getIntArray(R.array.random_color);
+            //buttonDelete = itemView.findViewById(R.id.btndel);
+            //buttonEdit = itemView.findViewById(R.id.btnedit);
+            //colors = itemView.getResources().getIntArray(R.array.random_color);
             time = itemView.findViewById(R.id.TimeInput);
 //            buttonMoveToDues = itemView.findViewById(R.id.moveToDues);
         }

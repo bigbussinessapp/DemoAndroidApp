@@ -51,9 +51,9 @@ public class TransactionHistoryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         lstBdata = new ArrayList<>();
         setHasOptionsMenu(true);
-        userDataService = UserDataService.getInstance();
-        database = FirebaseDatabase.getInstance();
-        transactionReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("TransactionHistory");
+       // userDataService = UserDataService.getInstance();
+        // database = FirebaseDatabase.getInstance();
+        // transactionReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("TransactionHistory");
 
 //        this.addTransactionItem(new TransactionHistoryItem("Swiggy", "170098", "March 2, 2021, 03: 27", "Paid To" , "Debited From", "invoice1"));
 //        this.addTransactionItem(new TransactionHistoryItem("Swiggy","170098" , "January 2, 2021, 04: 38" , "Paid To" ,"Debited From", "-MVT8MI73wp-mv1yUhgT"));
@@ -61,6 +61,10 @@ public class TransactionHistoryFragment extends Fragment {
 //        this.addTransactionItem(new TransactionHistoryItem("Amazon","170098" , "May 2, 2021, 13: 47" , "Paid To" ,"Debited From", "invoice 4"));
 //        this.addTransactionItem(new TransactionHistoryItem("Paytm","12665.678" , "June 2, 2021, 14: 27" , "Received From" ,"Credited To", "invoice 5"));
 //        this.addTransactionItem(new TransactionHistoryItem("Swiggy","170098" , "July 2, 2021, 23: 57" , "Paid To" ,"Debited From", "invoice 6"));
+        lstBdata.add(new TransactionHistoryItem("Swiggy", "170098", "March 2, 2021, 03: 27", "Paid To" , "Debited From", "invoice1"));
+        lstBdata.add(new TransactionHistoryItem("Swiggy","170098" , "January 2, 2021, 04: 38" , "Paid To" ,"Debited From", "-MVT8MI73wp-mv1yUhgT"));
+        lstBdata.add(new TransactionHistoryItem("Zomato","12665.678" , "April 2, 2021, 05: 57" , "Received From" ,"Credited To", "invoice 2"));
+        lstBdata.add(new TransactionHistoryItem("Amazon","170098" , "May 2, 2021, 13: 47" , "Paid To" ,"Debited From", "invoice 4"));
     }
 
     @Nullable
@@ -69,25 +73,28 @@ public class TransactionHistoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_transaction_history,container,false);
 
         transactionHistoryRecyclerView = (RecyclerView) v.findViewById(R.id.transaction_history_recyclerList);
+        TransactionAdapter transactionAdapter = new TransactionAdapter(getContext(),lstBdata, TransactionHistoryFragment.this);
+        transactionHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        transactionHistoryRecyclerView.setAdapter(transactionAdapter);
 
-        transactionReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<TransactionHistoryItem> lstBdata = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    TransactionHistoryItem Transaction = dataSnapshot.getValue(TransactionHistoryItem.class);
-                    lstBdata.add(Transaction);
-                }
-                TransactionAdapter transactionAdapter = new TransactionAdapter(getContext(),lstBdata, TransactionHistoryFragment.this);
-                transactionHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                transactionHistoryRecyclerView.setAdapter(transactionAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        transactionReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+////                List<TransactionHistoryItem> lstBdata = new ArrayList<>();
+////                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+////                    TransactionHistoryItem Transaction = dataSnapshot.getValue(TransactionHistoryItem.class);
+////                    lstBdata.add(Transaction);
+////                }
+//                TransactionAdapter transactionAdapter = new TransactionAdapter(getContext(),lstBdata, TransactionHistoryFragment.this);
+//                transactionHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                transactionHistoryRecyclerView.setAdapter(transactionAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
         return v;
     }
 
@@ -100,10 +107,10 @@ public class TransactionHistoryFragment extends Fragment {
                 }
             };
 
-    public void addTransactionItem(TransactionHistoryItem item)
-    {
-        transactionReference.child(item.getInvoiceId()).setValue(item);
-    }
+//    public void addTransactionItem(TransactionHistoryItem item)
+//    {
+//        transactionReference.child(item.getInvoiceId()).setValue(item);
+//    }
 
     public long getDifferenceInDays(Date formattedDate) {
         long diffInMilliSecs = Calendar.getInstance().getTime().getTime() - formattedDate.getTime();

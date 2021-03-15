@@ -12,14 +12,14 @@ public class DuesCardsManager {
 
     public DuesCardsManager()
     {
-        duesFBHelper = DuesFBHelper.getInstance();
+       // duesFBHelper = DuesFBHelper.getInstance();
 //        addDues(new Dues("Demo1","1222","Receive"));
 //        addDues(new Dues("Demo3","486754","Pay"));
 //        addDues(new Dues("Demo4","486789","Pay"));
-//        duesCards.add(new Dues("Demo1","1222","Receive"));
-//        duesCards.add(new Dues("Demo2","7453","Receive"));
-//        duesCards.add(new Dues("Demo3","486754","Pay"));
-//        duesCards.add(new Dues("Demo4","486789","Pay"));
+        duesCards.add(new Dues("Demo1","1222","Receive"));
+        duesCards.add(new Dues("Demo2","7453","Receive"));
+        duesCards.add(new Dues("Demo3","486754","Pay"));
+        duesCards.add(new Dues("Demo4","486789","Pay"));
     }
 
     public static DuesCardsManager getInstance()

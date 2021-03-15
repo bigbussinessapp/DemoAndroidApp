@@ -45,10 +45,10 @@ public class RemindersAndDuesFragment extends Fragment {
 
     public RemindersAndDuesFragment() {
         // Required empty public constructor
-        userDataService = UserDataService.getInstance();
-        database = FirebaseDatabase.getInstance();
-        reminderReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Reminders");
-        duesReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Dues");
+//        userDataService = UserDataService.getInstance();
+//        database = FirebaseDatabase.getInstance();
+//        reminderReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Reminders");
+//        duesReference = database.getReference("Users").child(userDataService.getLoggedInUser().getUid()).child("Dues");
     }
 
     /**
@@ -89,51 +89,62 @@ public class RemindersAndDuesFragment extends Fragment {
 
         reminderCardsManager = ReminderCardsManager.getInstance();
         duesCardsManager = DuesCardsManager.getInstance();
+        ArrayList<Reminder> list =new ArrayList<>();
+        ArrayList<Dues> list1=new ArrayList<>();
+        list=reminderCardsManager.getCards();
+        ReminderAdapter reminderAdapter = new ReminderAdapter(getContext(), list, RemindersAndDuesFragment.this);
+        reminderScrollView.setAdapter(reminderAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+        reminderScrollView.setLayoutManager(layoutManager);
 
-        reminderReference.addValueEventListener(new ValueEventListener() {
-//            private ReminderCardsManager reminderCardsManager;
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Reminder> list = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Reminder reminder = dataSnapshot.getValue(Reminder.class);
-                    list.add(reminder);
-                }
-                ReminderAdapter reminderAdapter = new ReminderAdapter(getContext(), list, RemindersAndDuesFragment.this);
-                reminderScrollView.setAdapter(reminderAdapter);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
-                reminderScrollView.setLayoutManager(layoutManager);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        duesReference.addValueEventListener(new ValueEventListener() {
-//            private ReminderCardsManager reminderCardsManager;
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Dues> list = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Dues dues = dataSnapshot.getValue(Dues.class);
-//                    dues.setTitle(dataSnapshot);
-                    list.add(dues);
-                }
-                DuesAdapter duesAdapter = new DuesAdapter(getContext(), list, RemindersAndDuesFragment.this);
-                duesCardView.setAdapter(duesAdapter);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
-                duesCardView.setLayoutManager(layoutManager);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        reminderReference.addValueEventListener(new ValueEventListener() {
+////            private ReminderCardsManager reminderCardsManager;
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                List<Reminder> list = new ArrayList<>();
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                    Reminder reminder = dataSnapshot.getValue(Reminder.class);
+//                    list.add(reminder);
+//                }
+//                ReminderAdapter reminderAdapter = new ReminderAdapter(getContext(), list, RemindersAndDuesFragment.this);
+//                reminderScrollView.setAdapter(reminderAdapter);
+//                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+//                reminderScrollView.setLayoutManager(layoutManager);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        list1=duesCardsManager.getCards();
+        DuesAdapter duesAdapter = new DuesAdapter(getContext(), list1, RemindersAndDuesFragment.this);
+        duesCardView.setAdapter(duesAdapter);
+        LinearLayoutManager dueslayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+        duesCardView.setLayoutManager(dueslayoutManager);
+//        duesReference.addValueEventListener(new ValueEventListener() {
+////            private ReminderCardsManager reminderCardsManager;
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                List<Dues> list = new ArrayList<>();
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                    Dues dues = dataSnapshot.getValue(Dues.class);
+////                    dues.setTitle(dataSnapshot);
+//                    list.add(dues);
+//                }
+//                DuesAdapter duesAdapter = new DuesAdapter(getContext(), list, RemindersAndDuesFragment.this);
+//                duesCardView.setAdapter(duesAdapter);
+//                LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false);
+//                duesCardView.setLayoutManager(layoutManager);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 //        DuesAdapter duesAdapter = new DuesAdapter(requireContext(), this, this.duesCardsManager);
 //        ReminderAdapter reminderAdapter = new ReminderAdapter(requireContext(), this, this.reminderCardsManager, this.duesCardsManager, duesAdapter);

@@ -40,7 +40,7 @@ public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.dues_card ,parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.new_dues_card ,parent, false);
 
         return new viewHolder(view);
     }
@@ -60,10 +60,10 @@ public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
         {
             holder.price.setTextColor(Color.RED);
         }
-        holder.buttonDelete.setOnClickListener(v -> {
-            this.duesCardsManager.delete(cardClicked);
-            notifyDataSetChanged();
-        });
+//        holder.buttonDelete.setOnClickListener(v -> {
+//            this.duesCardsManager.delete(cardClicked);
+//            notifyDataSetChanged();
+//        });
     }
 
     @Override
@@ -83,8 +83,8 @@ public class DuesAdapter extends RecyclerView.Adapter<DuesAdapter.viewHolder> {
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);
 //            viewColorTag = itemView.findViewById(R.id.viewColorTag);
-            buttonDelete = itemView.findViewById(R.id.btndel);
-            colors = itemView.getResources().getIntArray(R.array.random_color);
+            //buttonDelete = itemView.findViewById(R.id.btndel);
+            //colors = itemView.getResources().getIntArray(R.array.random_color);
         }
     }
 }
