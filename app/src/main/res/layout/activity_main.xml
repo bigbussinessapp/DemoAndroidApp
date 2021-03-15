@@ -17,15 +17,13 @@
         android:id="@+id/heading"
         android:background="@color/colorPrimary">
 
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/HomeHeader"
-            android:textColor="@color/white">
-        </androidx.appcompat.widget.Toolbar>
+      <androidx.appcompat.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/toolbar"
+          android:background="@color/colorPrimary"
+          android:textColor="@color/white"
+          android:text="@string/HomeHeader"/>
 
 
     </com.google.android.material.appbar.AppBarLayout>
