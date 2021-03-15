@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="@drawable/registration">
+	
+	<com.google.android.material.textfield.TextInputEditText
+		android:layout_width="312dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="140dp"
+		android:background="@drawable/regbox"
+		android:paddingLeft="10dp"
+		android:hint="Enter your Name"
+		android:gravity="center"
+		android:backgroundTint="#F4F7FF"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputEditText
+		android:layout_width="312dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="200dp"
+		android:background="@drawable/home_feature_shape"
+		android:paddingLeft="10dp"
+		android:hint="Enter your Mail"
+		android:gravity="center"
+		android:backgroundTint="#F4F7FF"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputEditText
+		android:layout_width="312dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="260dp"
+		android:background="@drawable/home_feature_shape"
+		android:paddingLeft="10dp"
+		android:hint="Enter mobile Number"
+		android:gravity="center"
+		android:backgroundTint="#F4F7FF"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputEditText
+		android:layout_width="312dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="320dp"
+		android:background="@drawable/home_feature_shape"
+		android:paddingLeft="10dp"
+		android:hint="Enter your organization"
+		android:gravity="center"
+		android:backgroundTint="#F4F7FF"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputEditText
+		android:layout_width="312dp"
+		android:layout_height="52dp"
+		android:layout_marginTop="380dp"
+		android:background="@drawable/home_feature_shape"
+		android:paddingLeft="10dp"
+		android:hint="Enter your organization type"
+		android:gravity="center"
+		android:backgroundTint="#F4F7FF"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:padding="10dp"
+		android:weightSum="1"
+		tools:ignore="MissingConstraints"
+		tools:layout_editor_absoluteX="108dp"
+		tools:layout_editor_absoluteY="466dp">
+		
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0.5"
+			android:text="SAVE" />
+		
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0.5"
+			android:layout_marginLeft="20dp"
+			android:text="CANCEL" />
+	
+	</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
