@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Main.ui.home.HomeFragment"
     tools:ignore="ExtraText">
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -54,7 +55,7 @@
 <!--    </FrameLayout>-->
 
     <LinearLayout
-        android:id="@+id/linearlayout"
+        android:id="@+id/quick_access_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
@@ -88,7 +89,7 @@
 
     <Button
         android:layout_marginTop="30dp"
-        android:id="@+id/invoice_btn"
+        android:id="@+id/invoice_btn_home"
         android:layout_width="312dp"
         android:layout_height="100dp"
         android:layout_gravity="left"
@@ -100,16 +101,16 @@
         android:paddingBottom="20dp"
         android:text="Invoice"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/inventory_btn"
+        app:layout_constraintBottom_toTopOf="@+id/inventory_btn_home1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearlayout"
+        app:layout_constraintTop_toBottomOf="@+id/quick_access_toolbar"
         app:layout_constraintVertical_bias="0.912"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/inventory_btn"
+        android:id="@+id/inventory_btn_home1"
         android:layout_width="312dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
@@ -125,11 +126,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invoice_btn"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_btn_home"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/finance_btn"
+        android:id="@+id/finance_btn_home"
         android:layout_width="312dp"
         android:layout_height="100dp"
         android:layout_gravity="right"
@@ -146,7 +147,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inventory_btn"
+        app:layout_constraintTop_toBottomOf="@+id/inventory_btn_home1"
         tools:ignore="MissingConstraints" />
 
 

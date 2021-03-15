@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="@drawable/otpactivity"
+	android:orientation="vertical">
+	
+	<com.chaos.view.PinView
+		android:id="@+id/pin_view"
+		style="@style/PinWidget.PinView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="420dp"
+		android:cursorVisible="true"
+		android:inputType="number"
+		app:itemCount="6"
+		android:itemBackground="#FFF" />
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:layout_weight="2"
+		>
+		<ImageView
+			android:layout_width="30dp"
+			android:layout_height="20dp"
+			android:src="@drawable/spinner"
+			android:layout_marginLeft="25dp"
+			android:layout_marginTop="5dp"/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0.8"
+			android:text="Didn't receive code?"
+			android:textSize="20dp"
+			android:textStyle="bold" />
+		<TextView
+			android:textColor="	#0000FF"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1.2"
+			android:textStyle="bold"
+			android:text="REQUEST AGAIN" />
+	
+	
+	
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:layout_weight="5"
+		android:padding="2dp"
+		>
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_baseline_access_time_24"
+			/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Remaining time"
+			android:textSize="20dp"
+			android:textStyle="bold" />
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1.2"
+			android:textStyle="bold"
+			android:textSize="20dp"
+			android:hint="00:55" />
+	
+	</LinearLayout>
+	
+	<Button
+		android:id="@+id/verifyOTPBtn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/loginbutton"
+		android:text="CONTINUE"
+		android:layout_gravity="right"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="40dp"
+		android:textColor="@color/white"/>
+</LinearLayout>
