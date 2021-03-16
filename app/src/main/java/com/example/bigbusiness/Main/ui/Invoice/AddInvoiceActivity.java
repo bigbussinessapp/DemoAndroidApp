@@ -13,6 +13,18 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.drm.DrmStore;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
+import android.os.Bundle;
+import android.os.Environment;
 
 import com.example.bigbusiness.Main.ui.Inventory.InventoryManager;
 import com.example.bigbusiness.Models.BuyerDetails;
@@ -25,7 +37,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,6 +61,11 @@ public class AddInvoiceActivity extends AppCompatActivity {
     InventoryItem selectedItem = null;
     FirebaseDatabase database;
     DatabaseReference inventoryReference;
+    Bitmap image , scalebitmp;
+    int pageWidth = 1200;
+    Date date;
+    DateFormat dateFormat;
+    ConvertDigitsToWords obj = new ConvertDigitsToWords();
     UserDataService userDataService;
     private static int count = 1;
 
@@ -162,6 +185,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 {
                     InvoiceItem invoiceItem = new InvoiceItem(name, buyer, items);
 //                    invoiceItem.setInvoiceId(invoiceId);
+                    createPdf();
                     invoiceManager.addInvoice(invoiceItem);
                     invoiceManager.clearItems();
                     Intent i = new Intent(AddInvoiceActivity.this, InvoiceManagementActivity.class);
@@ -170,6 +194,139 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void createPdf() {
+        date = new Date();
+
+        PdfDocument myPdfDocument = new PdfDocument();
+        Paint paint = new Paint();
+        Paint titlePaint = new Paint();
+        PdfDocument.PageInfo PageInfo = new PdfDocument.PageInfo.Builder(1200, 2010, 1).create();
+        PdfDocument.Page page1 = myPdfDocument.startPage(PageInfo);
+
+        Canvas canvas = page1.getCanvas();
+
+        titlePaint.setTextAlign(Paint.Align.CENTER);
+        titlePaint.setColor(Color.rgb(0 , 112 , 100));
+        titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT , Typeface.BOLD));
+        titlePaint.setTextSize(70f);
+        canvas.drawText("TAX INVOICE" , pageWidth/2 , 270 , titlePaint);
+
+        paint.setColor(Color.rgb(0 , 112 , 100));
+        paint.setTextSize(45f);
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText(userDataService.getLoggedInUser().getName() , 20 , 80 , paint);
+        paint.setTextSize(32f);
+        paint.setColor(Color.GRAY);
+        canvas.drawText("Phone no: +91-" + userDataService.getLoggedInUser().getPhoneNo() ,20 , 125 , paint);
+
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(35f);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("Bill to : " + buyerName.getText() , 20 , 390 , paint);
+
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText("Invoice No. :" + invoiceId , pageWidth-20 , 390 , paint);
+
+        dateFormat = new SimpleDateFormat("dd/MM/yy");
+        paint.setColor(Color.GRAY);
+        canvas.drawText("Date:" +dateFormat.format(date) , pageWidth-20 , 440 , paint);
+
+        dateFormat = new SimpleDateFormat("HH:mm");
+        canvas.drawText("Time:" + dateFormat.format(date) , pageWidth-20 , 480 , paint);
+
+        paint.setColor(Color.rgb(247 , 147 , 30));
+        canvas.drawRect(20 , 680 , pageWidth-20 , 760 , paint);
+
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+        canvas.drawText("SNo." , 40 , 730 , paint);
+        canvas.drawText("Item Name" , 150 , 730 , paint);
+        canvas.drawText("Price" , 470 , 730 , paint);
+        canvas.drawText("Qty." , 660 , 730 , paint);
+        canvas.drawText("Unit" , 830 , 730 , paint);
+        canvas.drawText("Amount" , 1020 , 730 , paint);
+
+
+        canvas.drawLine(120 , 690 , 120 , 740 , paint);
+        canvas.drawLine(450 , 690 , 450 , 740 , paint);
+        canvas.drawLine(650 , 690 , 650 , 740 , paint);
+        canvas.drawLine(800 , 690 , 800 , 740 , paint);
+        canvas.drawLine(950 , 690 , 950 , 740 , paint);
+
+        paint.setColor(Color.BLACK);
+
+        float total =0;
+        if(inventoryItemsSpinner.getSelectedItemPosition() != 0){
+            int count = 1;
+            canvas.drawText(""+count , 40 , 830 , paint);
+            canvas.drawText(inventoryItemsSpinner.getSelectedItem().toString() , 150 , 830 , paint);
+//            canvas.drawText(String.valueOf(prices[ItemsSpinner.getSelectedItemPosition()]) , 470 , 830 , paint);
+            canvas.drawText("Rs.255" , 470 , 830 , paint);
+            canvas.drawText(itemQuantity.getText().toString() , 675 , 830 , paint);
+            canvas.drawText("Pcs" , 830 , 830 , paint);
+//            total = Float.parseFloat(Quantity.getText().toString())*prices[ItemsSpinner.getSelectedItemPosition()];
+            paint.setTextAlign(Paint.Align.RIGHT);
+            canvas.drawText(String.valueOf(total) , pageWidth-40 , 830 , paint);
+            paint.setTextAlign(Paint.Align.LEFT);
+            count++;
+        }
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
+        canvas.drawRect(20 , 1200 , pageWidth - 20 , 1270 , paint);
+        paint.setStyle(Paint.Style.FILL);
+        titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT , Typeface.BOLD));
+        titlePaint.setTextSize(35f);
+        canvas.drawText("Total" , 150 , 1245 , titlePaint);
+        canvas.drawText(String.valueOf(total) , pageWidth-100 , 1245 , titlePaint);
+        canvas.drawText(itemQuantity.getText().toString() , 650 , 1245 , titlePaint);
+
+        canvas.drawText("Sub Total" , 700 , 1400 , paint);
+        canvas.drawText(":" , 900 , 1400 , paint);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText(String.valueOf(total) , pageWidth-40 , 1400 , paint);
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText("Tax (18%)" , 700 , 1500 , paint);
+        canvas.drawText(":" , 900 , 1500 , paint);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText(String.valueOf(total*18/100) , pageWidth-40 , 1500 , paint);
+        paint.setTextAlign(Paint.Align.LEFT);
+
+
+        paint.setColor(Color.rgb(247 , 147 , 30));
+        canvas.drawRect(680 , 1550 , pageWidth-20 , 1650 , paint);
+        paint.setColor(Color.WHITE);
+        canvas.drawText("Total" , 700, 1615 , paint);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText(String.valueOf(total + (total*18/100)) , pageWidth-40 , 1615 , paint);
+
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("INVOICE AMOUNT IN WORDS" , 20 , 1500 , paint);
+        paint.setColor(Color.LTGRAY);
+        canvas.drawRect(20 , 1550 , 660 , 1650 , paint);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(28f);
+        //int totalnum = (int) (total + (total*18/100));
+        //canvas.drawText(obj.convertNumberToWords(totalnum).toUpperCase(), 20, 1615, paint);
+        canvas.drawText("", 20, 1615, paint);
+
+        myPdfDocument.finishPage(page1);
+
+        File file = new File(Environment.getExternalStorageDirectory(), "/bigBusiness.pdf");
+
+        try {
+            myPdfDocument.writeTo(new FileOutputStream(file));
+            //Toast.makeText(getApplicationContext() , "Your PDF is Generated..!! Please See your local Storage", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        myPdfDocument.close();
+
     }
 
     private AdapterView.OnItemSelectedListener itemsSpinnerEvent(List<String> inventoryItems)
