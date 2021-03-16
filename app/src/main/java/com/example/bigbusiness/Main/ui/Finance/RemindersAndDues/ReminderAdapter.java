@@ -57,7 +57,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.viewHo
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Reminder cardClicked = this.remindersList.get(position);
-        int randomColor = holder.colors[new Random().nextInt(holder.colors.length)];
+//        int randomColor = holder.colors[new Random().nextInt(holder.colors.length)];
 //        holder.viewColorTag.setBackgroundColor(randomColor);
         holder.title.setText(cardClicked.getTitle());
         holder.Amount.setText(cardClicked.getAmount());

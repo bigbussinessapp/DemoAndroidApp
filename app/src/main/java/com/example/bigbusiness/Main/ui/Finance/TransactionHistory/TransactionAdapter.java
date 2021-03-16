@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,7 +101,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView TransactionMerchant;
-        Button checkInvoice;
+        ImageView checkInvoice;
         private TextView TransactionAmount , TransactionType , date;
 
         public MyViewHolder(View itemView){
@@ -109,7 +110,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             TransactionAmount =(TextView) itemView.findViewById(R.id.txv_transactions_amount);
             date = (TextView) itemView.findViewById(R.id.txv_transaction_date);
             TransactionType = itemView.findViewById(R.id.txv_transactions_type);
-            checkInvoice = (Button) itemView.findViewById(R.id.checkInvoice);
+            checkInvoice = (ImageView) itemView.findViewById(R.id.checkInvoice);
         }
 
     }

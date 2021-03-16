@@ -8,8 +8,15 @@
     android:padding="16dp"
     tools:context = ".Main.ui.Finance.FinanceActivity">
 
+    <ImageView
+        android:id="@+id/empty_transaction_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_emptytransactionhistory"
+        android:visibility="visible"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transaction_history_recyclerList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
 </LinearLayout>

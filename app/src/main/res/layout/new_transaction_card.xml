@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFEFE4"
@@ -29,7 +29,7 @@
             android:padding="10dp">
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -44,7 +44,7 @@
                     android:text="Transaction Name"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txv_transaction_date"
@@ -68,40 +68,38 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/txv_transactions_amount"
-                    android:layout_gravity="end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:drawableLeft="@drawable/ic_amount_transtion"
                     android:drawablePadding="5dp"
                     android:paddingLeft="10dp"
-                    android:text="1000.00"
-                    android:paddingRight="10dp"/>
-                <Button
+                    android:paddingRight="10dp"
+                    android:text="1000.00" />
+
+                <ImageView
                     android:id="@+id/checkInvoice"
                     android:layout_width="111dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="10dp"
-                    android:text="Invoice"
-                    android:textColor="@color/white"
                     android:background="@drawable/home_feature_shape"
-                    android:backgroundTint="#5273EB"/>
+                    android:backgroundTint="#5273EB"
+                    android:src="@drawable/ic_check_invoice"
+                    android:text="Invoice"
+                    android:textColor="@color/white" />
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

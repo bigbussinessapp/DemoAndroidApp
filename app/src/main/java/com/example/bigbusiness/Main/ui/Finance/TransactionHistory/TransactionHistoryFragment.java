@@ -63,8 +63,8 @@ public class TransactionHistoryFragment extends Fragment {
 //        this.addTransactionItem(new TransactionHistoryItem("Swiggy","170098" , "July 2, 2021, 23: 57" , "Paid To" ,"Debited From", "invoice 6"));
         lstBdata.add(new TransactionHistoryItem("Swiggy", "170098", "March 2, 2021, 03: 27", "Paid To" , "Debited From", "invoice1"));
         lstBdata.add(new TransactionHistoryItem("Swiggy","170098" , "January 2, 2021, 04: 38" , "Paid To" ,"Debited From", "-MVT8MI73wp-mv1yUhgT"));
-        lstBdata.add(new TransactionHistoryItem("Zomato","12665.678" , "April 2, 2021, 05: 57" , "Received From" ,"Credited To", "invoice 2"));
-        lstBdata.add(new TransactionHistoryItem("Amazon","170098" , "May 2, 2021, 13: 47" , "Paid To" ,"Debited From", "invoice 4"));
+//        lstBdata.add(new TransactionHistoryItem("Zomato","12665.678" , "April 2, 2021, 05: 57" , "Received From" ,"Credited To", "invoice 2"));
+//        lstBdata.add(new TransactionHistoryItem("Amazon","170098" , "May 2, 2021, 13: 47" , "Paid To" ,"Debited From", "invoice 4"));
     }
 
     @Nullable

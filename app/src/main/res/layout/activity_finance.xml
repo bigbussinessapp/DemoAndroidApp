@@ -5,22 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main.ui.Finance.FinanceActivity">
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.BigBusiness.AppBarOverlay">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:orientation="vertical"
+        android:theme="@style/AppTheme">
+        <LinearLayout
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/HomeHeader"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/titleHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="?actionBarSize"
+                android:padding="@dimen/appbar_padding"
+                android:text="@string/HomeHeader"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="@color/white"
+                android:clickable="true"
+                android:layout_weight="2"/>
+
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/appbar_padding"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_profile_icon"/>
+        </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"

@@ -66,26 +66,29 @@
             android:layout_width="66dp"
             android:layout_height="66dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/ic_services" />
+            android:background="@drawable/ic_services_icon" />
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/quick_access_toolbar"
-        android:layout_marginTop="50dp">
+        tools:layout_editor_absoluteX="0dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <Button
                 android:id="@+id/invoice_btn_home"
-                android:layout_marginTop="30dp"
                 android:layout_width="312dp"
                 android:layout_height="100dp"
                 android:layout_gravity="start"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/home_feature_shape"
                 android:backgroundTint="#FFEFE4"
                 android:drawableLeft="@drawable/ic_invoice_icon1"
